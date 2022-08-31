@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
+body {
+  background: linear-gradient(45deg, #6ac1c5, #bda5ff);
+  height: 95vh;
+}
+
+button {
+  font-size: 18px;
+  border: 2px solid #498386;
+  border-radius: 100px;
+  width: 150px;
+  height: 150px;
+}
+
+button#computer {
+  background: url(../images/computer.png) no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+button:hover,
+button:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+button#chromebook {
+  background: url(../images/chromebook.png) no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+button#tablet {
+  background: url(../images/tablet.jpg) no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+#biblioteca {
+  background: url(../images/libro.png) no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+#musica {
+  background: url(../images/musica.jpg) no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+#capilla{
+  background: url(../images/capilla.jpg) no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.s1 {
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  position: absolute;
+}
+
+.container {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+
+  grid-auto-flow: column;
+  grid-gap: 50px;
+}
+
+h3 {
+  transform: translate(-25%, 500%);
+  text-align: center;
+  width: 200%;
+}
+
+.title {
+  left: 50%;
+  transform: translate(-50%, -300%);
+  position: absolute;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+#credits {
+  font-family: "League Gothic", sans-serif;
+  position:absolute;
+  bottom:0;
+  right:0;
+  font-size: 20px;
+}
