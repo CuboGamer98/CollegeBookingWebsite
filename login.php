@@ -61,8 +61,8 @@ if (isset($_POST["login"])) {
         <input type="text" id="nombreI" name="nombre" />
         <input type="password" id="passwordI" name="password" />
       </div>
-      <input type="submit" value="Login" id="login" name="login" class="login" />
     </div>
+    <input type="submit" value="Login" id="login" name="login" class="login" />
   </form>
 
 </body>
