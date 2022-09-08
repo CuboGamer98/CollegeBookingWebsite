@@ -18,5 +18,25 @@
         "Clase": "5\u00ba B EP",
         "Elecion": "chromebook",
         "Date": "07\/10\/2022"
+    },
+    {
+        "id": "08:0008:2509\/16\/2022capilla",
+        "Hora_inicio": "08:00",
+        "Hora_final": "08:25",
+        "Nombre": "Pedrito Sanchez",
+        "Asignatura": "M\u00fasica",
+        "Clase": "2\u00ba B EP",
+        "Elecion": "capilla",
+        "Date": "09\/16\/2022"
+    },
+    {
+        "id": "08:3508:5009\/16\/2022capilla",
+        "Hora_inicio": "08:35",
+        "Hora_final": "08:50",
+        "Nombre": "Juan",
+        "Asignatura": "Matem\u00e1ticas",
+        "Clase": "3\u00ba B EP",
+        "Elecion": "capilla",
+        "Date": "09\/16\/2022"
     }
 ]

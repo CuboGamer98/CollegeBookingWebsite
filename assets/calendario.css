@@ -132,3 +132,90 @@ div.container-rows-s select {
   border-radius: 5px;
   border-width: 1.5px;
 }
+
+.addevent-button-icon {
+  position: relative;
+  padding: 10px;
+  width: 60px;
+  height: 60px;
+  float: left;
+}
+.addevent-button-icon::before {
+  left: 24px;
+}
+
+.addevent-button-icon-plus {
+  height: 100%;
+  text-align: center;
+  font-size: xx-large;
+}
+
+.addevent-button {
+  position: relative;
+  display: flex;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  float: left;
+  border-style: none;
+  background-color: white;
+}
+.addevent-button:last-child.addevent-button::before {
+  height: 30px;
+  transform: translate(29px, 0);
+}
+.addevent-button:only-child.addevent-button::before {
+  height: 0;
+  opacity: 0;
+}
+.addevent-button:hover {
+  background-color: #fff;
+  -webkit-box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.65);
+}
+.addevent-button > .event-icon {
+  position: relative;
+  padding: 20px;
+  width: 60px;
+  height: 60px;
+  float: left;
+}
+.addevent-button > .event-icon > img {
+  width: 30px;
+}
+.addevent-button > .event-info {
+  align-self: center;
+  width: calc(100% - 60px);
+  display: inline-block;
+  padding: 10px 10px 10px 0;
+}
+.addevent-button > .event-info > p {
+  margin: 0;
+  color: #5a5a5a;
+}
+.addevent-button > .event-info > p.event-title {
+  position: relative;
+  font-size: 22px;
+  font-weight: 600;
+}
+.addevent-button > .event-info > p.event-title > span {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: #755eb5;
+  border: 1px solid #755eb5;
+  border-radius: 3px;
+  background-color: rgb(237 234 246);
+  padding: 3px 6px;
+  transform: translateY(-50%);
+}
+.addevent-button > .event-info > p.event-desc {
+  font-size: 14px;
+  margin-top: 5px;
+}

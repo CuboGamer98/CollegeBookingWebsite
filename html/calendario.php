@@ -65,7 +65,7 @@
                 return response.json();
             })
             .then(jsondata => {
-                for (let i = 0; i <= jsondata.length; i++) {
+                for (let i = 0; i <= jsondata.length - 1; i++) {
                     $('#calendar').evoCalendar('addCalendarEvent', {
                         id: jsondata[i]["id"],
                         name: "De " + jsondata[i]["Hora_inicio"] + " Hasta " + jsondata[i][
