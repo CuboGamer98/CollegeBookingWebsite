@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
 body {
   background: linear-gradient(45deg, #6ac1c5, #bda5ff);
+  height: 100vh;
 }
 
 .c-button {
