@@ -43,6 +43,7 @@
   border: 1px solid #888;
   width: max-content;
   box-shadow: 5px 0 18px -3px rgb(0 0 0 / 15%);
+  border-radius: 10px;
 }
 
 .close {
@@ -100,14 +101,14 @@ input.submit {
   transform: scale(1.5) translate(275%, 250%);
   border-radius: 20px;
   border-width: 0;
-  background-color: #4AF04C;
+  background-color: #a692e0;
   width: 20%;
   color: #000;
 }
 input.submit:hover,
 input.submit:focus{
   cursor: pointer;
-  background-color: #026F03;
+  background-color: #6c72bf;
 }
 
 form.form {
