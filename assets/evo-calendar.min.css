@@ -144,7 +144,7 @@ button:focus {
   float: left;
   height: 100%;
   width: 100%;
-  max-width: calc(100% - 600px);
+  max-width: calc(100% - 550px);
   margin-left: 200px;
   background-color: #fff;
   -webkit-box-shadow: 5px 0 18px -3px rgba(0, 0, 0, 0.15);
@@ -260,7 +260,7 @@ tr.calendar-body .calendar-day .day[disabled] {
   position: absolute;
   top: 0;
   right: 0;
-  width: 400px;
+  width: 350px;
   height: 100%;
   padding: 70px 30px 60px 30px;
   background-color: #fbfbfb;
