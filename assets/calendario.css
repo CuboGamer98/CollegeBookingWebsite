@@ -183,9 +183,6 @@ div.container-rows-s select {
   height: 60px;
   float: left;
 }
-.addevent-button > .event-icon > img {
-  width: 30px;
-}
 .addevent-button > .event-info {
   align-self: center;
   width: calc(100% - 60px);
@@ -201,20 +198,42 @@ div.container-rows-s select {
   font-size: 22px;
   font-weight: 600;
 }
-.addevent-button > .event-info > p.event-title > span {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  font-size: 12px;
-  font-weight: 400;
-  color: #755eb5;
-  border: 1px solid #755eb5;
-  border-radius: 3px;
-  background-color: rgb(237 234 246);
-  padding: 3px 6px;
-  transform: translateY(-50%);
+
+
+.return-button {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+    float: left;
+    border-style: none;
+    background-color: #755eb5;
+    transition: all 0.3s ease, transform 0.5s ease, -webkit-transform 0.5s
 }
-.addevent-button > .event-info > p.event-desc {
-  font-size: 14px;
-  margin-top: 5px;
+.return-button:last-child.return-button::before {
+  height: 30px;
+  transform: translate(29px, 0);
+}
+.return-button:only-child.return-button::before {
+  height: 0;
+  opacity: 0;
+}
+.return-button:hover {
+  background: #bba4ff;
+}
+.return-button > .event-info {
+  align-self: center;
+  width: 100%;
+  display: inline-block;
+  padding: 10px 10px 10px 0;
+}
+.return-button > .event-info > p {
+  margin: 0;
+  color: #fff;
+}
+.return-button > .event-info > p.event-title {
+  position: relative;
+  font-size: 15px;
+  font-weight: 600;
 }
