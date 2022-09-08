@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="../assets/styles.css" />
     <link rel="stylesheet" href="../assets/calendario.css" />
-    <link rel="stylesheet" href="../assets/evo-calendar.midnight-blue.min.css" />
     <link rel="stylesheet" href="../assets/evo-calendar.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

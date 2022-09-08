@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
 body {
   background: linear-gradient(45deg, #6ac1c5, #bda5ff);
-  height: 95vh;
+  height: 100%;
 }
 
 .s1 {
