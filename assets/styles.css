@@ -10,46 +10,36 @@ body {
   height: 150px;
   font-size: 18px;
   border-radius: 100px;
+  background-size: 75% !important;
+  background-position: center !important;
 }
 
-button#computer {
-  background: url(../images/comp_room.png) no-repeat;
-  background-size: contain;
-  background-position: center;
-}
 button:hover,
 button:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
 }
+button#computer {
+  background: url(../images/comp_room.png) no-repeat;
+}
 button#chromebook {
   background: url(../images/laptop_item.png) no-repeat;
-  background-size: contain;
-  background-position: center;
 }
 button#tablet {
   background: url(../images/tablet_item.png) no-repeat;
-  background-size: contain;
-  background-position: center;
 }
 
 #biblioteca {
   background: url(../images/library_room.png) no-repeat;
-  background-size: contain;
-  background-position: center;
 }
 
 #musica {
   background: url(../images/music_room.png) no-repeat;
-  background-size: contain;
-  background-position: center;
 }
 
 #capilla{
   background: url(../images/church_room.png) no-repeat;
-  background-size: contain;
-  background-position: center;
 }
 
 .s1 {
