@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
 body {
   background: linear-gradient(45deg, #6ac1c5, #bda5ff);
-  height: 95vh;
 }
 
 .c-button {
@@ -14,7 +13,7 @@ body {
 }
 
 button#computer {
-  background: url(../images/computer.png) no-repeat;
+  background: url(../images/comp_room.png) no-repeat;
   background-size: contain;
   background-position: center;
 }
@@ -25,30 +24,30 @@ button:focus {
   cursor: pointer;
 }
 button#chromebook {
-  background: url(../images/chromebook.png) no-repeat;
+  background: url(../images/laptop_item.png) no-repeat;
   background-size: contain;
   background-position: center;
 }
 button#tablet {
-  background: url(../images/tablet.jpg) no-repeat;
+  background: url(../images/tablet_item.png) no-repeat;
   background-size: contain;
   background-position: center;
 }
 
 #biblioteca {
-  background: url(../images/libro.png) no-repeat;
+  background: url(../images/library_room.png) no-repeat;
   background-size: contain;
   background-position: center;
 }
 
 #musica {
-  background: url(../images/musica.jpg) no-repeat;
+  background: url(../images/music_room.png) no-repeat;
   background-size: contain;
   background-position: center;
 }
 
 #capilla{
-  background: url(../images/capilla.jpg) no-repeat;
+  background: url(../images/church_room.png) no-repeat;
   background-size: contain;
   background-position: center;
 }
