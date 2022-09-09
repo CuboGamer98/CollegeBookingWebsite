@@ -21,7 +21,7 @@ button:focus {
   text-decoration: none;
   cursor: pointer;
 }
-button#computer {
+button#ordenador {
   background: url(../images/comp_room.png) no-repeat;
 }
 button#chromebook {

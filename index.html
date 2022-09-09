@@ -1,96 +1,115 @@
 <!DOCTYPE html>
 <html>
-  <title>Reserva Dispositivos Informaticos</title>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/styles.css" />
+<title>Reserva Dispositivos Informaticos</title>
 
-    <script>
-      function writeCookie(name, val, days) {
-        var expires = "";
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/styles.css" />
 
-        if (days) {
-          var date = new Date();
-          date.setTime(date.getTime + days * 24 * 60 * 60 * 1000);
-          expires = "; expires=" + date.toGMTString();
-        }
+  <script>
+    function writeCookie(name, val, days) {
+      var expires = "";
 
-        document.cookie = name + "=" + val + expires + "; path=/";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime + days * 24 * 60 * 60 * 1000);
+        expires = "; expires=" + date.toGMTString();
       }
 
-      writeCookie("election", "", -1);
-    </script>
-  </head>
+      document.cookie = name + "=" + val + expires + "; path=/";
+    }
 
-  <body>
-    <script src="check_login.js"></script>
-    <section class="s1">
-      <h1 class="title">¿Qué desea reservar?</h1>
-      <div class="container">
-          <button class="c-button" id="computer"><h3>Sala de informática</h3></button>
-          <button class="c-button" id="chromebook"><h3>Chromebooks</h3></button>
-          <button class="c-button" id="tablet"><h3>Tablets</h3></button>
-          <button class="c-button" id="capilla"><h3>Capilla</h3></button>
-          <button class="c-button" id="biblioteca"><h3>Biblioteca</h3></button>
-          <button class="c-button" id="musica"><h3>Musica</h3></button>
-      </div>
-    </section>
+    writeCookie("election", "", -1);
+  </script>
+</head>
 
-    <h2 id="credits">Por Héctor Sánchez y Miguel Peñaranda</h2>
-    <script>
-      function writeCookie(name, val, days) {
-        var expires = "";
+<body>
+  <script src="check_login.js"></script>
+  <section class="s1">
+    <h1 class="title">¿Qué desea reservar?</h1>
+    <div class="container">
+      <button class="c-button" id="ordenador">
+        <h3>Sala de informática</h3>
+      </button>
+      <button class="c-button" id="chromebook">
+        <h3>Chromebooks</h3>
+      </button>
+      <button class="c-button" id="tablet">
+        <h3>Tablets</h3>
+      </button>
+      <button class="c-button" id="capilla">
+        <h3>Capilla</h3>
+      </button>
+      <button class="c-button" id="biblioteca">
+        <h3>Biblioteca</h3>
+      </button>
+      <button class="c-button" id="musica">
+        <h3>Musica</h3>
+      </button>
+    </div>
+  </section>
 
-        if (days) {
-          var date = new Date();
-          date.setTime(date.getTime + days * 24 * 60 * 60 * 1000);
-          expires = "; expires=" + date.toGMTString();
-        }
+  <h2 id="credits">Por Héctor Sánchez y Miguel Peñaranda</h2>
+  <script>
+    function writeCookie(name, val, days) {
+      var expires = "";
 
-        document.cookie = name + "=" + val + expires + "; path=/";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime + days * 24 * 60 * 60 * 1000);
+        expires = "; expires=" + date.toGMTString();
       }
 
-      function saveAndRedirect(cookieValue) {
-          writeCookie("election", cookieValue, 1);
-          window.location.href = "html/calendario.php";
-      }
+      document.cookie = name + "=" + val + expires + "; path=/";
+    }
 
-      document.getElementById("computer").addEventListener(
+    function saveAndRedirect(cookieValue) {
+      writeCookie("election", cookieValue, 1);
+      window.location.href = "html/calendario.php";
+    }
+
+    let buttons = document.querySelectorAll(".container button");
+    for (let button of buttons) {
+      button.addEventListener(
         "click",
         function (event) {
-          saveAndRedirect("ordenador")
+          saveAndRedirect(button.id)
         },
         false
       );
-      document.getElementById("chromebook").addEventListener(
-        "click",
-        function (event) {
-          saveAndRedirect("chromebook")
-        },
-        false
-      );
-      document.getElementById("capilla").addEventListener(
-        "click",
-        function (event) {
-          saveAndRedirect("capilla")
-        },
-        false
-      ); 
-      document.getElementById("biblioteca").addEventListener(
-        "click",
-        function (event) {
-          saveAndRedirect("biblioteca")
-        },
-        false
-      ); 
-      document.getElementById("musica").addEventListener(
-        "click",
-        function (event) {
-          saveAndRedirect("musica")
-        },
-        false
-      );
-    </script>
-  </body>
+    }
+
+    document.getElementById("ordenador")
+    document.getElementById("chromebook").addEventListener(
+      "click",
+      function (event) {
+        saveAndRedirect("chromebook")
+      },
+      false
+    );
+    document.getElementById("capilla").addEventListener(
+      "click",
+      function (event) {
+        saveAndRedirect("capilla")
+      },
+      false
+    );
+    document.getElementById("biblioteca").addEventListener(
+      "click",
+      function (event) {
+        saveAndRedirect("biblioteca")
+      },
+      false
+    );
+    document.getElementById("musica").addEventListener(
+      "click",
+      function (event) {
+        saveAndRedirect("musica")
+      },
+      false
+    );
+  </script>
+</body>
+
 </html>
