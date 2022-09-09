@@ -58,7 +58,7 @@ if (isset($_POST["login"])) {
       <label id="password">Cotraseña: </label>
       <input type="password" id="passwordI" name="password" />
     </div>
-    <h1 class="register-info">¿No tienes una cuenta aún? <a href="login.php">Click aquí para registrarte</a></h1>
+    <h1 class="register-info">¿No tienes una cuenta aún? <a href="register.php">Click aquí para registrarte</a></h1>
     <input type="submit" value="Iniciar sesión" id="login" name="login" class="submit"/>
   </form>
 
