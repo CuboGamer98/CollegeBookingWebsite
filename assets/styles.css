@@ -1,5 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
+
+* {
+  font-family: "Josefin Sans", sans-serif;
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: linear-gradient(45deg, #6ac1c5, #bda5ff);
   height: 100vh;
@@ -69,11 +80,9 @@ h3 {
   left: 50%;
   transform: translate(-50%, -300%);
   position: absolute;
-  font-family: "Josefin Sans", sans-serif;
 }
 
 #credits {
-  font-family: "League Gothic", sans-serif;
   position:absolute;
   bottom:0;
   right:0;

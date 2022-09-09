@@ -1,112 +1,92 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+
+* {
+  font-family: "Josefin Sans", sans-serif;
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: linear-gradient(45deg, #6ac1c5, #bda5ff);
   height: 100vh;
 }
 
-.s1 {
+form {
   background-color: white;
   transform: translate(-50%, 0) scale(1.1);
   position: absolute;
-  top:30%;
-  left:50%;
-  width:20%;
-  height: 30%;
+  top: 30%;
+  left: 50%;
+  width: 40vh;
   overflow: hidden;
-  border-radius: 10px;
-}
-
-.s1-login {
-  height: 20%;
+  border-radius: 1vh;
 }
 
 .title {
+  font-size: 3vh;
   text-align: center;
-  font-family: "Josefin Sans", sans-serif;
 }
 
-.container-columns {
-  transform: translate(-50%, 0);
-  position: absolute;
-  left: 50%;
-  top: 30%;
-  width: 75%;
-  display: flex;
-  align-items: center;
-}
-.container-rows-f,
-.container-rows-s {
-  width: 50%;
-  margin: 0 5px 0 5px;
-}
-.container-rows-f:after,
-.container-rows-s:after {
+.container-rows:after {
   content: '';
   display: block;
 }
 
-div.container-rows-f label {
+div.container-rows {
+  display: grid;
+  justify-content: center;
+}
+
+div.container-rows label {
   flex-wrap: wrap;
-  margin: 10px 0 10px 0;
-  font-family: "Josefin Sans", sans-serif;
+  margin: 2vh 0 1vh 0;
   display: block;
-  text-align: end;
-  font-size: 20px;
+  font-size: 2vh;
 }
 
-div.container-rows-s input{
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px 0 10px 0;
-  font-family: "Josefin Sans", sans-serif;
-  width: 75%;
+div.container-rows input {
+  outline: none;
+  box-shadow: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom-color: gray;
+  border-bottom-width: 0.25vh;
+  width: 30vh;
+  font-size: 2vh;
+  background-color: rgba(0, 0, 0, 0);
 }
 
-input.login {
+.submit {
   width: 45%;
-  font-size: 20px;
+  font-size: 2vh;
   border-radius: 20px;
   border-width: 0;
   background-color: #a692e0;
   transform: translate(-50%, 0);
-  font-family: "Josefin Sans", sans-serif;
-  position: absolute;
+  position: relative;
   left: 50%;
-  bottom: 20%;
+  padding: 0.5vh 0 0.5vh 0;
+  margin: 4vh 0 2vh 0;
 }
 
-input.login:hover,
-input.login:focus {
+.submit:hover,
+.submit:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;
   background-color: #755eb5;
 }
 
-div.container-rows-s input,
-div.container-rows-s select {
-  border-color: #755eb5;
-  border-radius: 5px;
-  border-width: 1.5px;
-}
-
-input.singin {
+.singin {
   width: 35%;
-  font-size: 20px;
-  border-radius: 20px;
-  border-width: 0;
-  background-color: #a692e0;
-  transform: translate(-50%, 0);
-  font-family: "Josefin Sans", sans-serif;
-  position: absolute;
-  left: 50%;
-  bottom: 20%;
 }
 
-input.singin:hover,
-input.singin:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-  background-color: #755eb5;
+.register-info {
+  font-size: 1.2vh;
+  margin: 3% 0 0 12.5%;
 }
