@@ -14,14 +14,16 @@ body, html {
 body {
   background: linear-gradient(45deg, #6ac1c5, #bda5ff);
   height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .c-button {
-  border: 2px solid #498386;
-  width: 150px;
-  height: 150px;
-  font-size: 18px;
-  border-radius: 100px;
+  border: 0.25vh solid #498386;
+  width: 20vh;
+  height: 20vh;
+  font-size: 2vh;
+  border-radius: 100%;
   background-size: 75% !important;
   background-position: center !important;
 }
@@ -54,7 +56,7 @@ button#tablet {
   background: url(../images/church_room.png) no-repeat;
 }
 
-.s1 {
+section {
   width: 75%;
   top: 35%;
   left: 50%;
@@ -66,7 +68,7 @@ button#tablet {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  grid-gap: 75px 20px;
+  grid-gap: 10vh;
   justify-content: center;
 }
 
@@ -80,6 +82,7 @@ h3 {
   left: 50%;
   transform: translate(-50%, -300%);
   position: absolute;
+  font-size: 4vh;
 }
 
 #credits {
