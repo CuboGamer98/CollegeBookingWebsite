@@ -44,6 +44,18 @@
 
 <body>
     <script src="../check_login.js"></script>
+    <ul>
+        <li class="user-account">
+        <div class="dropdown-button">
+            <img src="images/user.png">
+            <p>Cuenta</p>
+        </div>
+        <div class="dropdown-content">
+            <a href="login.php">Cerrar sesión</a>
+        </div>
+        </li>
+    </ul>
+
     <div class="hero">
         <div id="calendar"></div>
     </div>

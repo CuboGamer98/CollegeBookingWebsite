@@ -6,7 +6,8 @@
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
 }
@@ -34,12 +35,15 @@ button:focus {
   text-decoration: none;
   cursor: pointer;
 }
+
 button#ordenador {
   background: url(../images/comp_room.png) no-repeat;
 }
+
 button#chromebook {
   background: url(../images/laptop_item.png) no-repeat;
 }
+
 button#tablet {
   background: url(../images/tablet_item.png) no-repeat;
 }
@@ -52,7 +56,7 @@ button#tablet {
   background: url(../images/music_room.png) no-repeat;
 }
 
-#capilla{
+#capilla {
   background: url(../images/church_room.png) no-repeat;
 }
 
@@ -86,8 +90,78 @@ h3 {
 }
 
 #credits {
-  position:absolute;
-  bottom:0;
-  right:0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
   font-size: 1.5vh;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.user-account {
+  position: absolute;
+  grid-column: 2;
+  transform: translate(-100%, 0);
+  left: 100%;
+  margin-left: -10vh;
+  overflow: hidden;
+  padding: 0.5vh 1.5vh 0 1.5vh;
+
+  grid-row: 2;
+}
+
+.user-account img {
+  flex: 50%;
+  width: 2.5vh;
+  height: 2.5vh;
+  margin-top: 1vh;
+}
+
+.user-account p {
+  font-family: "Josefin Sans", sans-serif;
+  margin-top: 15px;
+  flex: 50%;
+}
+
+.dropdown-button {
+  display: flex;
+  padding-bottom: 15px;
+}
+
+.user-account:hover {
+  -webkit-box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.65);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  transform-origin: top right;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  transform: translate(-100%, 0);
+  left: 100%;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: right;
+}
+
+.user-account:hover .dropdown-content {
+  display: block;
+}
+
+.user-account:hover {
+  overflow: visible;
 }

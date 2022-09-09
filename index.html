@@ -26,6 +26,17 @@
 
 <body>
   <script src="check_login.js"></script>
+  <ul>
+    <li class="user-account">
+      <div class="dropdown-button">
+        <img src="images/user.png">
+        <p>Cuenta</p>
+      </div>
+      <div class="dropdown-content">
+        <a href="login.php">Cerrar sesión</a>
+      </div>
+    </li>
+  </ul>
   <section class="s1">
     <h1 class="title">¿Qué desea reservar?</h1>
     <div class="container">
@@ -66,7 +77,7 @@
 
     function saveAndRedirect(cookieValue) {
       writeCookie("election", cookieValue, 1);
-      window.location.href = "html/calendario.php";
+      window.location.href = "calendario.php";
     }
 
     let buttons = document.querySelectorAll(".container button");
