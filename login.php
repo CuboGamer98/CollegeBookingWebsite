@@ -53,7 +53,7 @@ if (isset($_POST["login"])) {
   <form action="login.php" method="post">
     <h1 class="title">Inicia sesión</h1>
     <div class="container-rows">
-      <label id="nombre">Nombre: </label>
+      <label id="nombre">Nombre / Correo: </label>
       <input type="text" id="nombreI" name="nombre" />
       <label id="password">Cotraseña: </label>
       <input type="password" id="passwordI" name="password" />
