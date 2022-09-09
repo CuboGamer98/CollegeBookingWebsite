@@ -11,9 +11,13 @@ body {
   top:30%;
   left:50%;
   width:20%;
-  height: 40%;
+  height: 30%;
   overflow: hidden;
   border-radius: 10px;
+}
+
+.s1-login {
+  height: 20%;
 }
 
 .title {
@@ -59,7 +63,7 @@ div.container-rows-s input{
 }
 
 input.login {
-  width: 25%;
+  width: 45%;
   font-size: 20px;
   border-radius: 20px;
   border-width: 0;
@@ -84,4 +88,25 @@ div.container-rows-s select {
   border-color: #755eb5;
   border-radius: 5px;
   border-width: 1.5px;
+}
+
+input.singin {
+  width: 35%;
+  font-size: 20px;
+  border-radius: 20px;
+  border-width: 0;
+  background-color: #a692e0;
+  transform: translate(-50%, 0);
+  font-family: "Josefin Sans", sans-serif;
+  position: absolute;
+  left: 50%;
+  bottom: 20%;
+}
+
+input.singin:hover,
+input.singin:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #755eb5;
 }

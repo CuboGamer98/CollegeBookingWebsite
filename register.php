@@ -50,19 +50,21 @@ if (isset($_POST["login"])) {
     writeCookie("login", "", -1);
   </script>
 
-  <form action="login.php" method="post" class="s1 s1-login">
-    <h1 class="title">Inicia sesión</h1>
+  <form action="login.php" method="post" class="s1">
+    <h1 class="title">Registrarse</h1>
     <div class="container-columns">
       <div class="container-rows-f">
         <label id="nombre">Nombre: </label>
+        <label id="password">Correo: </label>
         <label id="password">Cotraseña: </label>
       </div>
       <div class="container-rows-s">
         <input type="text" id="nombreI" name="nombre" />
+        <input type="text" id="correoI" name="correo" />
         <input type="password" id="passwordI" name="password" />
       </div>
     </div>
-    <input type="submit" value="Iniciar sesión" id="login" name="login" class="login" />
+    <input type="submit" value="Registrarme" id="login" name="login" class="singin" />
   </form>
 
 </body>
