@@ -123,13 +123,14 @@ ul {
 
 .user-account p {
   font-family: "Josefin Sans", sans-serif;
-  margin-top: 15px;
+  margin-top: 1vh;
   flex: 50%;
+  font-size: 3vh;
+  margin-bottom: 0;
 }
 
 .dropdown-button {
   display: flex;
-  padding-bottom: 15px;
 }
 
 .user-account:hover {
