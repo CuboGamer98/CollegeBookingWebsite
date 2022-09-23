@@ -16,7 +16,7 @@ if(isset($_POST["btnenviar"])){
     foreach($new_reserva as $field){
         if(empty($field)){
             $error = "Ha habido un error al reservar";
-            header("Location: calendario.php?back=1");
+            header("Location: calendario.php");
             return;
         }
     }
@@ -45,10 +45,14 @@ if(isset($_POST["btnenviar"])){
                         $start2 = intval($start2);
                         $end2 = str_replace(":", "", $d["Hora_final"]);
                         $end2 = intval($end2);
-                        if($start < $start2 && $end > $end2){
+                        if ($start < $start2 && $end > $end2) {
                             $error = "Las horas intermedias estan ocupadas.";
-                            header("Location: calendario.php?back=1");
+                            header("Location: calendario.php");
                             return;
+                        } else if($start > $end) {
+                            $error = "Error.";
+                            header("Location: calendario.php");
+                            return; 
                         }
                     }
                 } 

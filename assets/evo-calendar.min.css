@@ -108,6 +108,9 @@ button:focus {
 .calendar-sidebar > .calendar-year > img[year-val="next"] {
   float: right;
 }
+.calendar-sidebar > .month-list {
+  height: calc(100% - 134px);  
+}
 .calendar-sidebar > .month-list::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -126,6 +129,9 @@ button:focus {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 .calendar-sidebar > .month-list > .calendar-months > li {
   padding: 7px 30px;
@@ -484,7 +490,7 @@ button.icon-button > span.chevron-arrow-right {
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 1980px) {
   .calendar-inner {
     padding: 50px 20px 70px 20px;
     max-width: calc(100% - 580px);
@@ -502,7 +508,7 @@ button.icon-button > span.chevron-arrow-right {
     padding: 70px 20px 60px 20px;
   }
 }
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
   .calendar-sidebar {
     width: 175px;
   }

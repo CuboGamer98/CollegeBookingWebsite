@@ -1,62 +1,12 @@
 [
     {
-        "id": "08:2509:1506\/24\/2022chromebook",
-        "Hora_inicio": "08:25",
-        "Hora_final": "09:15",
-        "Nombre": "Juan",
-        "Asignatura": "Ingl\u00e9s",
-        "Clase": "2\u00ba A ESO",
-        "Elecion": "chromebook",
-        "Date": "06\/24\/2022"
-    },
-    {
-        "id": "08:0008:2507\/10\/2022chromebook",
-        "Hora_inicio": "08:00",
-        "Hora_final": "08:25",
-        "Nombre": "Pedrito Sanchez",
-        "Asignatura": "Pl\u00e1stica\/Arts",
-        "Clase": "5\u00ba B EP",
-        "Elecion": "chromebook",
-        "Date": "07\/10\/2022"
-    },
-    {
-        "id": "08:0008:2509\/16\/2022capilla",
-        "Hora_inicio": "08:00",
-        "Hora_final": "08:25",
-        "Nombre": "Pedrito Sanchez",
-        "Asignatura": "M\u00fasica",
-        "Clase": "2\u00ba B EP",
-        "Elecion": "capilla",
-        "Date": "09\/16\/2022"
-    },
-    {
-        "id": "08:3508:5009\/16\/2022capilla",
-        "Hora_inicio": "08:35",
-        "Hora_final": "08:50",
-        "Nombre": "Juan",
-        "Asignatura": "Matem\u00e1ticas",
-        "Clase": "3\u00ba B EP",
-        "Elecion": "capilla",
-        "Date": "09\/16\/2022"
-    },
-    {
-        "id": "08:3017:0009\/23\/2022biblioteca",
-        "Hora_inicio": "08:30",
-        "Hora_final": "17:00",
-        "Nombre": "Pedrito Sanchez",
-        "Asignatura": "Biolog\u00eda\/CCNN",
+        "id": "08:5509:5509\/24\/2022chromebook",
+        "Hora_inicio": "08:55",
+        "Hora_final": "09:55",
+        "Nombre": "a",
+        "Asignatura": "Franc\u00e9s",
         "Clase": "1\u00ba B ESO",
-        "Elecion": "biblioteca",
-        "Date": "09\/23\/2022"
-    },
-    {
-        "id": "08:1008:2509\/23\/2022biblioteca",
-        "Hora_inicio": "08:10",
-        "Hora_final": "08:25",
-        "Nombre": "Juan",
-        "Asignatura": "Geograf\u00eda-Historia\/Sociales",
-        "Clase": "1\u00ba B EP",
-        "Elecion": "biblioteca",
-        "Date": "09\/23\/2022"
+        "Elecion": "chromebook",
+        "Date": "09\/24\/2022"
     }
 ]

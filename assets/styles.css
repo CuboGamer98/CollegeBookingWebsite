@@ -36,24 +36,24 @@ button:focus {
   cursor: pointer;
 }
 
-button#ordenador {
+#ordenador {
   background: url(../images/comp_room.png) no-repeat;
 }
 
-button#chromebook {
+#chromebook {
   background: url(../images/laptop_item.png) no-repeat;
 }
 
-button#tablet {
+[id="tablet carro 1"] {
+  background: url(../images/tablet_item.png) no-repeat;
+}
+
+[id="tablet carro 2"] {
   background: url(../images/tablet_item.png) no-repeat;
 }
 
 #biblioteca {
   background: url(../images/library_room.png) no-repeat;
-}
-
-#musica {
-  background: url(../images/music_room.png) no-repeat;
 }
 
 #capilla {
