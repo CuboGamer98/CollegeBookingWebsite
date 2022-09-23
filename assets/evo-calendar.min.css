@@ -948,19 +948,19 @@ button.icon-button > span.chevron-arrow-right {
   background: #a298c1; 
 }
 
-.event-list::-webkit-scrollbar {
+.calendar-events::-webkit-scrollbar {
   width: 10px;
 }
 
-.event-list::-webkit-scrollbar-track {
+.calendar-events::-webkit-scrollbar-track {
   background: #fbfbfb; 
 }
 
-.event-list::-webkit-scrollbar-thumb {
+.calendar-events::-webkit-scrollbar-thumb {
   background: #d6c8ff; 
 }
 
-.event-list::-webkit-scrollbar-thumb:hover {
+.calendar-events::-webkit-scrollbar-thumb:hover {
   background: #a298c1; 
 }
 
