@@ -527,7 +527,7 @@ button.icon-button > span.chevron-arrow-right {
   }
   .calendar-events {
     width: 300px;
-    padding: 70px 10px 60px 10px;
+    padding: 0 10px 0 10px;
   }
   tr.calendar-body .calendar-day .day {
     padding: 10px;
