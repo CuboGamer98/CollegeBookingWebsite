@@ -130,8 +130,8 @@ button:focus {
   margin: 0;
   padding: 0;
   height: 100%;
-    overflow: hidden;
-    overflow-y: scroll;
+  overflow: hidden;
+  overflow-y: overlay;
 }
 .calendar-sidebar > .month-list > .calendar-months > li {
   padding: 7px 30px;
@@ -150,7 +150,7 @@ button:focus {
   float: left;
   height: 100%;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: overlay;
   max-width: calc(100% - 550px);
   margin-left: 200px;
   background-color: #fff;
@@ -274,7 +274,7 @@ tr.calendar-body .calendar-day .day[disabled] {
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  overflow-y: auto;
+  overflow-y: overlay;
   z-index: 0;
 }
 .calendar-events::-webkit-scrollbar {
@@ -507,7 +507,7 @@ button.icon-button > span.chevron-arrow-right {
   }
   .calendar-events {
     width: 380px;
-    padding: 70px 20px 60px 20px;
+    padding: 0 20px 0 20px;
   }
 }
 @media screen and (max-width: 1280px) {
@@ -938,7 +938,7 @@ button.icon-button > span.chevron-arrow-right {
 }
 
 .calendar-months::-webkit-scrollbar-track {
-  background: #8773c1;
+  background: #8773c100;
 }
 
 .calendar-months::-webkit-scrollbar-thumb {
@@ -973,7 +973,7 @@ button.icon-button > span.chevron-arrow-right {
   background-color: #fbfbfb;
   margin: 0 -1vh 0 -1vh;
   padding: 4vh 1vh 0 1vh;
-  top: -75px;
+  top: 0;
   z-index: 100;
 }
 
