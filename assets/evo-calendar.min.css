@@ -150,6 +150,7 @@ button:focus {
   float: left;
   height: 100%;
   width: 100%;
+  overflow-y: scroll;
   max-width: calc(100% - 550px);
   margin-left: 200px;
   background-color: #fff;
@@ -937,15 +938,16 @@ button.icon-button > span.chevron-arrow-right {
 }
 
 .calendar-months::-webkit-scrollbar-track {
-  background: #8773c1; 
+  background: #8773c1;
 }
 
 .calendar-months::-webkit-scrollbar-thumb {
-  background: #d6c8ff; 
+  background: #d6c8ff;
+  border-radius: 10px;
 }
 
 .calendar-months::-webkit-scrollbar-thumb:hover {
-  background: #a298c1; 
+  background: #a298c1;
 }
 
 .calendar-events::-webkit-scrollbar {
@@ -953,15 +955,16 @@ button.icon-button > span.chevron-arrow-right {
 }
 
 .calendar-events::-webkit-scrollbar-track {
-  background: #fbfbfb; 
+  background: #fbfbfb;
 }
 
 .calendar-events::-webkit-scrollbar-thumb {
-  background: #d6c8ff; 
+  background: #d6c8ff;
+  border-radius: 10px;
 }
 
 .calendar-events::-webkit-scrollbar-thumb:hover {
-  background: #a298c1; 
+  background: #a298c1;
 }
 
 .event-header-and-addbuttom {
@@ -976,4 +979,21 @@ button.icon-button > span.chevron-arrow-right {
 
 .event-header-and-addbuttom > .event-header > p {
   font-size: 3vh;
+}
+
+.calendar-inner::-webkit-scrollbar {
+  width: 10px;
+}
+
+.calendar-inner::-webkit-scrollbar-track {
+  background: #fbfbfb;
+}
+
+.calendar-inner::-webkit-scrollbar-thumb {
+  background: #d6c8ff;
+  border-radius: 10px;
+}
+
+.calendar-inner::-webkit-scrollbar-thumb:hover {
+  background: #a298c1;
 }
