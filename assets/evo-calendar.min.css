@@ -327,10 +327,11 @@ tr.calendar-body .calendar-day .day[disabled] {
   padding: 15px 10px;
   background-color: rgba(135, 115, 193, 0.15);
   border: 1px solid #8773c1;
+  display: flex;
 }
 .event-list > .event-empty > p {
-  margin: 0;
   color: #755eb5;
+  display: inline-block;
 }
 .event-container {
   position: relative;
@@ -929,4 +930,50 @@ button.icon-button > span.chevron-arrow-right {
     height: 30px;
     font-size: 14px;
   }
+}
+
+.calendar-months::-webkit-scrollbar {
+  width: 10px;
+}
+
+.calendar-months::-webkit-scrollbar-track {
+  background: #8773c1; 
+}
+
+.calendar-months::-webkit-scrollbar-thumb {
+  background: #d6c8ff; 
+}
+
+.calendar-months::-webkit-scrollbar-thumb:hover {
+  background: #a298c1; 
+}
+
+.event-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.event-list::-webkit-scrollbar-track {
+  background: #fbfbfb; 
+}
+
+.event-list::-webkit-scrollbar-thumb {
+  background: #d6c8ff; 
+}
+
+.event-list::-webkit-scrollbar-thumb:hover {
+  background: #a298c1; 
+}
+
+.event-header-and-addbuttom {
+  position: sticky;
+  display: grid;
+  background-color: #fbfbfb;
+  margin: 0 -1vh 0 -1vh;
+  padding: 4vh 1vh 0 1vh;
+  top: -75px;
+  z-index: 100;
+}
+
+.event-header-and-addbuttom > .event-header > p {
+  font-size: 3vh;
 }
