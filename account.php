@@ -37,6 +37,9 @@ if ($filename === "admin_panel") {
                         $url = "index.php";
                     }
                     echo '<a href="'.$url.'">'.$text.'</a>';
+                    unset($text);
+                    unset($url);
+                    unset($filename);
                 }
             }
             ?>
