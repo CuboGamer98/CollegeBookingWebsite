@@ -88,5 +88,12 @@ div.container-rows input {
 
 .register-info {
   font-size: 1.2vh;
-  margin: 3% 0 0 12.5%;
+  margin: 3% 12.5% 0 12.5%;
+}
+
+.register-error {
+  font-size: 1.2vh;
+  color: rgb(255, 0, 0);
+  margin: 3% 12.5% 0 12.5%;
+  display: none;
 }

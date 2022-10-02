@@ -25,18 +25,9 @@
 </head>
 
 <body>
-  <script src="check_login.js"></script>
-  <ul>
-    <li class="user-account">
-      <div class="dropdown-button">
-        <img src="images/user.png">
-        <p>Cuenta</p>
-      </div>
-      <div class="dropdown-content">
-        <a href="login.php">Cerrar sesión</a>
-      </div>
-    </li>
-  </ul>
+  <?php
+  include_once "account.php";
+  ?>
   <section class="s1">
     <h1 class="title">¿Qué desea reservar?</h1>
     <div class="container">
@@ -84,7 +75,7 @@
     for (let button of buttons) {
       button.addEventListener(
         "click",
-        function (event) {
+        function(event) {
           saveAndRedirect(button.id)
         },
         false

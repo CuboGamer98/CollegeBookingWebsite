@@ -1,67 +1,50 @@
 <?php
-if (isset($_POST["login"])) {
-  $login = array(
-    "user" => $_POST["nombre"],
-    "password" => $_POST["password"]
-
-  );
-
-  if ($login["user"] === "admin" && $login["password"] === "admin") {
-    $cookie_name = "login";
-    $cookie_value = "logged";
-    setcookie(
-      $cookie_name,
-      $cookie_value,
-      time() + 86400,
-      "/"
-    );
-    header("Location: index.html");
-  } else {
-    header("Location: login.php");
-    return;
-  }
-}
+  include_once "header.php";
 ?>
-
-<!DOCTYPE html>
-<html>
-<title>Reserva Dispositivos Informaticos</title>
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="assets/login.css" />
-</head>
-
-<body>
-  <script>
-    function writeCookie(name, val, days) {
-      var expires = "";
-
-      if (days) {
-        var date = new Date();
-        date.setTime(date.getTime + days * 24 * 60 * 60 * 1000);
-        expires = "; expires=" + date.toGMTString();
-      }
-
-      document.cookie = name + "=" + val + expires + "; path=/";
-    }
-
-    writeCookie("login", "", -1);
-  </script>
-
-  <form action="login.php" method="post">
+  <form action="includes/login.inc.php" method="post">
     <h1 class="title">Inicia sesión</h1>
     <div class="container-rows">
-      <label id="nombre">Nombre / Correo: </label>
-      <input type="text" id="nombreI" name="nombre" />
-      <label id="password">Cotraseña: </label>
-      <input type="password" id="passwordI" name="password" />
+      <label id="name_email">Nombre / Correo: </label>
+      <input type="text" id="nombreI" name="name_email" value="<?php echo isset($_SESSION['name_email']) ? $_SESSION['name_email'] : ''?>"/>
+      <label id="pwd">Cotraseña: </label>
+      <input type="password" id="passwordI" name="pwd"/>
     </div>
-    <h1 class="register-info">¿No tienes una cuenta aún? <a href="register.php">Click aquí para registrarte</a></h1>
-    <input type="submit" value="Iniciar sesión" id="login" name="login" class="submit"/>
+    <h1 class="register-error", id="register-error">Error</h1>
+    <h1 class="register-info">¿No tienes una cuenta aún? <a href="signup.php">Click aquí para registrarte</a></h1>
+    <input type="submit" name="submit" class="submit login"/>
   </form>
 
-</body>
+<?php
+  $result = "";
+  if (isset($_GET["error"])) {
+    $result = $_GET["error"];
+  }
+?>
 
-</html>
+<script type='text/javascript'> 
+  var setStatus = function(status) {
+    var ind = document.getElementById('register-error');
+
+    if (status !== "" && status !== "none") {
+      ind.style.display = "block";
+
+      if (status == "wronglogin") {
+        ind.innerHTML = "Los datos introducidos son incorrectos.";
+      } else if (status == "emailpending") {
+        ind.innerHTML = "El nombre o el email intruducido está pendiendete de aprobación. Contacta al administrador para más información.";
+      } else {
+        ind.innerHTML = "Algo fue mal... pero no sabes qué.";
+      }
+    } else {
+      ind.style.display = "none";
+    }
+  }
+
+  window.onload = function() {
+      setStatus(<?php echo json_encode($result);?>);
+  };
+</script>
+
+<?php
+  include_once "footer.php"
+?>
