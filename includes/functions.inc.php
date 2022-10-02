@@ -1,5 +1,7 @@
 <?php
 
+use LDAP\Result;
+
 function emptyInputSignup($name, $email, $pwd, $pwdrepeat) {
     return (empty($name) || empty($email) || empty($pwd) || empty($pwdrepeat));
 }
@@ -103,4 +105,56 @@ function getIsAdmin($conn, $email) {
     }
 
     return $emailExists["isAdmin"] === 1;
+}
+
+function getDataFromTable($conn, $table) {
+    $sql = "SELECT * FROM ".$table;
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../index.php?error=stmtfailed");
+        exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result === false) {
+        header("location: ../index.php?error=noresult");
+        exit();
+    }
+
+    return $result;
+}
+
+function getPendingUsers($conn) {
+    $result = getDataFromTable($conn, "pending_users");
+    $return = array();
+    while ($row = $result -> fetch_row()) {
+        array_push($return, array($row[0], $row[1], $row[2]));
+    }
+
+    return $return;
+}
+
+function getUsers($conn) {
+    $result = getDataFromTable($conn, "users");
+    $return = array();
+    while ($row = $result -> fetch_row()) {
+        $state = false;
+        if ($row[4] === 1) {
+            $state = true;
+        }
+        array_push($return, array($row[0], $row[1], $row[2], $row[4]));
+    }
+
+    return $return;
+}
+
+function acceptUser($conn) {
+
+}
+
+function deleteUser($conn) {
+
 }
