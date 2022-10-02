@@ -4,6 +4,17 @@ if (isset($_SESSION["username"]) === null || isset($_SESSION["useremail"]) === n
     header("location: includes/logout.inc.php");
     exit();
 }
+
+$filename = basename(debug_backtrace()[0]["file"], ".php");
+if ($filename === "admin_panel") {
+    require_once "includes/dbh.inc.php";
+    require_once "includes/functions.inc.php";
+
+    if (getIsAdmin($conn, $_SESSION["useremail"]) === false) {
+        header("location: index.php");
+        exit();
+    }
+} 
 ?>
 
 <ul>
@@ -19,7 +30,13 @@ if (isset($_SESSION["username"]) === null || isset($_SESSION["useremail"]) === n
                 require_once "includes/functions.inc.php";
 
                 if (getIsAdmin($conn, $_SESSION["useremail"]) === true) {
-                    echo '<a href="">Panel de administrador</a>';
+                    $text = "Panel de administrador";
+                    $url = "admin_panel.php";
+                    if ($filename == "admin_panel") {
+                        $text = "Página principal";
+                        $url = "index.php";
+                    }
+                    echo '<a href="'.$url.'">'.$text.'</a>';
                 }
             }
             ?>
