@@ -84,16 +84,13 @@ function loginUser($conn, $name_email, $pwd) {
     $pwdHashed = $emailExists["usersPwd"];
     $checkPwd = password_verify($pwd, $pwdHashed);
 
-    echo 1;
     if ($checkPwd === true) {
         session_start();
         $_SESSION["userid"] = $emailExists["usersId"];
         $_SESSION["username"] = $emailExists["usersName"];
         $_SESSION["useremail"] = $emailExists["usersEmail"];
-        echo 1;
         header("location: ../index.php");
         exit();
-        echo 10;
     }
 }
 
@@ -151,10 +148,72 @@ function getUsers($conn) {
     return $return;
 }
 
-function acceptUser($conn) {
+function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
 
+    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
 }
 
-function deleteUser($conn) {
+function acceptUser($conn, $email) {
+    debug_to_console(1);
+    $result = emailExistsPending($conn, "", $email);
+    if ($result === false) {
+        header("location: ../admin_panel.php?error=userdonesntexists");
+        exit();
+    }
+    debug_to_console(2);
 
+    $sql = "INSERT INTO users (usersName, usersEmail, Userspwd) VALUES (?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../admin_panel.php?error=erroraccepting");
+        exit();
+    }
+    debug_to_console(3);
+
+    mysqli_stmt_bind_param($stmt, "sss", $result["usersName"], $result["usersEmail"], $result["usersPwd"]);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    $sql = "DELETE FROM pending_users WHERE usersEmail=?";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../admin_panel.php?error=erroraccepting");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    debug_to_console(4);
+
+    header("location: ../signup.php?error=none");
+    exit();
+}
+
+function deleteUser($conn, $email) {
+    $result = emailExists($conn, "", $email);
+    if ($result === false) {
+        header("location: ../admin_panel.php?error=userdonesntexists");
+        exit();
+    }
+
+    $sql = "DELETE FROM users WHERE usersEmail=?";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../admin_panel.php?error=erroraccepting");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../signup.php?error=none");
+    exit();
 }

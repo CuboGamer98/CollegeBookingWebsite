@@ -61,38 +61,35 @@
             $disabled = "disabled = true";
           }
 
-          echo "<tr><th>" . $user[0] . "</th><th>" . $user[1] . "</th><th>" . $user[2] . "</th><th><input class='checkbox' type='checkbox' value='admin' " . $disabled . " " . $checked . "></th><th><button name='delete' value='delete'>Eliminar</button></th></tr>";
+          echo "<tr><th>" . $user[0] . "</th><th>" . $user[1] . "</th><th>" . $user[2] . "</th><th><input class='checkbox' type='checkbox' value='admin' " . $disabled . " " . $checked . "></th><th><button name='delete' value='delete' " . $disabled . ">Eliminar</button></th></tr>";
         }
         ?>
       </table>
     </div>
     <script>
-      $('button').click(function() {
-        var clickBtnValue = $(this).val();
+      $('button').click(e => {
         var ajaxurl = 'ajax.php',
           data = {
-            'action': clickBtnValue
+            'action': e.value,
+            'email': e.target.parentNode.parentNode.getElementsByTagName("th")[2].innerHTML
           };
         $.post(ajaxurl, data, function(response) {
-          location.reload();
+          //location.reload();
         });
       });
 
       $('.checkbox').each(function() {
         this.addEventListener("change", e => {
-          var clickBtnValue = $(this).val();
-          var state = e.target.checked;
           var ajaxurl = 'ajax.php',
             data = {
-              'action': clickBtnValue,
-              'value': state
+              'action': e.value,
+              'value': e.target.checked
             };
           $.post(ajaxurl, data, function(response) {
-            //location.reload();
+            location.reload();
           });
         });
       });
     </script>
 </body>
-
 </html>
