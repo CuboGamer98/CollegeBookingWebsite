@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="assets/styles.css" />
   <link rel="stylesheet" href="assets/admin_panel.css" />
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 </head>
 
 <body>
@@ -68,28 +68,37 @@
     </div>
     <script>
       $('button').click(e => {
-        var ajaxurl = 'ajax.php',
-          data = {
-            'action': e.value,
-            'email': e.target.parentNode.parentNode.getElementsByTagName("th")[2].innerHTML
-          };
-        $.post(ajaxurl, data, function(response) {
-          //location.reload();
+        $.ajax({
+          type: 'POST',
+          url: 'includes/button_functions.inc.php',
+          data: "action=" + e.target.value + "&email=" + e.target.parentNode.parentNode.getElementsByTagName("th")[2].innerHTML,
+          success: function(data, textStatus, jqXHR) {
+            location.reload();
+            console.log(data);
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+          }
         });
       });
 
       $('.checkbox').each(function() {
         this.addEventListener("change", e => {
-          var ajaxurl = 'ajax.php',
-            data = {
-              'action': e.value,
-              'value': e.target.checked
-            };
-          $.post(ajaxurl, data, function(response) {
-            location.reload();
+          $.ajax({
+            type: 'POST',
+            url: 'includes/button_functions.inc.php',
+            data: "action=" + e.target.value + "&email=" + e.target.parentNode.parentNode.getElementsByTagName("th")[2].innerHTML + "&value=" + e.target.checked,
+            success: function(data, textStatus, jqXHR) {
+              location.reload();
+              console.log(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.log(errorThrown);
+            }
           });
         });
       });
     </script>
 </body>
+
 </html>

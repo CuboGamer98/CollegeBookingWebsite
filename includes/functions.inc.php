@@ -7,7 +7,7 @@ function emptyInputSignup($name, $email, $pwd, $pwdrepeat) {
 }
 
 function invalidName($name) {
-    return (!preg_match('/^[a-zA-Z\s]+$/', $name));
+    return (!preg_match('/^[A-zÀ-ú\s]+$/', $name));
 }
 
 function invalidEmail($email) {
@@ -60,7 +60,7 @@ function createPendingUser($conn, $name, $email, $pwd) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../signup.php?error=none");
+    header("location: ../signup.php?error=emailstartedpending");
     exit();
 }
 
@@ -148,22 +148,12 @@ function getUsers($conn) {
     return $return;
 }
 
-function debug_to_console($data) {
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
-
-    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-}
-
 function acceptUser($conn, $email) {
-    debug_to_console(1);
     $result = emailExistsPending($conn, "", $email);
     if ($result === false) {
         header("location: ../admin_panel.php?error=userdonesntexists");
         exit();
     }
-    debug_to_console(2);
 
     $sql = "INSERT INTO users (usersName, usersEmail, Userspwd) VALUES (?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
@@ -172,7 +162,6 @@ function acceptUser($conn, $email) {
         header("location: ../admin_panel.php?error=erroraccepting");
         exit();
     }
-    debug_to_console(3);
 
     mysqli_stmt_bind_param($stmt, "sss", $result["usersName"], $result["usersEmail"], $result["usersPwd"]);
     mysqli_stmt_execute($stmt);
@@ -189,7 +178,6 @@ function acceptUser($conn, $email) {
     mysqli_stmt_bind_param($stmt, "s", $email);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    debug_to_console(4);
 
     header("location: ../signup.php?error=none");
     exit();
@@ -211,6 +199,30 @@ function deleteUser($conn, $email) {
     }
 
     mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../signup.php?error=none");
+    exit();
+}
+
+function setAdmin($conn, $email, $value) {
+    $result = emailExists($conn, "", $email);
+    if ($result === false) {
+        header("location: ../admin_panel.php?error=userdonesntexists");
+        exit();
+    }
+
+    $sql = "UPDATE users SET isAdmin=? WHERE usersEmail=?";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../admin_panel.php?error=erroraccepting");
+        exit();
+    }
+    
+    $isAdminVar = (int)filter_var($value, FILTER_VALIDATE_BOOLEAN);
+    mysqli_stmt_bind_param($stmt, "is", $isAdminVar, $email);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 

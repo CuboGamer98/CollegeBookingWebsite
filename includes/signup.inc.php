@@ -31,7 +31,7 @@ if (isset($_POST["submit"])) {
         exit();
     }
 
-    if (pwdMatch($pwd, $pwdrepeat) !== false) {
+    if (pwdMatch($pwd, $pwdrepeat) !== true) {
         header("location: ../signup.php?error=pwdnotmatch");
         exit();
     }
