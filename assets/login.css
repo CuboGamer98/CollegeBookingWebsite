@@ -97,3 +97,19 @@ div.container-rows input {
   margin: 3% 12.5% 0 12.5%;
   display: none;
 }
+
+.emailpending {
+  background-color: rgb(150, 255, 153);
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  max-width: 50vh;
+  border-radius: 1vh;
+  padding: 0.5vh 2vh 0.5vh 2vh;
+  display: none;
+}
+
+h2 {
+  font-size: 2.5vh;
+}

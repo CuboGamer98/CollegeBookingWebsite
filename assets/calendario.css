@@ -23,7 +23,7 @@
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 50px; /* Location of the box */
+  padding-top: 10vh; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -37,11 +37,14 @@
 .modal-content {
   background-color: #fefefe;
   margin: auto;
-  padding: 150px;
+  width: 75vh;
+  padding: 4vh;
   border: 1px solid #888;
-  width: max-content;
   box-shadow: 5px 0 18px -3px rgb(0 0 0 / 15%);
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 3vh;
 }
 
 .close {
@@ -67,26 +70,18 @@
 }
 
 .container-columns {
-  column-count: 2;
+  display: flex;
   column-gap: 10px;
-  /*width: 90%;
-  height: 100%;*/
+  font-size: 2vh;
 }
 .container-rows-f,
 .container-rows-s {
-  width: 100%;
-  height: inherit;
-  top: 0%;
+  width: 90%;
 }
-.container-rows-f {
-  transform: translate(-5%, 0);
-}
-.container-rows-s {
-  transform: translate(5%, 0);
-}
-div.container-rows-f label,
-div.container-rows-s input,
-div.container-rows-s select {
+
+label,
+input,
+select {
   display: flex;
   flex-wrap: wrap;
   margin: 5px 0 0 0;
@@ -94,14 +89,16 @@ div.container-rows-s select {
 }
 
 input.submit {
-  font-size: 10px;
+  font-size: 2vh;
   font-weight: bold;
-  transform: scale(1.5) translate(275%, 250%);
   border-radius: 20px;
   border-width: 0;
   background-color: #a692e0;
   width: 20%;
   color: #000;
+  align-self: end;
+  padding: 0.5vh;
+  display: inline-block;
 }
 input.submit:hover,
 input.submit:focus{
@@ -116,20 +113,21 @@ form.form {
 p.red {
   color: red;
   font-family: "Josefin Sans", sans-serif;
-  font-size: 12.5px;
-  transform: translate(0, 100%);
+  font-size: 2vh;
+  margin: 2vh 0 2vh 0;
 }
 
 h1.tittle {
   font-family: "Josefin Sans", sans-serif;
-  transform: translate(0, -100%);
+  align-self: center;
 }
 
-div.container-rows-s input,
-div.container-rows-s select {
+input,
+select {
   border-color: #755eb5;
-  border-radius: 5px;
-  border-width: 1.5px;
+  border-radius: 1vh;
+  border-width: 0.25vh;
+  font-size: 2vh;
 }
 
 .addevent-button-icon {
@@ -237,4 +235,8 @@ div.container-rows-s select {
   position: relative;
   font-size: 15px;
   font-weight: 600;
+}
+
+.time-picker {
+  display: flex;
 }

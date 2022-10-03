@@ -46,7 +46,7 @@ function emailExistsPending($conn, $anme, $email) {
 }
 
 function createPendingUser($conn, $name, $email, $pwd) {
-    $sql = "INSERT INTO pending_users (usersName, usersEmail, Userspwd) VALUES (?, ?, ?);";
+    $sql = "INSERT INTO pending_users (usersName, usersEmail, usersPwd) VALUES (?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -155,7 +155,7 @@ function acceptUser($conn, $email) {
         exit();
     }
 
-    $sql = "INSERT INTO users (usersName, usersEmail, Userspwd) VALUES (?, ?, ?);";
+    $sql = "INSERT INTO users (usersName, usersEmail, usersPwd) VALUES (?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -179,7 +179,7 @@ function acceptUser($conn, $email) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../signup.php?error=none");
+    header("location: ../signup.php?error=useraccepted");
     exit();
 }
 
@@ -202,7 +202,7 @@ function deleteUser($conn, $email) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../signup.php?error=none");
+    header("location: ../signup.php?error=userdeleted");
     exit();
 }
 
@@ -226,6 +226,38 @@ function setAdmin($conn, $email, $value) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../signup.php?error=none");
+    header("location: ../signup.php?error=adminadded");
     exit();
+}
+
+function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $date) {
+    $result = emailExists($conn, "", $email);
+    if ($result === false) {
+        header("location: ../calendario.php?error=userdonesntexists");
+        exit();
+    }
+
+    $sql = "INSERT INTO bookings (id, start, end, name, class, grade, book, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../calendario.php?error=erroraccepting");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ssssssss", $id, $start, $end, $result["usersName"], $class, $grade, $book, $date);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../calendario.php?error=bookingcompleted");
+    exit();
+}
+
+function getBookings($conn) {
+    $myArray = array();
+    $result = getDataFromTable($conn, "bookings");
+    while($row = $result->fetch_assoc()) {
+        $myArray[] = $row;
+    }
+    echo json_encode($myArray);
 }

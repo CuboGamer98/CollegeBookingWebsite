@@ -1,6 +1,5 @@
 <?php
 if(isset($_POST["btnenviar"])){
-    /*print "post";*/
     $id = $_POST["shorainicio"] . $_POST["shorafinal"] . $_COOKIE["date"] . $_COOKIE["election"];
     $new_reserva = array(
         "id" => $id,
@@ -69,6 +68,5 @@ if(isset($_POST["btnenviar"])){
     }else{
         $succes= "La reserva se ha realizado correctamente";
         header("Location: calendario.php");
-
     }
 }

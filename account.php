@@ -21,7 +21,7 @@ if ($filename === "admin_panel") {
     <li class="user-account">
         <div class="dropdown-button">
             <img src="images/user.png">
-            <p>Cuenta</p>
+            <p><?php echo $_SESSION["username"]; ?></p>
         </div>
         <div class="dropdown-content">
             <?php

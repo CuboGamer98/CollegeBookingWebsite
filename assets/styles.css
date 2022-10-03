@@ -119,6 +119,7 @@ ul {
   width: 2.5vh;
   height: 2.5vh;
   margin-top: 1vh;
+  flex-basis: 0;
 }
 
 .user-account p {
@@ -127,6 +128,8 @@ ul {
   flex: 50%;
   font-size: 3vh;
   margin-bottom: 0;
+  width: max-content;
+  flex-basis: auto;
 }
 
 .dropdown-button {

@@ -59,6 +59,18 @@
             return s[0].toUpperCase() + s.slice(1);
         }
 
+        $.ajax({
+            type: 'POST',
+            url: 'includes/bookings.inc.php',
+            data: "action=getbookings",
+            success: function(data, textStatus, jqXHR) {
+                console.log(data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+
         $(document).ready(function() {
             $("#calendar").evoCalendar({});
 
@@ -96,7 +108,6 @@
                 return "";
             }
 
-
             const urlParams = new URLSearchParams(window.location.search);
             const back = urlParams.get('back')
             if (back == 1) {
@@ -109,38 +120,28 @@
     </script>
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <form action="reserva.php" method="post" class="form">
-                <h1 class="tittle">Nueva reserva: </h1>
-                <span class="close">&times;</span>
-                <div class="container-columns">
-                    <div class="container-rows-f">
-                        <label id="nombreP">Nombre del Profesor:</label>
-                        <label id="Asignatura">Asignatura:</label>
-                        <label id="clase">Clase:</label>
-                        <label id="hora.inicio">Hora de Inicio:</label>
-                        <label id="hora.final">Hora Final:</label>
-                    </div>
-                    <div class="container-rows-s">
-                        <input type="text" id="nombreP" name="nombreP" />
-                        <select id="asignaturas" name="asignaturas">
-                            <option value="None" disabled>-- Selecciona --</option>
-                        </select>
-                        <select id="clase-select" name="clase">
-                            <option value="None" disabled>-- Selecciona --</option>
-                        </select>
-                        <select id="s.hora.inicio" name="shorainicio">
-                            <option value="None" disabled>-- Selecciona --</option>
-                        </select>
-                        <select id="s.hora.final" name="shorafinal">
-                            <option value="None" disabled>-- Selecciona --</option>
-                        </select>
-                    </div>
-                </div>
-                <p class="red">*Rellena todos los campos</p>
-                <input type="submit" value="Reserva" id="submit" name="btnenviar" class="submit" />
-                <p class="error"><?php echo @$error ?></p>
-                <p class="succes"><?php echo @$succes ?></p>
-            </form>
+            <h1 class="tittle">Nueva reserva: </h1>
+            <span class="close">&times;</span>
+            <label id="Asignatura">Asignatura:</label>
+            <select id="asignaturas" name="asignaturas">
+                <option value="None" disabled>-- Selecciona --</option>
+            </select>
+            <label id="clase">Clase:</label>
+            <select id="clase-select" name="clase">
+                <option value="None" disabled>-- Selecciona --</option>
+            </select>
+            <label id="hora.inicio">Hora de Inicio:</label>
+            <input type="text" class="time-pickable" id="s.hora.inicio" value="08:00" readonly>
+            <div class="time-picker">
+            </div>
+            <label id="hora.final">Hora Final:</label>
+            <input type="text" class="time-pickable" id="s.hora.final" value="08:00" readonly>
+            <div class="time-picker">
+            </div>
+            <p class="red">*Rellena todos los campos</p>
+            <input type="submit" value="Reserva" id="submit" class="submit" />
+            <p class="error"><?php echo @$error ?></p>
+            <p class="succes"><?php echo @$succes ?></p>
         </div>
     </div>
 
@@ -152,13 +153,8 @@
         }
     </script>
 
+    <script src="../js/timepickable.js"></script>
     <script>
-        function pad(num, size) {
-            num = num.toString();
-            while (num.length < size) num = "0" + num;
-            return num;
-        }
-
         function getCookie(cname) {
             let name = cname + "=";
             let ca = document.cookie.split(";");
@@ -176,28 +172,6 @@
 
         let eCookie = getCookie("election")
         let dCookie = getCookie("date")
-
-        function initHour(frameName) {
-            const frame = document.getElementById(frameName);
-            for (let i = 8; i < 18; i++) {
-                for (let j = 0; j < 12; j++) {
-                    var option = document.createElement("option");
-                    option.value = pad(i, 2) + ":" + pad(j * 5, 2);
-                    option.id = pad(i, 2) + ":" + pad(j * 5, 2);
-                    var text = document.createTextNode(option.value);
-                    option.appendChild(text);
-                    frame.appendChild(option);
-                }
-            }
-            var option = document.createElement("option");
-            option.value = "18:00";
-            var text = document.createTextNode(option.value);
-            option.appendChild(text);
-            frame.appendChild(option);
-        }
-
-        initHour("s.hora.inicio");
-        initHour("s.hora.final");
 
         const frame = document.getElementById("asignaturas");
         fetch("../info.json").then(response => {
@@ -235,22 +209,58 @@
 
         function updateButton() {
             var select = document.getElementById('s.hora.inicio');
-            var value = select.options[select.selectedIndex].value;
+            const {
+                hour0,
+                minute0
+            } = getTimePartsFromPickable(select);
 
             var select2 = document.getElementById('s.hora.final');
-            var value2 = select2.options[select2.selectedIndex].value;
+            const {
+                hour1,
+                minute1
+            } = getTimePartsFromPickable(select2);
 
             var button = document.getElementById('submit');
-            if (value == value2) {
-                button.disabled = true;
-                return;
+            var disableButton = false;
+            if (hour0 === hour1 && minute0 === minute1) {
+                disableButton = true;
+            } else {
+                if (hour0 === hour1 && minute0 > minute1) {
+                    disableButton = true;
+                } else if (hour0 > hour1) {
+                    disableButton = true;
+                }
             }
-            button.disabled = false;
+            button.disabled = disableButton;
         }
 
         document.getElementById("s.hora.inicio").onchange = updateButton
         document.getElementById("s.hora.final").onchange = updateButton
         updateButton()
+
+
+        $('input[type="submit"]').click(e => {
+            var a = document.getElementById("asignaturas");
+            var c = document.getElementById("clase-select");
+            var s = document.getElementById("s.hora.inicio");
+            var e = document.getElementById("s.hora.final");
+            a = a.options[a.selectedIndex].innerHTML;
+            c = c.options[c.selectedIndex].innerHTML;
+            s = s.options[s.selectedIndex].innerHTML;
+            e = e.options[e.selectedIndex].innerHTML;
+            var id = s + e + dCookie + eCookie;
+            $.ajax({
+                type: 'POST',
+                url: 'includes/bookings.inc.php',
+                data: "action=book&id=" + id + "&start=" + s + "&end=" + e + "&class=" + a + "&grade=" + c + "&book=" + eCookie + "&date=" + dCookie,
+                success: function(data, textStatus, jqXHR) {
+                    console.log(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+        });
     </script>
 </body>
 
