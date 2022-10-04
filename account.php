@@ -1,8 +1,8 @@
 <?php
 session_start();
-if (isset($_SESSION["username"]) === null || isset($_SESSION["useremail"]) === null) {
+if (isset($_SESSION["username"]) === false || isset($_SESSION["useremail"]) === false) {
     header("location: includes/logout.inc.php");
-    exit();
+    exit;
 }
 
 $filename = basename(debug_backtrace()[0]["file"], ".php");
@@ -14,7 +14,7 @@ if ($filename === "admin_panel") {
         header("location: index.php");
         exit();
     }
-} 
+}
 ?>
 
 <ul>

@@ -10,35 +10,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 
+    <script src="/js/cookies.js"></script>
     <script>
-        function getCookie(cname) {
-            let name = cname + "=";
-            let ca = document.cookie.split(";");
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == " ") {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
         function capitalize(s) {
             return s[0].toUpperCase() + s.slice(1);
         }
-        let cookie = getCookie("election");
-        if (cookie != "") {
-            cookie = capitalize(cookie);
-        } else {
-            cookie = "No elegido";
-            window.location.href = "../index.php"
-        }
+        getCookie("election", false, function(cookie) {
+            if (cookie != false) {
+                cookie = capitalize(cookie);
+            } else {
+                cookie = "No elegido";
+                window.location.href = "../index.php"
+            }
 
-        document.title = "Calendario: " + cookie;
+            document.title = "Calendario: " + cookie;
+        });
     </script>
 </head>
 
@@ -51,9 +39,7 @@
         <div id="calendar"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script src="../js/evo-calendar.min.js"></script>
-
     <script>
         function capitalize(s) {
             return s[0].toUpperCase() + s.slice(1);
@@ -64,7 +50,17 @@
             url: 'includes/bookings.inc.php',
             data: "action=getbookings",
             success: function(data, textStatus, jqXHR) {
-                console.log(data);
+                const jsondata = JSON.parse(data);
+                for (let i = 0; i <= jsondata.length - 1; i++) {
+                    $('#calendar').evoCalendar('addCalendarEvent', {
+                        id: jsondata[i]["id"],
+                        name: "De " + jsondata[i]["start"] + " Hasta " + jsondata[i]["end"],
+                        description: jsondata[i].name + " | " + jsondata[i].class + " " +
+                            jsondata[i].grade + " | " + capitalize(jsondata[i].book),
+                        date: jsondata[i].date,
+                        type: 'event'
+                    });
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(errorThrown);
@@ -74,44 +70,10 @@
         $(document).ready(function() {
             $("#calendar").evoCalendar({});
 
-            fetch("./reservas.json")
-                .then(response => {
-                    return response.json();
-                })
-                .then(jsondata => {
-                    for (let i = 0; i <= jsondata.length - 1; i++) {
-                        $('#calendar').evoCalendar('addCalendarEvent', {
-                            id: jsondata[i]["id"],
-                            name: "De " + jsondata[i]["Hora_inicio"] + " Hasta " + jsondata[i][
-                                "Hora_final"
-                            ],
-                            description: jsondata[i].Nombre + " | " + jsondata[i].Asignatura + " " +
-                                jsondata[i].Clase + " | " + capitalize(jsondata[i].Elecion),
-                            date: jsondata[i].Date,
-                            type: 'event'
-                        });
-                    }
-                });
-
-            function getCookie(cname) {
-                let name = cname + "=";
-                let ca = document.cookie.split(";");
-                for (let i = 0; i < ca.length; i++) {
-                    let c = ca[i];
-                    while (c.charAt(0) == " ") {
-                        c = c.substring(1);
-                    }
-                    if (c.indexOf(name) == 0) {
-                        return c.substring(name.length, c.length);
-                    }
-                }
-                return "";
-            }
-
             const urlParams = new URLSearchParams(window.location.search);
             const back = urlParams.get('back')
             if (back == 1) {
-                let cookie = getCookie("date");
+                let cookie = setCookie('date');
                 if (cookie != "") {
                     $('#calendar').evoCalendar('selectDate', cookie);
                 }
@@ -151,27 +113,15 @@
         if (back == 1) {
             document.getElementById("myModal").style.display = "block"
         }
-    </script>
 
-    <script src="../js/timepickable.js"></script>
-    <script>
-        function getCookie(cname) {
-            let name = cname + "=";
-            let ca = document.cookie.split(";");
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) == " ") {
-                    c = c.substring(1);
-                }
-                if (c.indexOf(name) == 0) {
-                    return c.substring(name.length, c.length);
-                }
-            }
-            return "";
-        }
-
-        let eCookie = getCookie("election")
-        let dCookie = getCookie("date")
+        let eCookie = false
+        let dCookie = false
+        getCookie("election", false, function(cookie) {
+            eCookie = cookie;
+        })
+        getCookie("date", false, function(cookie) {
+            dCookie = cookie;
+        })
 
         const frame = document.getElementById("asignaturas");
         fetch("../info.json").then(response => {
@@ -238,28 +188,115 @@
         document.getElementById("s.hora.final").onchange = updateButton
         updateButton()
 
-
         $('input[type="submit"]').click(e => {
             var a = document.getElementById("asignaturas");
             var c = document.getElementById("clase-select");
-            var s = document.getElementById("s.hora.inicio");
-            var e = document.getElementById("s.hora.final");
+            var s = document.getElementById("s.hora.inicio").value;
+            var e = document.getElementById("s.hora.final").value;
             a = a.options[a.selectedIndex].innerHTML;
             c = c.options[c.selectedIndex].innerHTML;
-            s = s.options[s.selectedIndex].innerHTML;
-            e = e.options[e.selectedIndex].innerHTML;
-            var id = s + e + dCookie + eCookie;
-            $.ajax({
-                type: 'POST',
-                url: 'includes/bookings.inc.php',
-                data: "action=book&id=" + id + "&start=" + s + "&end=" + e + "&class=" + a + "&grade=" + c + "&book=" + eCookie + "&date=" + dCookie,
-                success: function(data, textStatus, jqXHR) {
-                    console.log(data);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(errorThrown);
+
+            getCookie("date", false, function(date) {
+                if (date !== false) {
+                    var id = s + e + date + eCookie;
+                    $.ajax({
+                        type: 'POST',
+                        url: 'includes/bookings.inc.php',
+                        data: "action=book&id=" + id + "&start=" + s + "&end=" + e + "&class=" + a + "&grade=" + c + "&book=" + eCookie + "&date=" + date,
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
                 }
+            })
+        });
+
+        function getSelectsFromPicker(timePicker) {
+            const [hour, minute] = timePicker.querySelectorAll(".time-picker__select");
+
+            return {
+                hour,
+                minute
+            };
+        }
+
+        function getTimeStringFromPicker(timePicker) {
+            const selects = getSelectsFromPicker(timePicker);
+
+            return `${selects.hour.value}:${selects.minute.value}`;
+        }
+
+        function numberToOption(number) {
+            const padded = number.toString().padStart(2, "0");
+
+            return `<option value="${padded}">${padded}</option>`;
+        }
+
+        const hourOptions = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17].map(numberToOption);
+        const minuteOptions = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(numberToOption);
+
+        function getTimePartsFromPickable(timePickable) {
+            const pattern = /^(\d+):(\d+)/;
+            const [hour, minute] = Array.from(timePickable.value.match(pattern)).splice(1);
+
+            return {
+                hour,
+                minute
+            };
+        }
+
+        function updateBookButton() {
+            var select = document.getElementById('s.hora.inicio');
+            const time0 = getTimePartsFromPickable(select);
+
+            var select2 = document.getElementById('s.hora.final');
+            const time1 = getTimePartsFromPickable(select2);
+
+            var button = document.getElementById('submit');
+            var disableButton = false;
+            if (time0.hour === time1.hour && time0.minute === time1.minute) {
+                disableButton = true;
+            } else {
+                if (time0.hour === time1.hour && time0.minute > time1.minute) {
+                    disableButton = true;
+                } else if (time0.hour > time1.hour) {
+                    disableButton = true;
+                }
+            }
+            button.disabled = disableButton;
+        }
+
+        $(".time-picker").each(function() {
+            const timePickable = this.previousSibling.previousSibling;
+            this.classList.add("time-picker");
+            this.innerHTML = `
+        <select class="time-picker__select">
+			${hourOptions.join("")}
+		</select>
+		:
+		<select class="time-picker__select">
+			${minuteOptions.join("")}
+		</select>`;
+
+            const selects = getSelectsFromPicker(this);
+            selects.hour.addEventListener("change", e => {
+                timePickable.value = getTimeStringFromPicker(this);
+                updateBookButton();
             });
+            selects.minute.addEventListener("change", e => {
+                timePickable.value = getTimeStringFromPicker(this);
+                updateBookButton();
+            });
+
+            if (timePickable.value) {
+                const {
+                    hour,
+                    minute
+                } = getTimePartsFromPickable(timePickable);
+
+                selects.hour.value = hour;
+                selects.minute.value = minute;
+            }
         });
     </script>
 </body>
