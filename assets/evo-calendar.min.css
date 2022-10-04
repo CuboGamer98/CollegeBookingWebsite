@@ -251,7 +251,8 @@ tr.calendar-body .calendar-day .day.calendar-active:hover {
 }
 tr.calendar-body .calendar-day .day.calendar-today {
   color: #fff;
-  background-color: #8773c1;
+  border-color: #bda5ff;
+  background-color: #bda5ff;
 }
 tr.calendar-body .calendar-day .day.calendar-today:hover {
   color: #fff;
