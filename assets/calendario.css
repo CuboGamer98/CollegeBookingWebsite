@@ -137,7 +137,9 @@ select {
   padding: 10px;
   width: 60px;
   height: 60px;
-  float: left;
+  transform: translate(0, -50%);
+  top: 50%;
+  aspect-ratio: 1/1;
 }
 
 .addevent-button-icon::before {
@@ -209,7 +211,6 @@ select {
   font-weight: 600;
 }
 
-
 .return-button {
   display: flex;
   width: 100%;
@@ -220,6 +221,7 @@ select {
   border-style: none;
   background-color: #755eb5;
   height: 10vh;
+  border-radius: unset;
   transition: all 0.3s ease, transform 0.5s ease, -webkit-transform 0.5s
 }
 
@@ -282,8 +284,13 @@ select {
 button {
   position: absolute;
   z-index: 2;
-  width: 10vh;
+  width: 5vh;
   aspect-ratio: 1 / 1;
+  font-size: 4vh;
+  font-weight: bold;
+  background-color: #bda5ff;
+  border-color: rgba(255, 255, 255, 0);
+  border-radius: 100vh;
 }
 
 .b0 {

@@ -276,7 +276,7 @@ tr.calendar-body .calendar-day .day[disabled] {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
   overflow-y: overlay;
-  z-index: 0;
+  z-index: 2;
 }
 .calendar-events::-webkit-scrollbar {
   width: 5px;
