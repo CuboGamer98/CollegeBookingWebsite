@@ -706,14 +706,9 @@ button.icon-button > span.chevron-arrow-right {
     width: 100%;
   }
   .sidebar-hide .calendar-sidebar {
-    height: 43px;
-  }
-  .sidebar-hide .calendar-sidebar {
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
-    -webkit-box-shadow: none;
-    box-shadow: none;
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
   }
   .calendar-sidebar > .calendar-year {
     position: relative;
@@ -738,18 +733,13 @@ button.icon-button > span.chevron-arrow-right {
   .calendar-sidebar > .month-list {
     position: relative;
     width: 100%;
-    height: calc(100% - 43px);
+    height: calc(100% - 20vh);
     overflow-y: auto;
     background-color: #8773c1;
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
     z-index: -1;
-  }
-  .sidebar-hide .calendar-sidebar > .month-list {
-    -webkit-transform: translateY(-100%);
-    -ms-transform: translateY(-100%);
-    transform: translateY(-100%);
   }
   .calendar-sidebar > .month-list > .calendar-months {
     position: absolute;
@@ -867,11 +857,13 @@ button.icon-button > span.chevron-arrow-right {
     z-index: 0;
   }
   .event-hide .calendar-events {
-    -webkit-transform: translateX(0);
-    -ms-transform: translateX(0);
-    transform: translateX(0);
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
     padding: 0 15px;
-    height: 0;
+    position: absolute;
+    z-index: 2;
+    height: -webkit-fill-available;
   }
   .calendar-events > .event-header > p {
     font-size: 20px;

@@ -249,8 +249,8 @@ function changeOption($conn, $option, $value) {
     exit();
 }
 
-function canRegister($conn) {
-    $sql = "SELECT paramValue FROM params WHERE paramName='canRegister';";
+function getConfiguration($conn, $name) {
+    $sql = "SELECT paramValue FROM params WHERE paramName=?;";
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -258,6 +258,7 @@ function canRegister($conn) {
         exit();
     }
 
+    mysqli_stmt_bind_param($stmt, "s", $name);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     mysqli_stmt_close($stmt);
@@ -268,14 +269,35 @@ function canRegister($conn) {
     }
 
     if ($row = mysqli_fetch_assoc($result)) {
-        return $row;
+        return $row["paramValue"];
     }
     return false;
+}
+
+function canRegister($conn) {
+    return getConfiguration($conn, "canRegister");
+}
+
+function autoBook($conn) {
+    return getConfiguration($conn, "autoBook");
 }
 
 function getBookings($conn, $bool) {
     $myArray = array();
     $result = getDataFromTable($conn, "bookings");
+    while ($row = $result->fetch_assoc()) {
+        $myArray[] = $row;
+    }
+    if ($bool !== true) {
+        echo json_encode($myArray);
+        exit();
+    }
+    return $myArray;
+}
+
+function getAutoBook($conn, $bool) {
+    $myArray = array();
+    $result = getDataFromTable($conn, "autobooks");
     while ($row = $result->fetch_assoc()) {
         $myArray[] = $row;
     }
@@ -325,5 +347,45 @@ function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $da
     mysqli_stmt_close($stmt);
 
     echo "calendario.php?error=bookingcompleted";
+    exit();
+}
+
+function addAutoBook($conn, $email, $weekday, $start, $end, $class, $grade, $book) {
+    $result = emailExists($conn, "", $email);
+    if ($result === false) {
+        header("admin_panel.php?error=userdonesntexists");
+        exit();
+    }
+
+    $sql = "INSERT INTO autobooks (weekday, start, end, book, class, grade, email) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("admin_panel.php?error=erroraccepting");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "sssssss", $weekday, $start, $end, $book, $class, $grade, $email);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("admin_panel.php?error=addedautobook");
+    exit();
+}
+
+function removeAutoBook($conn, $email, $weekday, $start, $end, $class, $grade, $book) {
+    $sql = "DELETE FROM autobooks WHERE weekday=? AND start=? AND end=? AND book=? AND class=? AND grade=? AND email=?;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        echo "admin_panel.php?error=erroraccepting";
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "sssssss", $weekday, $start, $end, $book, $class, $grade, $email);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    echo "admin_panel.php?error=removedautobook";
     exit();
 }

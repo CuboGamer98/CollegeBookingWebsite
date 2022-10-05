@@ -4,16 +4,20 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: auto;
-    height: 75%;
+    height: 90%;
     display: flex;
     flex-direction: column;
 }
 
 .sub-table {
-    height: 45%;
-    overflow-y: auto;
+    max-height: 50%;
     background-color: white;
     border-radius: 1.5vh;
+}
+
+.sub-table-scroll {
+    overflow-y: auto;
+    height: 100%;
 }
 
 table {
@@ -41,11 +45,34 @@ button {
     overflow-y: auto;
     background-color: white;
     border-radius: 1.5vh;
-    min-height: 7%;
+    min-height: 20%;
+    font-size: 2.5vh;
 }
 
 .option {
     display: flex;
     flex-basis: 0;
-    margin: 0 2vh 0 2vh;
+    margin: 1vh 2vh 1vh 2vh;
+    flex-direction: row;
+    justify-content: flex-start;
 }
+
+.tittle-autobook {
+    display: flex;
+}
+
+.tittle-autobook>button {
+    margin: 1.5vh;
+    position: absolute;
+    right: 0;
+    width: 20vh;
+}
+
+input.text {
+    width: 10vh;
+}
+
+p {
+    margin: 0;
+}
+

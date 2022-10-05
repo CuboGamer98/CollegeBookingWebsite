@@ -73,7 +73,7 @@ section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-gap: 10vh;
-  justify-content: center;
+  justify-items: center;
 }
 
 h3 {
@@ -85,12 +85,13 @@ h3 {
 .title {
   left: 50%;
   transform: translate(-50%, -300%);
-  position: absolute;
+  position: relative;
   font-size: 4vh;
+  text-align: center;
 }
 
 #credits {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   font-size: 1.5vh;
@@ -110,6 +111,7 @@ ul {
   margin-left: -10vh;
   overflow: hidden;
   padding: 0.5vh 1.5vh 0 1.5vh;
+  z-index: 3;
 
   grid-row: 2;
 }
