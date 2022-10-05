@@ -278,10 +278,6 @@ function canRegister($conn) {
     return getConfiguration($conn, "canRegister");
 }
 
-function autoBook($conn) {
-    return getConfiguration($conn, "autoBook");
-}
-
 function getBookings($conn, $bool) {
     $myArray = array();
     $result = getDataFromTable($conn, "bookings");
@@ -315,23 +311,61 @@ function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $da
         exit();
     }
 
-    $start0 = intval(str_replace(":", "", $start));
-    $end0 = intval(str_replace(":", "", $end));
+    $array = array();
+    $start0 = explode(":",$start);
+    $end0 = explode(":",$end);
     $old_records = getBookings($conn, true);
     for ($i = 0; $i < count($old_records); $i++) {
         $d = $old_records[$i];
         if (array_key_exists("date", $d)) {
             if ($d["date"] === $date) {
                 if ($d["book"] === $book) {
-                    $start2 = intval(str_replace(":", "", $d["start"]));
-                    $end2 = intval(str_replace(":", "", $d["end"]));
-                    if (($start0 <= $start2 && $end0 >= $end2) || ($start0 == $start2 && $end0 == $end2)) {
-                        echo "calendario.php?error=hoursbussy";
-                        exit();
+                    $start1 = explode(":",$d["start"]);
+                    $end1 = explode(":",$d["end"]);
+
+                    $hour = intval($start1[0]);
+                    $minute = intval($start1[1]);
+                    $done = false;
+                    while ($done===false) {
+                        $minute += 5;
+                        if ($minute === 60) {
+                            $minute = 0;
+                            $hour += 1;
+                        }
+                        array_push($array, $hour.":".$minute);
+
+                        if ($hour == intval($end1[0]) && $minute == intval($end1[1])) {
+                            $done = true;
+                        }
                     }
                 }
             }
         }
+    }
+
+    $hour = intval($start0[0]);
+    $minute = intval($start0[1]);
+    $error = false;
+    $done = false;
+    while ($done===false) {
+        $minute += 5;
+        if ($minute === 60) {
+            $minute = 0;
+            $hour += 1;
+        }
+        if (in_array($hour.":".$minute, $array)) {
+            $done = true;
+            $error = true;
+        }
+
+        if ($hour == intval($end0[0]) && $minute == intval($end0[1])) {
+            $done = true;
+        }
+    }
+
+    if ($error === true) {
+        echo "calendario.php?error=hoursbussy";
+        exit();
     }
 
     $sql = "INSERT INTO bookings (id, start, end, name, class, grade, book, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";

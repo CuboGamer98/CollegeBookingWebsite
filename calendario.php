@@ -57,14 +57,16 @@
                 success: function(data, textStatus, jqXHR) {
                     const jsondata = JSON.parse(data);
                     for (let i = 0; i <= jsondata.length - 1; i++) {
-                        $('#calendar').evoCalendar('addCalendarEvent', {
-                            id: jsondata[i]["id"],
-                            name: "De " + jsondata[i]["start"] + " Hasta " + jsondata[i]["end"],
-                            description: jsondata[i].name + " | " + jsondata[i].class + " " +
-                                jsondata[i].grade + " | " + capitalize(jsondata[i].book),
-                            date: jsondata[i].date,
-                            type: 'event'
-                        });
+                        if (cookie == jsondata[i].book) {
+                            $('#calendar').evoCalendar('addCalendarEvent', {
+                                id: jsondata[i]["id"],
+                                name: "De " + jsondata[i]["start"] + " Hasta " + jsondata[i]["end"],
+                                description: jsondata[i].name + " | " + jsondata[i].class + " " +
+                                    jsondata[i].grade + " | " + capitalize(jsondata[i].book),
+                                date: jsondata[i].date,
+                                type: 'event'
+                            });
+                        }
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
