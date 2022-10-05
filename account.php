@@ -36,7 +36,7 @@ if ($filename === "admin_panel") {
                         $text = "Página principal";
                         $url = "index.php";
                     }
-                    echo '<a href="'.$url.'">'.$text.'</a>';
+                    echo '<a href="' . $url . '">' . $text . '</a>';
                     unset($text);
                     unset($url);
                     unset($filename);

@@ -66,18 +66,8 @@
                 console.log(errorThrown);
             }
         });
-
         $(document).ready(function() {
             $("#calendar").evoCalendar({});
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const back = urlParams.get('back')
-            if (back == 1) {
-                let cookie = setCookie('date');
-                if (cookie != "") {
-                    $('#calendar').evoCalendar('selectDate', cookie);
-                }
-            }
         });
     </script>
     <div id="myModal" class="modal">
@@ -102,18 +92,14 @@
             </div>
             <p class="red">*Rellena todos los campos</p>
             <input type="submit" value="Reserva" id="submit" class="submit" />
-            <p class="error"><?php echo @$error ?></p>
-            <p class="succes"><?php echo @$succes ?></p>
         </div>
     </div>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const back = urlParams.get('back')
-        if (back == 1) {
-            document.getElementById("myModal").style.display = "block"
-        }
+    <div id="message" class="message">
+        <p>Error</p>
+    </div>
 
+    <script>
         let eCookie = false
         let dCookie = false
         getCookie("election", false, function(cookie) {
@@ -193,16 +179,25 @@
             var c = document.getElementById("clase-select");
             var s = document.getElementById("s.hora.inicio").value;
             var e = document.getElementById("s.hora.final").value;
-            a = a.options[a.selectedIndex].innerHTML;
-            c = c.options[c.selectedIndex].innerHTML;
 
             getCookie("date", false, function(date) {
                 if (date !== false) {
+                    setCookie("start", s);
+                    setCookie("end", e);
+                    setCookie("class", a.selectedIndex);
+                    setCookie("grade", c.selectedIndex);
+
+                    a = a.options[a.selectedIndex].innerHTML;
+                    c = c.options[c.selectedIndex].innerHTML;
                     var id = s + e + date + eCookie;
+
                     $.ajax({
                         type: 'POST',
                         url: 'includes/bookings.inc.php',
                         data: "action=book&id=" + id + "&start=" + s + "&end=" + e + "&class=" + a + "&grade=" + c + "&book=" + eCookie + "&date=" + date,
+                        success: function(data, textStatus, jqXHR) {
+                            window.location.href = data;
+                        },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.log(errorThrown);
                         }
@@ -297,6 +292,62 @@
                 selects.hour.value = hour;
                 selects.minute.value = minute;
             }
+
+            $(document).ready(function() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const back = urlParams.get('error')
+                if (back !== null) {
+                    getCookie("date", false, function(cookie) {
+                        if (cookie != false) {
+                            $('#calendar').evoCalendar('selectDate', cookie);
+                        }
+                    })
+
+                    const msg = document.getElementById("message");
+                    msg.style.display = "block";
+                    const p = msg.firstElementChild;
+                    if (back == "bookingcompleted") {
+                        p.innerHTML = "👌La reserva se hizo exitosamente."
+                    } else {
+                        p.innerHTML = "❌Error al tratar de hacer la reserva."
+                        p.style.backgroundColor = "rgb(255, 143, 143)";
+
+                        document.getElementById("myModal").style.display = "block"
+                        getCookie("start", false, function(cookie) {
+                            if (cookie != false) {
+                                document.getElementById("s.hora.inicio").value = cookie;
+                            }
+                        })
+                        getCookie("end", false, function(cookie) {
+                            if (cookie != false) {
+                                document.getElementById("s.hora.final").value = cookie;
+                            }
+                        })
+                        getCookie("class", false, function(cookie) {
+                            if (cookie != false) {
+                                document.getElementById("asignaturas").selectedIndex = cookie;
+                            }
+                        })
+                        getCookie("grade", false, function(cookie) {
+                            if (cookie != false) {
+                                document.getElementById("clase-select").selectedIndex = cookie;
+                            }
+                        })
+                    }
+
+                    function fadeOut() {
+                        $(".fadeout").fadeToggle(500, "swing", function() {
+                            this.remove();
+                        });
+                    }
+
+                    setTimeout(function() {
+                        $(".message").fadeToggle(500, "swing", function() {
+                            this.remove();
+                        });
+                    }, 3000);
+                }
+            });
         });
     </script>
 </body>

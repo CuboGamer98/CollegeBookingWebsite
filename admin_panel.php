@@ -66,6 +66,24 @@
         ?>
       </table>
     </div>
+    <h2>Opciones de registro</h2>
+    <div class="options">
+      <div class="option">
+        <p>Pueden registrarse nuevos usuarios</p>
+        <?php
+        require_once "includes/dbh.inc.php";
+        require_once "includes/functions.inc.php";
+
+        $checked = "";
+        if (canRegister($conn)["paramValue"] === "1") {
+          $checked = "Checked";
+        }
+
+        echo '<input class="checkbox" type="checkbox" value="canRegister" '.$checked.'>';
+        ?>
+      </div>
+    </div>
+
     <script>
       $('button').click(e => {
         $.ajax({
@@ -84,18 +102,33 @@
 
       $('.checkbox').each(function() {
         this.addEventListener("change", e => {
-          $.ajax({
-            type: 'POST',
-            url: 'includes/button_functions.inc.php',
-            data: "action=" + e.target.value + "&email=" + e.target.parentNode.parentNode.getElementsByTagName("th")[2].innerHTML + "&value=" + e.target.checked,
-            success: function(data, textStatus, jqXHR) {
-              location.reload();
-              console.log(data);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-              console.log(errorThrown);
-            }
-          });
+          if (this.parentElement.tagName.toLowerCase() == "th") {
+            $.ajax({
+              type: 'POST',
+              url: 'includes/button_functions.inc.php',
+              data: "action=" + e.target.value + "&email=" + e.target.parentNode.parentNode.getElementsByTagName("th")[2].innerHTML + "&value=" + e.target.checked,
+              success: function(data, textStatus, jqXHR) {
+                location.reload();
+                console.log(data);
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+              }
+            });
+          } else {
+            $.ajax({
+              type: 'POST',
+              url: 'includes/button_functions.inc.php',
+              data: "action=options&option=" + this.value + "&value=" + e.target.checked,
+              success: function(data, textStatus, jqXHR) {
+                location.reload();
+                console.log(data);
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+              }
+            });
+          }
         });
       });
     </script>

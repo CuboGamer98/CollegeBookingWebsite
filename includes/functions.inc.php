@@ -19,7 +19,7 @@ function pwdMatch($pwd, $pwdrepeat) {
 }
 
 function emailExists($conn, $name, $email, $db = "users") {
-    $sql = "SELECT * FROM ".$db." WHERE usersName = ? OR usersEmail = ?;";
+    $sql = "SELECT * FROM " . $db . " WHERE usersName = ? OR usersEmail = ?;";
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -35,7 +35,7 @@ function emailExists($conn, $name, $email, $db = "users") {
     if ($row = mysqli_fetch_assoc($resultData)) {
         return $row;
     }
-    
+
     return false;
 
     mysqli_stmt_close($stmt);
@@ -105,7 +105,7 @@ function getIsAdmin($conn, $email) {
 }
 
 function getDataFromTable($conn, $table) {
-    $sql = "SELECT * FROM ".$table;
+    $sql = "SELECT * FROM " . $table;
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -115,6 +115,7 @@ function getDataFromTable($conn, $table) {
 
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
 
     if ($result === false) {
         header("location: ../index.php?error=noresult");
@@ -127,7 +128,7 @@ function getDataFromTable($conn, $table) {
 function getPendingUsers($conn) {
     $result = getDataFromTable($conn, "pending_users");
     $return = array();
-    while ($row = $result -> fetch_row()) {
+    while ($row = $result->fetch_row()) {
         array_push($return, array($row[0], $row[1], $row[2]));
     }
 
@@ -137,7 +138,7 @@ function getPendingUsers($conn) {
 function getUsers($conn) {
     $result = getDataFromTable($conn, "users");
     $return = array();
-    while ($row = $result -> fetch_row()) {
+    while ($row = $result->fetch_row()) {
         $state = false;
         if ($row[4] === 1) {
             $state = true;
@@ -220,7 +221,7 @@ function setAdmin($conn, $email, $value) {
         header("location: ../admin_panel.php?error=erroraccepting");
         exit();
     }
-    
+
     $isAdminVar = (int)filter_var($value, FILTER_VALIDATE_BOOLEAN);
     mysqli_stmt_bind_param($stmt, "is", $isAdminVar, $email);
     mysqli_stmt_execute($stmt);
@@ -230,18 +231,92 @@ function setAdmin($conn, $email, $value) {
     exit();
 }
 
+function changeOption($conn, $option, $value) {
+    $sql = "UPDATE params SET paramValue=? WHERE paramName=?;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../admin_panel.php?error=erroraccepting");
+        exit();
+    }
+
+    $value = (int)filter_var($value, FILTER_VALIDATE_BOOLEAN);
+    mysqli_stmt_bind_param($stmt, "is", $value, $option);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../signup.php?error=changedregisterpermission");
+    exit();
+}
+
+function canRegister($conn) {
+    $sql = "SELECT paramValue FROM params WHERE paramName='canRegister';";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../admin_panel.php?error=erroraccepting");
+        exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+
+    if ($result === false) {
+        header("location: ../signup.php?error=errorgettingpermission");
+        exit();
+    }
+
+    if ($row = mysqli_fetch_assoc($result)) {
+        return $row;
+    }
+    return false;
+}
+
+function getBookings($conn, $bool) {
+    $myArray = array();
+    $result = getDataFromTable($conn, "bookings");
+    while ($row = $result->fetch_assoc()) {
+        $myArray[] = $row;
+    }
+    if ($bool !== true) {
+        echo json_encode($myArray);
+        exit();
+    }
+    return $myArray;
+}
+
 function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $date) {
     $result = emailExists($conn, "", $email);
     if ($result === false) {
-        header("location: ../calendario.php?error=userdonesntexists");
+        echo "calendario.php?error=userdonesntexists";
         exit();
+    }
+
+    $start0 = intval(str_replace(":", "", $start));
+    $end0 = intval(str_replace(":", "", $end));
+    $old_records = getBookings($conn, true);
+    for ($i = 0; $i < count($old_records); $i++) {
+        $d = $old_records[$i];
+        if (array_key_exists("date", $d)) {
+            if ($d["date"] === $date) {
+                if ($d["book"] === $book) {
+                    $start2 = intval(str_replace(":", "", $d["start"]));
+                    $end2 = intval(str_replace(":", "", $d["end"]));
+                    if (($start0 <= $start2 && $end0 >= $end2) || ($start0 == $start2 && $end0 == $end2)) {
+                        echo "calendario.php?error=hoursbussy";
+                        exit();
+                    }
+                }
+            }
+        }
     }
 
     $sql = "INSERT INTO bookings (id, start, end, name, class, grade, book, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../calendario.php?error=erroraccepting");
+        echo "calendario.php?error=erroraccepting";
         exit();
     }
 
@@ -249,15 +324,6 @@ function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $da
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../calendario.php?error=bookingcompleted");
+    echo "calendario.php?error=bookingcompleted";
     exit();
-}
-
-function getBookings($conn) {
-    $myArray = array();
-    $result = getDataFromTable($conn, "bookings");
-    while($row = $result->fetch_assoc()) {
-        $myArray[] = $row;
-    }
-    echo json_encode($myArray);
 }

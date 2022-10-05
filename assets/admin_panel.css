@@ -34,3 +34,18 @@ h2 {
 button {
     font-size: 2vh;
 }
+
+.options {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 1.5vh;
+    min-height: 7%;
+}
+
+.option {
+    display: flex;
+    flex-basis: 0;
+    margin: 0 2vh 0 2vh;
+}

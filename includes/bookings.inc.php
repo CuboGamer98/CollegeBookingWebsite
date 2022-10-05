@@ -13,13 +13,13 @@ if (isset($_POST['action'])) {
 function getbooks() {
     require_once "dbh.inc.php";
     require_once "functions.inc.php";
-    getBookings($conn);
+    getBookings($conn, false);
 }
 
 function book($id, $start, $end, $class, $grade, $book, $date) {
     session_start();
     if (isset($_SESSION["useremail"]) === null) {
-        header("location: logout.inc.php");
+        echo "includes/logout.inc.php";
         exit();
     }
     require_once "dbh.inc.php";

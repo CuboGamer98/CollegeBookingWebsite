@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -20,20 +21,18 @@
 }
 
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 10vh; /* Location of the box */
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 10vh;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* Modal Content */
 .modal-content {
   background-color: #fefefe;
   margin: auto;
@@ -74,6 +73,7 @@
   column-gap: 10px;
   font-size: 2vh;
 }
+
 .container-rows-f,
 .container-rows-s {
   width: 90%;
@@ -100,8 +100,9 @@ input.submit {
   padding: 0.5vh;
   display: inline-block;
 }
+
 input.submit:hover,
-input.submit:focus{
+input.submit:focus {
   cursor: pointer;
   background-color: #6c72bf;
 }
@@ -137,6 +138,7 @@ select {
   height: 60px;
   float: left;
 }
+
 .addevent-button-icon::before {
   left: 24px;
 }
@@ -162,37 +164,44 @@ select {
   background-color: white;
   box-shadow: 0 1px 8px -4px rgb(0 0 0 / 65%);
 }
+
 .addevent-button:last-child.addevent-button::before {
   height: 30px;
   transform: translate(29px, 0);
 }
+
 .addevent-button:only-child.addevent-button::before {
   height: 0;
   opacity: 0;
 }
+
 .addevent-button:hover {
   background-color: #fff;
   -webkit-box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.65);
   box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.65);
 }
-.addevent-button > .event-icon {
+
+.addevent-button>.event-icon {
   position: relative;
   padding: 20px;
   width: 60px;
   height: 60px;
   float: left;
 }
-.addevent-button > .event-info {
+
+.addevent-button>.event-info {
   align-self: center;
   width: calc(100% - 60px);
   display: inline-block;
   padding: 10px 10px 10px 0;
 }
-.addevent-button > .event-info > p {
+
+.addevent-button>.event-info>p {
   margin: 0;
   color: #5a5a5a;
 }
-.addevent-button > .event-info > p.event-title {
+
+.addevent-button>.event-info>p.event-title {
   position: relative;
   font-size: 22px;
   font-weight: 600;
@@ -200,38 +209,44 @@ select {
 
 
 .return-button {
-    display: flex;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    cursor: pointer;
-    float: left;
-    border-style: none;
-    background-color: #755eb5;
-    transition: all 0.3s ease, transform 0.5s ease, -webkit-transform 0.5s
+  display: flex;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  cursor: pointer;
+  float: left;
+  border-style: none;
+  background-color: #755eb5;
+  transition: all 0.3s ease, transform 0.5s ease, -webkit-transform 0.5s
 }
+
 .return-button:last-child.return-button::before {
   height: 30px;
   transform: translate(29px, 0);
 }
+
 .return-button:only-child.return-button::before {
   height: 0;
   opacity: 0;
 }
+
 .return-button:hover {
   background: #bba4ff;
 }
-.return-button > .event-info {
+
+.return-button>.event-info {
   align-self: center;
   width: 100%;
   display: inline-block;
   padding: 10px 10px 10px 0;
 }
-.return-button > .event-info > p {
+
+.return-button>.event-info>p {
   margin: 0;
   color: #fff;
 }
-.return-button > .event-info > p.event-title {
+
+.return-button>.event-info>p.event-title {
   position: relative;
   font-size: 15px;
   font-weight: 600;
@@ -239,4 +254,24 @@ select {
 
 .time-picker {
   display: flex;
+}
+
+.message {
+  display: none;
+  position: fixed;
+  top: 5%;
+  left: 50%;
+  z-index: 2;
+  width: fit-content;
+  transform: translate(-50%, 50%);
+}
+
+.message>p {
+  margin: auto;
+  padding: 2vh;
+  font-size: 3vh;
+  text-align: center;
+  border-radius: 1vh;
+  background-color: rgb(179 255 158);
+  --background-color: rgb(255, 143, 143);
 }
