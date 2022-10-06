@@ -446,7 +446,7 @@ function getWeekDays($y, $month, $weekday) {
     return $days;
 }
 
-function makeBookInMass($conn, $month) {
+function makeBookInMass($conn, $month, $y) {
     $weekdayConvert = array(
         "Lunes" => "monday",
         "Martes" => "tuesday",
@@ -472,22 +472,37 @@ function makeBookInMass($conn, $month) {
         "Diciembre" => "december",
     );
 
-    $y = date("Y");
+    $errorsinbooking = 0;
     $intmonth = date("m", strtotime($monthConvert[$month] . "-" . $y));
     foreach (getAutoBook($conn, true) as $book) {
         foreach (getWeekDays($y, $monthConvert[$month], $weekdayConvert[$book["weekday"]]) as $day) {
             $date = strtotime($day);
             if (date('m', $date) === $intmonth) {
+                ob_start();
+echo ob_get_contents();
+
                 $date = date('m/d/Y', $date);
                 $start = $book["start"];
                 $end = $book["end"];
                 $booking = $book["book"];
                 try {
                     addBooking($conn, $book["email"], $start.$end.$date.$booking, $start, $end, $book["class"], $book["grade"], $booking, $date);
-                } catch (Exception $e) {
-                    echo $e;
-                };
+                } catch (Exception $e) {};
+
+                $str = ob_get_contents();
+                if ($str !== "calendario.php?error=bookingcompleted") {
+                    $errorsinbooking += 1;
+                }
+
+                ob_end_flush();
             }
         }
     }
+
+    if ($errorsinbooking !== 0) {
+        header("admin_panel.php?error=errorwhilebooking");
+        exit();
+    }
+    header("admin_panel.php?error=massbookingcompleted");
+    exit();
 }

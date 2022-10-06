@@ -16,26 +16,21 @@
     ?>
     <div class="main-table">
         <div class="inside-main-table">
-            <h2>Pendientes por revisión</h2>
-            <div class="sub-table">
-                <div class="sub-table-scroll">
-                    <table class="pusers">
-                        <tr>
-                            <th>Id de usuario</th>
-                            <th>Nombre de usuario</th>
-                            <th>Email de usuario</th>
-                            <th>Acciones</th>
-                        </tr>
-                        <?php
-                        require_once "includes/dbh.inc.php";
-                        require_once "includes/functions.inc.php";
+            <h2>Opciones</h2>
+            <div class="options">
+                <div class="option">
+                    <p>Pueden registrarse nuevos usuarios</p>
+                    <?php
+                    require_once "includes/dbh.inc.php";
+                    require_once "includes/functions.inc.php";
 
-                        $pending_users = getPendingUsers($conn);
-                        foreach ($pending_users as &$user) {
-                            echo "<tr><th>" . $user[0] . "</th><th>" . $user[1] . "</th><th>" . $user[2] . "</th><th><button name='accept' value='accept'>Aceptar</button></th></tr>";
-                        }
-                        ?>
-                    </table>
+                    $checked = "";
+                    if (canRegister($conn) === "1") {
+                        $checked = "Checked";
+                    }
+
+                    echo '<input class="checkbox" type="checkbox" value="canRegister" ' . $checked . '>';
+                    ?>
                 </div>
             </div>
             <h2>Cuentas activas</h2>
@@ -71,8 +66,59 @@
                     </table>
                 </div>
             </div>
+            <h2>Pendientes por revisión</h2>
+            <div class="sub-table">
+                <div class="sub-table-scroll">
+                    <table class="pusers">
+                        <tr>
+                            <th>Id de usuario</th>
+                            <th>Nombre de usuario</th>
+                            <th>Email de usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                        <?php
+                        require_once "includes/dbh.inc.php";
+                        require_once "includes/functions.inc.php";
+
+                        $pending_users = getPendingUsers($conn);
+                        foreach ($pending_users as &$user) {
+                            echo "<tr><th>" . $user[0] . "</th><th>" . $user[1] . "</th><th>" . $user[2] . "</th><th><button name='accept' value='accept'>Aceptar</button></th></tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
+            </div>
+            <h2>Reservas</h2>
+            <div class="sub-table">
+                <div class="sub-table-scroll">
+                    <table class="pusers">
+                        <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <th>Empieza a</th>
+                                <th>Termina a</th>
+                                <th>Profesor</th>
+                                <th>Asignatura</th>
+                                <th>Curso</th>
+                                <th>Reserva</th>
+                                <th>Dia</th>
+                                <th>Acciones</th>
+                            </tr>
+                        <?php
+                        require_once "includes/dbh.inc.php";
+                        require_once "includes/functions.inc.php";
+
+                        $bookings = getBookings($conn, true);
+                        foreach ($bookings as &$booking) {
+                            echo "<tr><th>" . $booking["id"] . "</th><th>" . $booking["start"] . "</th><th>" . $booking["end"] . "</th><th>" . $booking["name"] . "</th><th>" . $booking["class"] . "</th><th>" . $booking["grade"] . "</th><th>" . $booking["book"] . "</th><th>" . $booking["date"] . "</th><th><button name='accept' id='removebooking'>Eliminar</button></th></tr>";
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="tittle-autobook">
-                <h2>Reservas en masa</h2><button id="addautobook">Añadir reserva a un dia de la semana</button>
+                <h2 class="text">Reservas en masa</h2><button id="addautobook">Añadir reserva a un dia de la semana</button>
             </div>
             <div class="sub-table">
                 <div class="sub-table-scroll">
@@ -84,7 +130,7 @@
                             <th>Termina a</th>
                             <th>Reserva</th>
                             <th>Asignatura</th>
-                            <th>Clase</th>
+                            <th>Curso</th>
                             <th>Acciones</th>
                         </tr>
                         <tr id="addnewautobook" style="display: none;">
@@ -175,25 +221,16 @@
                             <option value="None">Noviembre</option>
                             <option value="None">Diciembre</option>
                         </select>
+                        <select id="year" name="clase" class="year-select">
+                            <option value="None" disabled="">-- Selecciona --</option>
+                        <?php
+                            $y = date("Y");
+                            echo '<option value="None">' . $y . '</option>';
+                            echo '<option value="None">' . ($y + 1) . '</option>';
+                        ?>
+                        </select>
                         <button name="Hacer" value="save" id="makeautobook" class="interaction">Aceptar</button>
                     </div>
-                </div>
-            </div>
-            <h2>Opciones</h2>
-            <div class="options">
-                <div class="option">
-                    <p>Pueden registrarse nuevos usuarios</p>
-                    <?php
-                    require_once "includes/dbh.inc.php";
-                    require_once "includes/functions.inc.php";
-
-                    $checked = "";
-                    if (canRegister($conn) === "1") {
-                        $checked = "Checked";
-                    }
-
-                    echo '<input class="checkbox" type="checkbox" value="canRegister" ' . $checked . '>';
-                    ?>
                 </div>
             </div>
         </div>
@@ -314,10 +351,25 @@
                     });
                 } else if (e.target.id == "makeautobook") {
                     $month = document.getElementById("month");
+                    $year = document.getElementById("year");
                     $.ajax({
                         type: 'POST',
                         url: 'includes/button_functions.inc.php',
-                        data: "action=makeautobook&month=" + $month.options[$month.selectedIndex].innerHTML,
+                        data: "action=makeautobook&month=" + $month.options[$month.selectedIndex].innerHTML + "&year=" + $year.options[$year.selectedIndex].innerHTML,
+                        success: function(data, textStatus, jqXHR) {
+                            //location.reload();
+                            console.log(data);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+                } else if (e.target.id == "removebooking") {
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'includes/button_functions.inc.php',
+                        data: "action=removebooking",
                         success: function(data, textStatus, jqXHR) {
                             //location.reload();
                             console.log(data);

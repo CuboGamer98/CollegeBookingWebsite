@@ -22,6 +22,6 @@ if (isset($_POST['action'])) {
             removeAutoBook($conn, $_POST['email'], $_POST['weekday'], $_POST['start'], $_POST['end'], $_POST['class'], $_POST['grade'], $_POST['book']);
             break;
         case 'makeautobook':
-            makeBookInMass($conn, $_POST['month']);
+            makeBookInMass($conn, $_POST['month'], $_POST['year']);
     }
 }

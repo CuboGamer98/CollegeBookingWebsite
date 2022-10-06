@@ -39,6 +39,10 @@ h2 {
     font-size: 2.5vh;
 }
 
+h2 > .text {
+    display: inline-block;
+}
+
 button {
     font-size: 2vh;
     border-width: 0.1vh;
@@ -66,11 +70,10 @@ button {
 }
 
 .tittle-autobook>button {
-    position: absolute;
+    position: fixed;
+    transform: translate(0, 50%);
+    height: 3vh;
     right: 0;
-    font-size: 1.75vh;
-    transform: translate(0, -100%);
-    top: 50%;
 }
 
 input.text {

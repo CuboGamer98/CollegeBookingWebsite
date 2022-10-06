@@ -1,19 +1,17 @@
 <?php
 include_once "header.php";
 session_start();
-
-require_once "includes/dbh.inc.php";
-require_once "includes/functions.inc.php";
-if (canRegister($conn)["paramValue"] === "0") {
-  header("location: login.php");
-  exit();
-}
 ?>
 <div class="emailpending" id="emailpending">
   <h2 id="name"> ¡Muy bien! Estás pendiende para ser aceptado. Contacta al administrador para ser aceptado. </h2>
 </div>
 
-<form action="includes/signup.inc.php" method="post">
+<div style=<?php require_once "includes/dbh.inc.php"; require_once "includes/functions.inc.php"; if (canRegister($conn) === "0") { echo 'display:block'; } else { echo 'display:none'; } ?> class="signuplock">
+    <p>
+      El registro está actualmente bloqueado, contacta con el administrador para que lo desbloquee. <a href="login.php">Si ya tiene una cuenta, haga click acá.</a>
+</p>
+</div>
+<form action="includes/signup.inc.php" method="post" style=<?php require_once "includes/dbh.inc.php"; require_once "includes/functions.inc.php"; if (canRegister($conn) === "0") { echo 'display:none'; } else { echo 'display:block'; }?>>
   <h1 class="title">Registrarse</h1>
   <div class="container-rows">
     <label id="name">Nombre: </label>

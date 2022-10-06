@@ -113,3 +113,18 @@ div.container-rows input {
 h2 {
   font-size: 2.5vh;
 }
+
+.signuplock {
+  padding: 1vh 4vh;
+  width: 75vh;
+  font-size: 2.5vh;
+
+  background-color: white;
+  transform: translate(-50%, 0) scale(1.1);
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  overflow: hidden;
+  border-radius: 1vh;
+  display: none;
+}
