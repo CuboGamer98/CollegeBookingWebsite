@@ -304,11 +304,15 @@ function getAutoBook($conn, $bool) {
     return $myArray;
 }
 
-function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $date) {
+function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $date, $return = false) {
     $result = emailExists($conn, "", $email);
     if ($result === false) {
-        echo "calendario.php?error=userdonesntexists";
-        exit();
+        if ($return == true) {
+            return "calendario.php?error=userdonesntexists";
+        } else {
+            echo "calendario.php?error=userdonesntexists";
+            exit();
+        }
     }
 
     $array = array();
@@ -364,24 +368,36 @@ function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $da
     }
 
     if ($error === true) {
-        echo "calendario.php?error=hoursbussy";
-        exit();
+        if ($return == true) {
+            return "calendario.php?error=hoursbussy";
+        } else {
+            echo "calendario.php?error=hoursbussy";
+            exit();
+        }
     }
 
     $sql = "INSERT INTO bookings (id, start, end, name, class, grade, book, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        echo "calendario.php?error=erroraccepting";
-        exit();
+        if ($return == true) {
+            return "calendario.php?error=erroraccepting";
+        } else {
+            echo "calendario.php?error=erroraccepting";
+            exit();
+        }
     }
 
     mysqli_stmt_bind_param($stmt, "ssssssss", $id, $start, $end, $result["usersName"], $class, $grade, $book, $date);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    echo "calendario.php?error=bookingcompleted";
-    exit();
+    if ($return == true) {
+        return "calendario.php?error=bookingcompleted";
+    } else {
+        echo "calendario.php?error=bookingcompleted";
+        exit();
+    }
 }
 
 function addAutoBook($conn, $email, $weekday, $start, $end, $class, $grade, $book) {
@@ -478,23 +494,18 @@ function makeBookInMass($conn, $month, $y) {
         foreach (getWeekDays($y, $monthConvert[$month], $weekdayConvert[$book["weekday"]]) as $day) {
             $date = strtotime($day);
             if (date('m', $date) === $intmonth) {
-                ob_start();
-echo ob_get_contents();
-
                 $date = date('m/d/Y', $date);
                 $start = $book["start"];
                 $end = $book["end"];
                 $booking = $book["book"];
                 try {
-                    addBooking($conn, $book["email"], $start.$end.$date.$booking, $start, $end, $book["class"], $book["grade"], $booking, $date);
-                } catch (Exception $e) {};
-
-                $str = ob_get_contents();
-                if ($str !== "calendario.php?error=bookingcompleted") {
+                    $output = addBooking($conn, $book["email"], $start . $end . $date . $booking, $start, $end, $book["class"], $book["grade"], $booking, $date, true);
+                    if ($output !== "calendario.php?error=bookingcompleted") {
+                        $errorsinbooking += 1;
+                    }
+                } catch (Exception $e) {
                     $errorsinbooking += 1;
-                }
-
-                ob_end_flush();
+                };
             }
         }
     }
