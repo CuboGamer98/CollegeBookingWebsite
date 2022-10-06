@@ -21,10 +21,10 @@
                 <div class="sub-table-scroll">
                     <table class="pusers">
                         <tr>
-                            <th>User id</th>
-                            <th>User name</th>
-                            <th>User email</th>
-                            <th>Actions</th>
+                            <th>Id de usuario</th>
+                            <th>Nombre de usuario</th>
+                            <th>Email de usuario</th>
+                            <th>Acciones</th>
                         </tr>
                         <?php
                         require_once "includes/dbh.inc.php";
@@ -43,11 +43,11 @@
                 <div class="sub-table-scroll">
                     <table class="users">
                         <tr>
-                            <th>User id</th>
-                            <th>User name</th>
-                            <th>User email</th>
-                            <th>Is admin</th>
-                            <th>Actions</th>
+                            <th>Id de usuario</th>
+                            <th>Nombre de usuario</th>
+                            <th>Email de usuario</th>
+                            <th>Es admin</th>
+                            <th>Acciones</th>
                         </tr>
                         <?php
                         require_once "includes/dbh.inc.php";
@@ -78,13 +78,14 @@
                 <div class="sub-table-scroll">
                     <table class="users">
                         <tr>
-                            <th>Week day</th>
-                            <th>Email</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Book</th>
-                            <th>Class</th>
-                            <th>Grade</th>
+                            <th>Día de la semana</th>
+                            <th>Email de a quien reservar</th>
+                            <th>Empiza a</th>
+                            <th>Termina a</th>
+                            <th>Reserva</th>
+                            <th>Asignatura</th>
+                            <th>Clase</th>
+                            <th>Acciones</th>
                         </tr>
                         <tr id="addnewautobook" style="display: none;">
                             <td>
@@ -312,6 +313,19 @@
                         }
                     });
                 } else if (e.target.id == "makeautobook") {
+                    $month = document.getElementById("month");
+                    $.ajax({
+                        type: 'POST',
+                        url: 'includes/button_functions.inc.php',
+                        data: "action=makeautobook&month=" + $month.options[$month.selectedIndex].innerHTML,
+                        success: function(data, textStatus, jqXHR) {
+                            //location.reload();
+                            console.log(data);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
                 } else {
                     $.ajax({
                         type: 'POST',

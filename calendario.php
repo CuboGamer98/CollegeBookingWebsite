@@ -57,6 +57,7 @@
                 success: function(data, textStatus, jqXHR) {
                     const jsondata = JSON.parse(data);
                     for (let i = 0; i <= jsondata.length - 1; i++) {
+                        console.log(cookie == jsondata[i].book, cookie, jsondata[i].book);
                         if (cookie == jsondata[i].book) {
                             $('#calendar').evoCalendar('addCalendarEvent', {
                                 id: jsondata[i]["id"],

@@ -312,27 +312,27 @@ function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $da
     }
 
     $array = array();
-    $start0 = explode(":",$start);
-    $end0 = explode(":",$end);
+    $start0 = explode(":", $start);
+    $end0 = explode(":", $end);
     $old_records = getBookings($conn, true);
     for ($i = 0; $i < count($old_records); $i++) {
         $d = $old_records[$i];
         if (array_key_exists("date", $d)) {
             if ($d["date"] === $date) {
                 if ($d["book"] === $book) {
-                    $start1 = explode(":",$d["start"]);
-                    $end1 = explode(":",$d["end"]);
+                    $start1 = explode(":", $d["start"]);
+                    $end1 = explode(":", $d["end"]);
 
                     $hour = intval($start1[0]);
                     $minute = intval($start1[1]);
                     $done = false;
-                    while ($done===false) {
+                    while ($done === false) {
                         $minute += 5;
                         if ($minute === 60) {
                             $minute = 0;
                             $hour += 1;
                         }
-                        array_push($array, $hour.":".$minute);
+                        array_push($array, $hour . ":" . $minute);
 
                         if ($hour == intval($end1[0]) && $minute == intval($end1[1])) {
                             $done = true;
@@ -347,13 +347,13 @@ function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $da
     $minute = intval($start0[1]);
     $error = false;
     $done = false;
-    while ($done===false) {
+    while ($done === false) {
         $minute += 5;
         if ($minute === 60) {
             $minute = 0;
             $hour += 1;
         }
-        if (in_array($hour.":".$minute, $array)) {
+        if (in_array($hour . ":" . $minute, $array)) {
             $done = true;
             $error = true;
         }
@@ -399,7 +399,7 @@ function addAutoBook($conn, $email, $weekday, $start, $end, $class, $grade, $boo
         exit();
     }
 
-    mysqli_stmt_bind_param($stmt, "sssssss", $weekday, $start, $end, $book, $class, $grade, $email);
+    mysqli_stmt_bind_param($stmt, "sssssss", $weekday, $start, $end, strtolower($book), $class, $grade, $email);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
@@ -422,4 +422,72 @@ function removeAutoBook($conn, $email, $weekday, $start, $end, $class, $grade, $
 
     echo "admin_panel.php?error=removedautobook";
     exit();
+}
+
+function getWeekDays($y, $month, $weekday) {
+    $days = array();
+
+    $selectedmonth = $month . "-" . $y;
+    $dat = date("m", strtotime($selectedmonth));
+    if (date('N', $dat) > 1) {
+        $previousmonth = date('F Y', strtotime($selectedmonth . "-1 month"));
+        $firstMonday = strtotime("last " . $weekday . " of " . $previousmonth);
+    } else {
+        $firstMonday = strtotime("first " . $weekday . " of " . $selectedmonth);
+    }
+    $temp = $firstMonday;
+    array_push($days, date("Y-m-d", $firstMonday));
+    $lastmonday = strtotime("last " . $weekday . " of " . $selectedmonth);
+    while ($temp != $lastmonday) {
+        $temp = strtotime(date("d F Y", $temp) . "+1 week");
+        array_push($days, date("Y-m-d", $temp));
+    }
+
+    return $days;
+}
+
+function makeBookInMass($conn, $month) {
+    $weekdayConvert = array(
+        "Lunes" => "monday",
+        "Martes" => "tuesday",
+        "Miércoles" => "wednesday",
+        "Jueves" => "thursday",
+        "Viernes" => "friday",
+        "Sábado" => "saturday",
+        "Domingo" => "sunday",
+    );
+
+    $monthConvert = array(
+        "Enero" => "january",
+        "Febrero" => "february",
+        "Marzo" => "march",
+        "Abril" => "april",
+        "Marzo" => "may",
+        "Junio" => "june",
+        "Julio" => "july",
+        "Agosto" => "august",
+        "Septiembre" => "september",
+        "Octubre" => "october",
+        "Noviembre" => "november",
+        "Diciembre" => "december",
+    );
+
+    $y = date("Y");
+    $intmonth = date("m", strtotime($monthConvert[$month] . "-" . $y));
+    foreach (getAutoBook($conn, true) as $book) {
+        foreach (getWeekDays($y, $monthConvert[$month], $weekdayConvert[$book["weekday"]]) as $day) {
+            $date = strtotime($day);
+            if (date('m', $date) === $intmonth) {
+                $date = date('m/d/Y', $date);
+                $start = $book["start"];
+                $end = $book["end"];
+                $booking = $book["book"];
+                try {
+                    addBooking($conn, $book["email"], $start.$end.$date.$booking, $start, $end, $book["class"], $book["grade"], $booking, $date);
+                } catch (Exception $e) {
+                    echo $e;
+                };
+            }
+        }
+    }
 }
