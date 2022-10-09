@@ -108,7 +108,7 @@
     <div id="message" class="message">
         <p>Error</p>
     </div>
-
+    
     <script>
         window.mobileAndTabletCheck = function() {
             let check = false;

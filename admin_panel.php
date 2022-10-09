@@ -104,19 +104,26 @@
                                 <th>Dia</th>
                                 <th>Acciones</th>
                             </tr>
-                            <?php
-                            require_once "includes/dbh.inc.php";
-                            require_once "includes/functions.inc.php";
-
-                            $bookings = getBookings($conn, true);
-                            foreach ($bookings as &$booking) {
-                                echo "<tr><th class='th-id' title='".$booking["id"]."'>" . $booking["id"] . "</th><th>" . $booking["start"] . "</th><th>" . $booking["end"] . "</th><th>" . $booking["name"] . "</th><th>" . $booking["class"] . "</th><th>" . $booking["grade"] . "</th><th>" . $booking["book"] . "</th><th>" . $booking["date"] . "</th><th><button name='accept' id='removebooking'>Eliminar</button></th></tr>";
-                            }
-                            ?>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+            <?php
+            require_once "includes/dbh.inc.php";
+            require_once "includes/functions.inc.php";
+
+            $bookingsbyyear = getBookingsByYear($conn);;
+            foreach ($bookingsbyyear as $year => $bookings) {
+                echo '<div class="arrow-down sub-table"><p>'.$year.'</p><button id="button-arrow-down"><img src="images/arrow.png"></button><button id="button-trash"><img src="images/trash.png" id="button-trash"></button></div>';
+                echo '<div class="sub-table" style="display:none"><div class="sub-table-scroll"><table class="pusers"><tbody>';
+                foreach ($bookings as $booking) {
+                    echo "<tr><th class='th-id' title='" . $booking["id"] . "'>" . $booking["id"] . "</th><th>" . $booking["start"] . "</th><th>" . $booking["end"] . "</th><th>" . $booking["name"] . "</th><th>" . $booking["class"] . "</th><th>" . $booking["grade"] . "</th><th>" . $booking["book"] . "</th><th>" . $booking["date"] . "</th><th><button name='accept' id='removebooking'>Eliminar</button></th></tr>";
+                }
+                echo '</tbody></table></div></div>';
+            }
+            ?>
+
             <div class="tittle-autobook">
                 <h2 class="text">Reservas en masa</h2><button id="addautobook">Añadir reserva a un dia de la semana</button>
             </div>
@@ -291,13 +298,14 @@
             addCurses(4, "ESO")
 
             $('button').click(e => {
-                if (e.target.id == "addautobook") {
+                console.log(e.target);
+                if (e.target.id === "addautobook") {
                     document.getElementById("addnewautobook").style.display = "table-row";
                     document.getElementById("addautobook").style.display = "none";
-                } else if (e.target.id == "cancelnewautobook") {
+                } else if (e.target.id === "cancelnewautobook") {
                     document.getElementById("addnewautobook").style.display = "none";
                     document.getElementById("addautobook").style.display = "block";
-                } else if (e.target.id == "savenewautobook") {
+                } else if (e.target.id === "savenewautobook") {
                     $weekday = document.getElementById("weekday");
                     $email = document.getElementById("email-select");
                     $start = document.getElementById("start-select").value;
@@ -327,7 +335,7 @@
                             console.log(errorThrown);
                         }
                     });
-                } else if (e.target.id == "deleteautobook") {
+                } else if (e.target.id === "deleteautobook") {
                     const elem = e.target.parentElement.parentElement.getElementsByTagName("th");
                     $weekday = elem[0].innerHTML;
                     $email = elem[1].innerHTML;
@@ -349,7 +357,7 @@
                             console.log(errorThrown);
                         }
                     });
-                } else if (e.target.id == "makeautobook") {
+                } else if (e.target.id === "makeautobook") {
                     $month = document.getElementById("month");
                     $year = document.getElementById("year");
                     $.ajax({
@@ -364,12 +372,34 @@
                             console.log(errorThrown);
                         }
                     });
-                } else if (e.target.id == "removebooking") {
-
+                } else if (e.target.id === "removebooking") {
                     $.ajax({
                         type: 'POST',
                         url: 'includes/button_functions.inc.php',
-                        data: "action=removebooking",
+                        data: "action=removebooking&id=" + id + "&start=" + s + "&end=" + e + "&class=" + a + "&grade=" + c + "&book=" + eCookie + "&date=" + date,
+                        success: function(data, textStatus, jqXHR) {
+                            //location.reload();
+                            console.log(data);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+                } else if (e.target.id === "button-arrow-down") {
+                    if (e.target.value === "down") {
+                        e.target.value = "up"
+                        e.target.getElementsByTagName("img")[0].style = "transform: rotate(0deg)";
+                        e.target.parentElement.nextElementSibling.style = "display:none";
+                    } else {
+                        e.target.value = "down"
+                        e.target.getElementsByTagName("img")[0].style = "transform: rotate(180deg)";
+                        e.target.parentElement.nextElementSibling.style = "display:block";
+                    }
+                } else if (e.target.id === "button-trash") {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'includes/button_functions.inc.php',
+                        data: "action=removeallbookingsfromyear&year=" + e.target.parentElement.parentElement.getElementsByTagName("p")[0].innerHTML,
                         success: function(data, textStatus, jqXHR) {
                             //location.reload();
                             console.log(data);

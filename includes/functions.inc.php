@@ -291,6 +291,19 @@ function getBookings($conn, $bool) {
     return $myArray;
 }
 
+function getBookingsByYear($conn) {
+    $myArray = array();
+    $bookings = getBookings($conn, true);
+    foreach ($bookings as &$booking) {
+        $dateData = explode("/", $booking["date"]);
+        if (isset($myArray[$dateData[2]]) === false) {
+            $myArray[$dateData[2]] = array();
+        }
+        $myArray[$dateData[2]][] = $booking;
+    }
+    return $myArray;
+}
+
 function getAutoBook($conn, $bool) {
     $myArray = array();
     $result = getDataFromTable($conn, "autobooks");
@@ -399,6 +412,43 @@ function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $da
         exit();
     }
 }
+
+function removeBooking($conn, $id, $start, $end, $class, $grade, $book, $name, $date, $return = false) {
+    $sql = "DELETE FROM bookings WHERE id=? AND start=? AND end=? AND book=? AND class=? AND grade=? AND name=? AND date=?;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        if ($return == true) {
+            return "admin_panel.php?error=erroraccepting";
+        } else {
+            echo "admin_panel.php?error=erroraccepting";
+            exit();
+        }
+    }
+
+    mysqli_stmt_bind_param($stmt, "ssssssss", $id, $start, $end, $book, $class, $grade, $name, $date);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    if ($return == true) {
+        return "admin_panel.php?error=removedbook";
+    } else {
+        echo "admin_panel.php?error=removedbook";
+        exit();
+    }
+};
+
+function removeBookingsFromYear($conn, $year) {
+    $myArray = array();
+    $bookings = getBookings($conn, true);
+    foreach ($bookings as &$booking) {
+        $dateData = explode("/", $booking["date"]);
+        if ($dateData[2] == $year) {
+            removeBooking($conn, $booking["id"], $booking["start"], $booking["end"], $booking["class"], $booking["grade"], $booking["book"], $booking["name"], $booking["date"], true);
+        }
+    }
+    return $myArray;
+};
 
 function addAutoBook($conn, $email, $weekday, $start, $end, $class, $grade, $book) {
     $result = emailExists($conn, "", $email);

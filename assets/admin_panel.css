@@ -128,3 +128,30 @@ select {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.arrow-down {
+    display: flex;
+}
+
+.arrow-down > p {
+    display: table-cell;
+    font-size: 3vh;
+    padding: 1vh;
+}
+
+.arrow-down > button {
+    float: right;
+    border-width: 0;
+    font-size: 3vh;
+    background-color: white;
+    width: 100%;
+}
+
+.arrow-down > button > img {
+    width: 4vh;
+    float: right;
+}
+
+.arrow-down > button#button-trash {
+    width: auto;
+}
