@@ -88,7 +88,9 @@
                     </table>
                 </div>
             </div>
-            <h2>Reservas</h2>
+            <div class="tittle-bookings">
+                <h2 class="text">Reservas</h2><button id="button-search"><img src="images/search.png" id="button-search"></button><div style="display:none" id="search-div"><input type="text" id="search"></input></div>
+            </div>
             <div class="sub-table">
                 <div class="sub-table-scroll">
                     <table class="pusers">
@@ -403,13 +405,15 @@
                         url: 'includes/button_functions.inc.php',
                         data: "action=removeallbookingsfromyear&year=" + e.target.parentElement.parentElement.getElementsByTagName("p")[0].innerHTML,
                         success: function(data, textStatus, jqXHR) {
-                            //location.reload();
+                            location.reload();
                             console.log(data);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.log(errorThrown);
                         }
                     });
+                } else if (e.target.id === "button-search") {
+                    e.target.parentElement.parentElement.getElementsByTagName("div")[0].style = "display:block";
                 } else {
                     $.ajax({
                         type: 'POST',

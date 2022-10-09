@@ -65,11 +65,11 @@ button {
     justify-content: flex-start;
 }
 
-.tittle-autobook {
+.tittle-autobook, .tittle-bookings {
     display: flex;
 }
 
-.tittle-autobook>button {
+.tittle-autobook > button {
     position: fixed;
     transform: translate(0, 50%);
     height: 3vh;
@@ -154,4 +154,42 @@ select {
 
 .arrow-down > button#button-trash {
     width: auto;
+}
+
+.arrow-down > button > img {
+    width: 4vh;
+    float: right;
+}
+
+.arrow-down > button#button-trash {
+    width: auto;
+}
+
+.tittle-bookings > button {
+    width: 100%;
+    float: right;
+    height: 4vh;
+    transform: translate(0, 50%);
+    border-width: 0;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.tittle-bookings > button > img {
+    float: right;
+    height: 100%;
+    transform: translate(0, -25%);
+}
+
+.tittle-bookings > div {
+    width: 100%;
+    float: right;
+    height: 4vh;
+    transform: translate(0, 50%);
+}
+
+.tittle-bookings > div > input {
+    float: right;
+    height: 100%;
+    transform: translate(0, -25%);
+    width: 100%;
 }
