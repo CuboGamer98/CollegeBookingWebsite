@@ -298,7 +298,6 @@
             addCurses(4, "ESO")
 
             $('button').click(e => {
-                console.log(e.target);
                 if (e.target.id === "addautobook") {
                     document.getElementById("addnewautobook").style.display = "table-row";
                     document.getElementById("addautobook").style.display = "none";
@@ -373,12 +372,15 @@
                         }
                     });
                 } else if (e.target.id === "removebooking") {
+                    const c = e.target.parentElement.parentElement.children;
+                    console.log(c);
+                    console.log("action=removebooking&id=" + c[0].innerHTML + "&start=" + c[1].innerHTML + "&end=" + c[2].innerHTML + "&name=" + c[3].innerHTML + "&class=" + c[4].innerHTML + "&grade=" + c[5].innerHTML + "&book=" + c[6].innerHTML + "&date=" + c[7].innerHTML);
                     $.ajax({
                         type: 'POST',
                         url: 'includes/button_functions.inc.php',
-                        data: "action=removebooking&id=" + id + "&start=" + s + "&end=" + e + "&class=" + a + "&grade=" + c + "&book=" + eCookie + "&date=" + date,
+                        data: "action=removebooking&id=" + c[0].innerHTML + "&start=" + c[1].innerHTML + "&end=" + c[2].innerHTML + "&name=" + c[3].innerHTML + "&class=" + c[4].innerHTML + "&grade=" + c[5].innerHTML + "&book=" + c[6].innerHTML + "&date=" + c[7].innerHTML,
                         success: function(data, textStatus, jqXHR) {
-                            //location.reload();
+                            location.reload();
                             console.log(data);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {

@@ -24,8 +24,8 @@ if (isset($_POST['action'])) {
         case 'makeautobook':
             makeBookInMass($conn, $_POST['month'], $_POST['year']);
             break;
-        case 'removebookings':
-            removeBookingsFromYear($conn, $_POST['year']);
+        case 'removebooking':
+            removeBooking($conn, $_POST['id'], $_POST['start'], $_POST['end'], $_POST['class'], $_POST['grade'], $_POST['book'], $_POST['name'], $_POST['date']);
             break;
         case 'removeallbookingsfromyear':
             removeBookingsFromYear($conn, $_POST['year']);
