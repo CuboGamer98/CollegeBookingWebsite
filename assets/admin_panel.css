@@ -39,7 +39,7 @@ h2 {
     font-size: 2.5vh;
 }
 
-h2 > .text {
+h2>.text {
     display: inline-block;
 }
 
@@ -112,4 +112,19 @@ select {
 
 .month-select {
     margin: 0 2vh;
+}
+
+.tr-sticky {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    display: table-row;
+}
+
+.th-id {
+    max-width: 25vh;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

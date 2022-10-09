@@ -388,7 +388,7 @@ function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $da
         }
     }
 
-    mysqli_stmt_bind_param($stmt, "ssssssss", $id, $start, $end, $result["usersName"], $class, $grade, $book, $date);
+    mysqli_stmt_bind_param($stmt, "ssssssss", hash("ripemd160", $id), $start, $end, $result["usersName"], $class, $grade, $book, $date);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 

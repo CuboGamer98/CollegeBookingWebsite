@@ -37,7 +37,7 @@
             <div class="sub-table">
                 <div class="sub-table-scroll">
                     <table class="users">
-                        <tr>
+                        <tr class="tr-sticky">
                             <th>Id de usuario</th>
                             <th>Nombre de usuario</th>
                             <th>Email de usuario</th>
@@ -70,7 +70,7 @@
             <div class="sub-table">
                 <div class="sub-table-scroll">
                     <table class="pusers">
-                        <tr>
+                        <tr class="tr-sticky">
                             <th>Id de usuario</th>
                             <th>Nombre de usuario</th>
                             <th>Email de usuario</th>
@@ -93,7 +93,7 @@
                 <div class="sub-table-scroll">
                     <table class="pusers">
                         <tbody>
-                            <tr>
+                            <tr class="tr-sticky">
                                 <th>Id</th>
                                 <th>Empieza a</th>
                                 <th>Termina a</th>
@@ -104,15 +104,15 @@
                                 <th>Dia</th>
                                 <th>Acciones</th>
                             </tr>
-                        <?php
-                        require_once "includes/dbh.inc.php";
-                        require_once "includes/functions.inc.php";
+                            <?php
+                            require_once "includes/dbh.inc.php";
+                            require_once "includes/functions.inc.php";
 
-                        $bookings = getBookings($conn, true);
-                        foreach ($bookings as &$booking) {
-                            echo "<tr><th>" . $booking["id"] . "</th><th>" . $booking["start"] . "</th><th>" . $booking["end"] . "</th><th>" . $booking["name"] . "</th><th>" . $booking["class"] . "</th><th>" . $booking["grade"] . "</th><th>" . $booking["book"] . "</th><th>" . $booking["date"] . "</th><th><button name='accept' id='removebooking'>Eliminar</button></th></tr>";
-                        }
-                        ?>
+                            $bookings = getBookings($conn, true);
+                            foreach ($bookings as &$booking) {
+                                echo "<tr><th class='th-id' title='".$booking["id"]."'>" . $booking["id"] . "</th><th>" . $booking["start"] . "</th><th>" . $booking["end"] . "</th><th>" . $booking["name"] . "</th><th>" . $booking["class"] . "</th><th>" . $booking["grade"] . "</th><th>" . $booking["book"] . "</th><th>" . $booking["date"] . "</th><th><button name='accept' id='removebooking'>Eliminar</button></th></tr>";
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -123,7 +123,7 @@
             <div class="sub-table">
                 <div class="sub-table-scroll">
                     <table class="users">
-                        <tr>
+                        <tr class="tr-sticky">
                             <th>Día de la semana</th>
                             <th>Email de a quien reservar</th>
                             <th>Empiza a</th>
@@ -223,11 +223,11 @@
                         </select>
                         <select id="year" name="clase" class="year-select">
                             <option value="None" disabled="">-- Selecciona --</option>
-                        <?php
+                            <?php
                             $y = date("Y");
                             echo '<option value="None">' . $y . '</option>';
                             echo '<option value="None">' . ($y + 1) . '</option>';
-                        ?>
+                            ?>
                         </select>
                         <button name="Hacer" value="save" id="makeautobook" class="interaction">Aceptar</button>
                     </div>
