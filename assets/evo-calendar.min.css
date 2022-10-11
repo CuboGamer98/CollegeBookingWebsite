@@ -377,9 +377,23 @@ tr.calendar-body .calendar-day .day[disabled] {
   height: 60px;
   float: left;
 }
+.event-trash {
+  position: relative;
+  padding: 20px;
+  width: 60px;
+  height: 60px;
+  float: left;
+  background-color: rgba(0, 0, 0, 0);
+}
 .event-container > .event-icon > img {
   width: 30px;
 }
+
+.event-trash > img {
+  width: 30px;
+  transform: translate(-20%,-30%);
+}
+
 .event-container > .event-info {
   align-self: center;
   width: calc(100% - 60px);
@@ -431,12 +445,12 @@ tr.calendar-body .calendar-day .day[disabled] {
 .event-indicator > .type-bullet > div {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: 100%;
 }
 .event-container > .event-icon > div {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 100%;
 }
 
 .event-container > .event-icon > div.event-bullet,
@@ -579,12 +593,12 @@ button.icon-button > span.chevron-arrow-right {
     height: 25px;
     transform: translate(24px, 0);
   }
-  .event-container > .event-icon {
+  .event-container > .event-icon, .event-trash {
     padding: 15px;
     width: 50px;
     height: 50px;
   }
-  .event-container > .event-icon::before {
+  .event-container > .event-icon::before, .event-trash::before {
     left: 24px;
   }
   .event-container > .event-info {
@@ -878,14 +892,14 @@ button.icon-button > span.chevron-arrow-right {
     height: 22.5px;
     transform: translate(21.5px, 0);
   }
-  .event-container > .event-icon {
+  .event-container > .event-icon, .event-trash {
     width: 45px;
     height: 45px;
   }
-  .event-container > .event-icon::before {
+  .event-container > .event-icon::before, .event-trash::before {
     left: 21px;
   }
-  .event-container:last-child > .event-icon::before {
+  .event-container:last-child > .event-icon::before, .event-trash::before {
     height: 50%;
   }
   .event-container > .event-info {

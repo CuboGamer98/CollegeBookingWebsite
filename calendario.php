@@ -60,10 +60,11 @@
                         if (cookie == jsondata[i].book) {
                             $('#calendar').evoCalendar('addCalendarEvent', {
                                 id: jsondata[i]["id"],
-                                name: "De " + jsondata[i]["start"] + " Hasta " + jsondata[i]["end"],
+                                name: "De " + jsondata[i]["start"] + " hasta " + jsondata[i]["end"],
                                 description: jsondata[i].name + " | " + jsondata[i].class + " " +
                                     jsondata[i].grade + " | " + capitalize(jsondata[i].book),
                                 date: jsondata[i].date,
+                                showTrash: jsondata[i].name === document.getElementById("username").innerHTML ? true : false,
                                 type: 'event'
                             });
                         }
@@ -73,7 +74,7 @@
                     console.log(errorThrown);
                 }
             });
-        });
+        }, true);
 
         $(document).ready(function() {
             $("#calendar").evoCalendar({});

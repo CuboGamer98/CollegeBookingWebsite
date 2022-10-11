@@ -159,6 +159,7 @@ select {
 .arrow-down > button > img {
     width: 4vh;
     float: right;
+    pointer-events: none;
 }
 
 .arrow-down > button#button-trash {

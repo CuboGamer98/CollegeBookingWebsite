@@ -89,7 +89,8 @@
                 </div>
             </div>
             <div class="tittle-bookings">
-                <h2 class="text">Reservas</h2><button id="button-search"><img src="images/search.png" id="button-search"></button><div style="display:none" id="search-div"><input type="text" id="search"></input></div>
+                <h2 class="text">Reservas</h2><button id="button-search"><img src="images/search.png" id="button-search"></button>
+                <div style="display:none" id="search-div" data-search><input type="text" id="search"></input></div>
             </div>
             <div class="sub-table">
                 <div class="sub-table-scroll">
@@ -117,10 +118,10 @@
 
             $bookingsbyyear = getBookingsByYear($conn);;
             foreach ($bookingsbyyear as $year => $bookings) {
-                echo '<div class="arrow-down sub-table"><p>'.$year.'</p><button id="button-arrow-down"><img src="images/arrow.png"></button><button id="button-trash"><img src="images/trash.png" id="button-trash"></button></div>';
+                echo '<div class="arrow-down sub-table"><p>' . $year . '</p><button id="button-arrow-down"><img src="images/arrow.png"></button><button id="button-trash"><img src="images/trash.png" id="button-trash"></button></div>';
                 echo '<div class="sub-table" style="display:none"><div class="sub-table-scroll"><table class="pusers"><tbody>';
                 foreach ($bookings as $booking) {
-                    echo "<tr><th class='th-id' title='" . $booking["id"] . "'>" . $booking["id"] . "</th><th>" . $booking["start"] . "</th><th>" . $booking["end"] . "</th><th>" . $booking["name"] . "</th><th>" . $booking["class"] . "</th><th>" . $booking["grade"] . "</th><th>" . $booking["book"] . "</th><th>" . $booking["date"] . "</th><th><button name='accept' id='removebooking'>Eliminar</button></th></tr>";
+                    echo "<tr id='" . $booking["id"] . "'><th class='th-id' title='" . $booking["id"] . "'>" . $booking["id"] . "</th><th>" . $booking["start"] . "</th><th>" . $booking["end"] . "</th><th>" . $booking["name"] . "</th><th>" . $booking["class"] . "</th><th>" . $booking["grade"] . "</th><th>" . $booking["book"] . "</th><th>" . $booking["date"] . "</th><th><button name='accept' id='removebooking'>Eliminar</button></th></tr>";
                 }
                 echo '</tbody></table></div></div>';
             }
@@ -164,8 +165,6 @@
                                     $users = getUsers($conn);
 
                                     foreach ($users as &$user) {
-
-
                                         echo '<option value="None">' . $user[2] . '</option>';
                                     }
                                     ?>
@@ -236,6 +235,10 @@
                             $y = date("Y");
                             echo '<option value="None">' . $y . '</option>';
                             echo '<option value="None">' . ($y + 1) . '</option>';
+                            echo '<option value="None">' . ($y + 2) . '</option>';
+                            echo '<option value="None">' . ($y + 3) . '</option>';
+                            echo '<option value="None">' . ($y + 4) . '</option>';
+                            echo '<option value="None">' . ($y + 5) . '</option>';
                             ?>
                         </select>
                         <button name="Hacer" value="save" id="makeautobook" class="interaction">Aceptar</button>
@@ -245,7 +248,7 @@
         </div>
 
         <script>
-            window.mobileAndTabletCheck = function() {
+            function mobileAndTabletCheck() {
                 let check = false;
                 (function(a) {
                     if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i
@@ -256,7 +259,7 @@
                 return check;
             };
 
-            if (window.mobileAndTabletCheck == true) {
+            if (mobileAndTabletCheck() == true) {
                 $('.main-table').css({
                     "position": "relative"
                 });
@@ -366,7 +369,7 @@
                         url: 'includes/button_functions.inc.php',
                         data: "action=makeautobook&month=" + $month.options[$month.selectedIndex].innerHTML + "&year=" + $year.options[$year.selectedIndex].innerHTML,
                         success: function(data, textStatus, jqXHR) {
-                            //location.reload();
+                            location.reload();
                             console.log(data);
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
@@ -403,7 +406,7 @@
                     $.ajax({
                         type: 'POST',
                         url: 'includes/button_functions.inc.php',
-                        data: "action=removeallbookingsfromyear&year=" + e.target.parentElement.parentElement.getElementsByTagName("p")[0].innerHTML,
+                        data: "action=removeallbookingsfromyear&year=" + e.target.parentElement.getElementsByTagName("p")[0].innerHTML,
                         success: function(data, textStatus, jqXHR) {
                             location.reload();
                             console.log(data);
@@ -413,7 +416,8 @@
                         }
                     });
                 } else if (e.target.id === "button-search") {
-                    e.target.parentElement.parentElement.getElementsByTagName("div")[0].style = "display:block";
+                    const el = e.target.parentElement.parentElement.getElementsByTagName("div")[0]
+                    el.style.display = el.style.display === "block" ? "none" : "block";
                 } else {
                     $.ajax({
                         type: 'POST',
@@ -464,6 +468,41 @@
                     }
                 });
             });
+
+            var bookings = {};
+            $.ajax({
+                type: 'POST',
+                url: 'includes/bookings.inc.php',
+                data: "action=getbookings",
+                success: function(data, textStatus, jqXHR) {
+                    bookings = JSON.parse(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                }
+            });
+
+            document.querySelector("[data-search]").addEventListener("input", e => {
+                const val = e.target.value;
+                console.log(val !== "")
+                bookings.forEach(booking => {
+                    var acceptable = false;
+                    
+                    if (val !== "") {
+                        for (const property in booking) {
+                            if (booking[property].includes(val)) {
+                                acceptable = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        acceptable = true;
+                    }
+
+                    const tr = document.getElementById(booking["id"]);
+                    tr.style = acceptable ? "display:block" : "display:none";
+                })
+            })
         </script>
 </body>
 
