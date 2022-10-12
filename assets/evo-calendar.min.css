@@ -376,6 +376,7 @@ tr.calendar-body .calendar-day .day[disabled] {
   width: 60px;
   height: 60px;
   float: left;
+  aspect-ratio: 1/1;
 }
 .event-trash {
   position: relative;
@@ -390,8 +391,22 @@ tr.calendar-body .calendar-day .day[disabled] {
 }
 
 .event-trash > img {
-  width: 30px;
-  transform: translate(-20%,-30%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  padding: 1vh;
+  transition: 250ms;
+  border-radius: 1vh;
+  filter: brightness(0);
+  transform: translate(-50%, -50%);
+}
+
+.event-trash:hover #button-trash {
+  width: 40px;
+  filter: brightness(1);
+  background-color: red;
+  pointer-events: none;
 }
 
 .event-container > .event-info {

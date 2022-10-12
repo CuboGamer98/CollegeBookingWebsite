@@ -109,7 +109,7 @@
     <div id="message" class="message">
         <p>Error</p>
     </div>
-    
+
     <script>
         window.mobileAndTabletCheck = function() {
             let check = false;
@@ -411,6 +411,10 @@
                 this.innerHTML = "&lt;"
                 document.getElementsByClassName("calendar-events")[0].style.transform = "translateX(100%)";
             }
+        });
+
+        $("div.calendar-events").on("click", "img.button-trash", e => {
+            console.log(e);
         });
     </script>
 </body>
