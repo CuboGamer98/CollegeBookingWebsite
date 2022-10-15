@@ -43,6 +43,31 @@
         <div id="calendar"></div>
     </div>
 
+    <script>
+        function trash_button_onClick(b) {
+            const main = b.parentElement.getElementsByClassName("event-info")[0];
+            const tittle = main.getElementsByClassName("event-title")[0];
+            const desc = main.getElementsByClassName("event-desc")[0];
+            const t = tittle.innerHTML.trim().split(/\s+/);
+            const descA = desc.innerHTML.trim().split("|");
+            const otherInf = descA[1].trim().split(/\s+/);
+
+            getCookie("date", false, function(cookie) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'includes/button_functions.inc.php',
+                    data: "action=removebooking&id=" + main.parentElement.getAttribute("data-event-index") + "&start=" + t[1] + "&end=" + t[3] + "&name=" + descA[0].trim().split(" ").join(" ") + "&class=" + otherInf[0] + "&grade=" + otherInf[1] + " " + otherInf[2] + " " + otherInf[3] + "&book=" + descA[2].trim().split(" ").join(" ") + "&date=" + cookie,
+                    success: function(data, textStatus, jqXHR) {
+                        location.reload();
+                        console.log(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+            })
+        }
+    </script>
     <script src="../js/evo-calendar.min.js"></script>
     <script>
         function capitalize(s) {
@@ -74,6 +99,10 @@
                     console.log(errorThrown);
                 }
             });
+        }, true);
+
+        getCookie("date", false, function(cookie) {
+            $('#calendar').evoCalendar('selectDate', cookie)
         }, true);
 
         $(document).ready(function() {
@@ -411,10 +440,6 @@
                 this.innerHTML = "&lt;"
                 document.getElementsByClassName("calendar-events")[0].style.transform = "translateX(100%)";
             }
-        });
-
-        $("div.calendar-events").on("click", "img.button-trash", e => {
-            console.log(e);
         });
     </script>
 </body>

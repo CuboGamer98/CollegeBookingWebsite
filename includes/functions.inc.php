@@ -92,6 +92,8 @@ function loginUser($conn, $name_email, $pwd) {
         header("location: ../index.php");
         exit();
     }
+    header("location: ../login.php=error=passwordwrong");
+    exit();
 }
 
 function getIsAdmin($conn, $email) {
@@ -401,7 +403,8 @@ function addBooking($conn, $email, $id, $start, $end, $class, $grade, $book, $da
         }
     }
 
-    mysqli_stmt_bind_param($stmt, "ssssssss", hash("ripemd160", $id), $start, $end, $result["usersName"], $class, $grade, $book, $date);
+    $hashid = hash("ripemd160", $id);
+    mysqli_stmt_bind_param($stmt, "ssssssss", $hashid, $start, $end, $result["usersName"], $class, $grade, $book, $date);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 

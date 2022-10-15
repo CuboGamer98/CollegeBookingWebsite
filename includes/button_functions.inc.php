@@ -4,10 +4,10 @@ if (isset($_POST['action'])) {
     require_once "functions.inc.php";
     switch ($_POST['action']) {
         case 'accept':
-            acceptUser($conn, $$_POST['email']);
+            acceptUser($conn, $_POST['email']);
             break;
         case 'delete':
-            deleteUser($conn, $$_POST['email']);
+            deleteUser($conn, $_POST['email']);
             break;
         case 'admin':
             setAdmin($conn, $_POST['email'], $_POST['value']);

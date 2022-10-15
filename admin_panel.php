@@ -378,8 +378,6 @@
                     });
                 } else if (e.target.id === "removebooking") {
                     const c = e.target.parentElement.parentElement.children;
-                    console.log(c);
-                    console.log("action=removebooking&id=" + c[0].innerHTML + "&start=" + c[1].innerHTML + "&end=" + c[2].innerHTML + "&name=" + c[3].innerHTML + "&class=" + c[4].innerHTML + "&grade=" + c[5].innerHTML + "&book=" + c[6].innerHTML + "&date=" + c[7].innerHTML);
                     $.ajax({
                         type: 'POST',
                         url: 'includes/button_functions.inc.php',
