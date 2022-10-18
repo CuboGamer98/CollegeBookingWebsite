@@ -92,7 +92,7 @@ function loginUser($conn, $name_email, $pwd) {
         header("location: ../index.php");
         exit();
     }
-    header("location: ../login.php=error=passwordwrong");
+    header("location: ../login.php?error=passwordwrong");
     exit();
 }
 
