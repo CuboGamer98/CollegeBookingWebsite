@@ -18,8 +18,18 @@ if ($filename === "admin_panel") {
 ?>
 
 <ul>
-    <li class="user-account">
-        <div class="dropdown-button">
+    <li class="li-button">
+        <div class="button">
+            <a href="incidence.php">Incidencias</a>
+        </div>
+    </li>
+    <li class="li-button">
+        <div class="button">
+            <a href="contact.php">Contacto</a>
+        </div>
+    </li>
+    <li class="li-button user-account">
+        <div class="button">
             <img src="images/user.png">
             <p id="username"><?php echo $_SESSION["username"]; ?></p>
         </div>

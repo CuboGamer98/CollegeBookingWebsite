@@ -109,7 +109,10 @@ button:focus {
   float: right;
 }
 .calendar-sidebar > .month-list {
-  height: calc(100% - 134px);  
+  height: calc(100% - 134px);
+  overflow: hidden;
+  overflow-y: auto;
+}
 }
 .calendar-sidebar > .month-list::-webkit-scrollbar {
   width: 5px;
@@ -126,17 +129,19 @@ button:focus {
   background: #d6c8ff;
 }
 .calendar-sidebar > .month-list > .calendar-months {
-  list-style-type: none;
   margin: 0;
   padding: 0;
-  height: 100%;
   overflow: hidden;
   overflow-y: overlay;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 .calendar-sidebar > .month-list > .calendar-months > li {
   padding: 7px 30px;
   cursor: pointer;
   font-size: 16px;
+  height: 40px;
 }
 .calendar-sidebar > .month-list > .calendar-months > li:hover {
   background-color: #a692e0;
@@ -762,7 +767,7 @@ button.icon-button > span.chevron-arrow-right {
   .calendar-sidebar > .month-list {
     position: relative;
     width: 100%;
-    height: calc(100% - 20vh);
+    height: calc(100% - 10vh - 22vh);
     overflow-y: auto;
     background-color: #8773c1;
     -webkit-transform: translateY(0);

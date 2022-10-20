@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  background: linear-gradient(45deg, #6ac1c5, #bda5ff);
+  background: linear-gradient(45deg, #4a00a3, #0072f8);
   height: 100vh;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -88,6 +88,7 @@ h3 {
   position: relative;
   font-size: 4vh;
   text-align: center;
+  color: white;
 }
 
 #credits {
@@ -98,22 +99,24 @@ h3 {
 }
 
 ul {
+  display: flex;
+  justify-content: flex-end;
   list-style-type: none;
   margin: 0;
   padding: 0;
+  padding-top: 1vh;
+  padding-right: 15vh;
+  width: max-content;
+  float: right;
+}
+
+.li-button {
+  display: contents;
 }
 
 .user-account {
-  position: absolute;
-  grid-column: 2;
-  transform: translate(-100%, 0);
-  left: 100%;
-  margin-left: -10vh;
-  overflow: hidden;
-  padding: 0.5vh 1.5vh 0 1.5vh;
-  z-index: 3;
-
-  grid-row: 2;
+  position: relative;
+  display: inline-block;
 }
 
 .user-account img {
@@ -128,17 +131,19 @@ ul {
   font-family: "Josefin Sans", sans-serif;
   margin-top: 1vh;
   flex: 50%;
+  color: white;
   font-size: 3vh;
   margin-bottom: 0;
   width: max-content;
   flex-basis: auto;
 }
 
-.dropdown-button {
+.button {
   display: flex;
+  padding: 0 1vh;
 }
 
-.user-account:hover {
+.li-button:hover {
   -webkit-box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.65);
   box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.65);
 }
@@ -146,26 +151,24 @@ ul {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f9f9f9;
-  transform-origin: top right;
+  background-color: rgb(24, 26, 27);
   width: max-content;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
   z-index: 1;
-  transform: translate(-100%, 0);
-  left: 100%;
+  flex-direction: column;
+  padding-top: 1vh;
+  border-radius: 1vh;
 }
 
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 12px 16px;
+a {
+  color: white;
   text-decoration: none;
-  display: block;
-  text-align: right;
+  margin-top: 1vh;
+  font-size: 3vh;
 }
 
 .user-account:hover .dropdown-content {
-  display: block;
+  display: flex;
 }
 
 .user-account:hover {

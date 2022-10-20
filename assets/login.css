@@ -3,6 +3,7 @@
 * {
   font-family: "Josefin Sans", sans-serif;
   box-sizing: border-box;
+  color: white;
 }
 
 body, html {
@@ -11,12 +12,12 @@ body, html {
 }
 
 body {
-  background: linear-gradient(45deg, #6ac1c5, #bda5ff);
+  background: linear-gradient(45deg, #4a00a3, #0072f8);
   height: 100vh;
 }
 
 form {
-  background-color: white;
+  background-color: rgb(24, 26, 27);;
   transform: translate(-50%, 0) scale(1.1);
   position: absolute;
   top: 30%;
@@ -24,6 +25,10 @@ form {
   width: 40vh;
   overflow: hidden;
   border-radius: 1vh;
+}
+
+a {
+  color: #3391ff;
 }
 
 .title {
@@ -54,11 +59,12 @@ div.container-rows input {
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom-color: gray;
+  border-bottom-color: rgb(84, 91, 94);
   border-bottom-width: 0.25vh;
   width: 30vh;
   font-size: 2vh;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: #2e2e2e;
+  border-radius: 0.5vh;
 }
 
 .submit {
@@ -66,7 +72,8 @@ div.container-rows input {
   font-size: 2vh;
   border-radius: 20px;
   border-width: 0;
-  background-color: #a692e0;
+  background-color: #c495fd;
+  color: black;
   transform: translate(-50%, 0);
   position: relative;
   left: 50%;
