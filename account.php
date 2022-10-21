@@ -18,14 +18,19 @@ if ($filename === "admin_panel") {
 ?>
 
 <ul>
-    <li class="li-button">
+    <li class="li-button" <?php if ($filename === "index") { echo "data-current-page"; } ?>>
         <div class="button">
-            <a href="incidence.php">Incidencias</a>
+            <a href=<?php if ($filename === "admin_panel") { $t = "../"; } else { $t = ""; } echo $t."index.php" ?>>Inico</a>
         </div>
     </li>
-    <li class="li-button">
+    <li class="li-button" <?php if ($filename === "incidence") { echo "data-current-page"; } ?>>
         <div class="button">
-            <a href="contact.php">Contacto</a>
+            <a href=<?php if ($filename === "admin_panel") { $t = "../"; } else { $t = ""; } echo $t."incidence.php" ?>>Incidencias</a>
+        </div>
+    </li>
+    <li class="li-button" <?php if ($filename === "contact") { echo "data-current-page"; } ?>>
+        <div class="button">
+            <a href=<?php if ($filename === "admin_panel") { $t = "../"; } else { $t = ""; } echo $t."contact.php" ?>>Contacto</a>
         </div>
     </li>
     <li class="li-button user-account">
