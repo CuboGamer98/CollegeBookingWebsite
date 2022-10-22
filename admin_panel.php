@@ -102,25 +102,6 @@
                 <h2 class="text">Reservas</h2><button id="button-search"><img src="images/search.svg" id="button-search"></button>
                 <div style="width: 0%;" id="search-div" data-search><input type="text" id="search"></input></div>
             </div>
-            <div class="sub-table">
-                <div class="sub-table-scroll">
-                    <table class="pusers">
-                        <tbody>
-                            <tr class="tr-sticky">
-                                <th>Id</th>
-                                <th>Empieza a</th>
-                                <th>Termina a</th>
-                                <th>Profesor</th>
-                                <th>Asignatura</th>
-                                <th>Curso</th>
-                                <th>Reserva</th>
-                                <th>Dia</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
             <?php
             require_once "includes/dbh.inc.php";
@@ -130,6 +111,7 @@
             foreach ($bookingsbyyear as $year => $bookings) {
                 echo '<div class="arrow-down sub-table"><p>' . $year . '</p><button id="button-arrow-down"><img src="images/arrow.svg"></button><button id="button-trash"><img src="images/trash.svg" id="button-trash"></button></div>';
                 echo '<div class="sub-table" style="display:none"><div class="sub-table-scroll"><table class="pusers"><tbody>';
+                echo '<tr class="tr-sticky"><th>Id</th><th>Empieza a</th><th>Termina a</th><th>Profesor</th><th>Asignatura</th><th>Curso</th><th>Reserva</th><th>Dia</th><th>Acciones</th></tr>';
                 foreach ($bookings as $booking) {
                     echo "<tr id='" . $booking["id"] . "'><th class='th-id' title='" . $booking["id"] . "'>" . $booking["id"] . "</th><th>" . $booking["start"] . "</th><th>" . $booking["end"] . "</th><th>" . $booking["name"] . "</th><th>" . $booking["class"] . "</th><th>" . $booking["grade"] . "</th><th>" . $booking["book"] . "</th><th>" . $booking["date"] . "</th><th><button name='accept' id='removebooking'>Eliminar</button></th></tr>";
                 }
@@ -555,7 +537,7 @@
                     }
 
                     const tr = document.getElementById(booking["id"]);
-                    tr.style = acceptable ? "display:block" : "display:none";
+                    tr.style.display = acceptable ? "" : "none";
                 })
             })
         </script>

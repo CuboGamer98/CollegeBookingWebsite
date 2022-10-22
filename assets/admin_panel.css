@@ -154,6 +154,7 @@ select {
 
 .arrow-down {
     display: flex;
+    margin-top: 1vh;
 }
 
 .arrow-down > p {
