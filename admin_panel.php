@@ -100,7 +100,7 @@
             </div>
             <div class="tittle-bookings">
                 <h2 class="text">Reservas</h2><button id="button-search"><img src="images/search.svg" id="button-search"></button>
-                <div style="display:none" id="search-div" data-search><input type="text" id="search"></input></div>
+                <div style="width: 0%;" id="search-div" data-search><input type="text" id="search"></input></div>
             </div>
             <div class="sub-table">
                 <div class="sub-table-scroll">
@@ -449,7 +449,8 @@
                     });
                 } else if (e.target.id === "button-search") {
                     const el = e.target.parentElement.parentElement.getElementsByTagName("div")[0]
-                    el.style.display = el.style.display === "block" ? "none" : "block";
+                    el.style.width = el.style.width === "100%" ? "0%" : "100%";
+                    //el.style.display = el.style.display === "block" ? "none" : "block";
                 } else if (e.target.id == "edit-button") {
                     const input = document.getElementById("email-text");
                     if (input.hasAttribute("contentEditable") !== true) {
