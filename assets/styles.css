@@ -29,6 +29,11 @@ body {
   background-position: center !important;
 }
 
+.c-button:hover {
+  transform: translate(0, -5vh);
+  transition: 250ms;
+}
+
 button:hover,
 button:focus {
   color: #000;
