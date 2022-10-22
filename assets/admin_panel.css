@@ -1,3 +1,7 @@
+*{
+    color: #dadada;
+}
+
 .main-table {
     position: absolute;
     left: 50%;
@@ -15,7 +19,7 @@
 
 .sub-table {
     max-height: 50vh;
-    background-color: white;
+    background-color: rgb(43 52 57);
     border-radius: 1.5vh;
     overflow-y: auto;
 }
@@ -33,6 +37,7 @@ th {
     padding-left: 2vh;
     padding-right: 2vh;
     font-size: 2vh;
+    background-color: rgb(43 52 57);
 }
 
 h2 {
@@ -46,13 +51,21 @@ h2>.text {
 button {
     font-size: 2vh;
     border-width: 0.1vh;
+    background-color: rgb(35,35,35);
+    border: unset;
+    border-radius: 1vh;
+    padding: 0.5vh 1vh;
+}
+
+button:disabled {
+    background-color: rgb(50,50,50);
 }
 
 .options {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    background-color: white;
+    background-color: rgb(43 52 57);
     border-radius: 1.5vh;
     font-size: 2.5vh;
 }
@@ -117,7 +130,6 @@ select {
 .tr-sticky {
     position: sticky;
     top: 0;
-    background-color: white;
     display: table-row;
 }
 
@@ -143,7 +155,7 @@ select {
     float: right;
     border-width: 0;
     font-size: 3vh;
-    background-color: white;
+    background-color: rgb(43 52 57);
     width: 100%;
 }
 
@@ -157,7 +169,7 @@ select {
 }
 
 .arrow-down > button > img {
-    width: 4vh;
+    height: 3.5vh;
     float: right;
     pointer-events: none;
 }
@@ -193,4 +205,23 @@ select {
     height: 100%;
     transform: translate(0, -25%);
     width: 100%;
+}
+
+.email-text {
+    margin: 0 2vh;
+    min-width: 20vh;
+    max-width: 75vh;
+}
+
+button#edit-button {
+    border: unset;
+    background: unset;
+    height: 3vh;
+    padding: 0;
+    aspect-ratio: 1/1;
+}
+
+button#edit-button img {
+    width: 100%;
+    height: 100%;
 }

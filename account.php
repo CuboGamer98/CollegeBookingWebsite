@@ -28,14 +28,9 @@ if ($filename === "admin_panel") {
             <a href=<?php if ($filename === "admin_panel") { $t = "../"; } else { $t = ""; } echo $t."incidence.php" ?>>Incidencias</a>
         </div>
     </li>
-    <li class="li-button" <?php if ($filename === "contact") { echo "data-current-page"; } ?>>
-        <div class="button">
-            <a href=<?php if ($filename === "admin_panel") { $t = "../"; } else { $t = ""; } echo $t."contact.php" ?>>Contacto</a>
-        </div>
-    </li>
     <li class="li-button user-account">
         <div class="button">
-            <img src="images/user.png">
+            <img src="images/user.svg">
             <p id="username"><?php echo $_SESSION["username"]; ?></p>
         </div>
         <div class="dropdown-content">

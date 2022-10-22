@@ -30,5 +30,11 @@ if (isset($_POST['action'])) {
         case 'removeallbookingsfromyear':
             removeBookingsFromYear($conn, $_POST['year']);
             break;
+        case 'changeincidentemail':
+            changeIncidentEmail($conn, $_POST['newemail']);
+            break;
+        case 'sendincidence':
+            changeIncidentEmail($conn, $_POST['text']);
+            break;
     }
 }

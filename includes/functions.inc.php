@@ -242,8 +242,7 @@ function changeOption($conn, $option, $value) {
         exit();
     }
 
-    $value = (int)filter_var($value, FILTER_VALIDATE_BOOLEAN);
-    mysqli_stmt_bind_param($stmt, "is", $value, $option);
+    mysqli_stmt_bind_param($stmt, "ss", $value, $option);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
@@ -568,5 +567,18 @@ function makeBookInMass($conn, $month, $y) {
         exit();
     }
     header("admin_panel.php?error=massbookingcompleted");
+    exit();
+}
+
+function changeIncidentEmail($conn, $email) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        header("location: ../admin_panel.php?error=invalidemail");
+        exit();
+    }
+
+    changeOption($conn, "incidenceEmail", $email);
+    //mail($email,"PHP email function Test", "This is PHP email function Test.", "From: noreply@colegiofatima.com");
+    
+    header("location: ../admin_panel.php?error=emailchanged");
     exit();
 }

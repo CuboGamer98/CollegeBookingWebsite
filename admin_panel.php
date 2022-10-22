@@ -25,12 +25,22 @@
                     require_once "includes/functions.inc.php";
 
                     $checked = "";
-                    if (canRegister($conn) === "1") {
+                    if (canRegister($conn) === "true") {
                         $checked = "Checked";
                     }
 
                     echo '<input class="checkbox" type="checkbox" value="canRegister" ' . $checked . '>';
                     ?>
+                </div>
+                <div class="option">
+                    <p>Email al cual enviar las incidencias</p>
+                    <?php
+                    require_once "includes/dbh.inc.php";
+                    require_once "includes/functions.inc.php";
+
+                    echo '<span role="textbox" class="email-text" id="email-text">'.getConfiguration($conn, "incidenceEmail").'</span>';
+                    ?>
+                    <button id="edit-button"><img src="images/edit.svg" id="edit-button"></button>
                 </div>
             </div>
             <h2>Cuentas activas</h2>
@@ -89,7 +99,7 @@
                 </div>
             </div>
             <div class="tittle-bookings">
-                <h2 class="text">Reservas</h2><button id="button-search"><img src="images/search.png" id="button-search"></button>
+                <h2 class="text">Reservas</h2><button id="button-search"><img src="images/search.svg" id="button-search"></button>
                 <div style="display:none" id="search-div" data-search><input type="text" id="search"></input></div>
             </div>
             <div class="sub-table">
@@ -118,7 +128,7 @@
 
             $bookingsbyyear = getBookingsByYear($conn);;
             foreach ($bookingsbyyear as $year => $bookings) {
-                echo '<div class="arrow-down sub-table"><p>' . $year . '</p><button id="button-arrow-down"><img src="images/arrow.png"></button><button id="button-trash"><img src="images/trash.png" id="button-trash"></button></div>';
+                echo '<div class="arrow-down sub-table"><p>' . $year . '</p><button id="button-arrow-down"><img src="images/arrow.svg"></button><button id="button-trash"><img src="images/trash.svg" id="button-trash"></button></div>';
                 echo '<div class="sub-table" style="display:none"><div class="sub-table-scroll"><table class="pusers"><tbody>';
                 foreach ($bookings as $booking) {
                     echo "<tr id='" . $booking["id"] . "'><th class='th-id' title='" . $booking["id"] . "'>" . $booking["id"] . "</th><th>" . $booking["start"] . "</th><th>" . $booking["end"] . "</th><th>" . $booking["name"] . "</th><th>" . $booking["class"] . "</th><th>" . $booking["grade"] . "</th><th>" . $booking["book"] . "</th><th>" . $booking["date"] . "</th><th><button name='accept' id='removebooking'>Eliminar</button></th></tr>";
@@ -243,6 +253,30 @@
                         </select>
                         <button name="Hacer" value="save" id="makeautobook" class="interaction">Aceptar</button>
                     </div>
+                </div>
+            </div>
+            <h2>Incidencias</h2>
+            <div class="sub-table">
+                <div class="sub-table-scroll">
+                    <table class="users">
+                        <tr class="tr-sticky">
+                            <th>Id</th>
+                            <th>Por</th>
+                            <th>Hora</th>
+                            <th>Dia</th>
+                            <th>Enviado a</th>
+                            <th>Mensaje</th>
+                        </tr>
+                        <?php
+                        require_once "includes/dbh.inc.php";
+                        require_once "includes/functions.inc.php";
+                        $autobooks = getAutoBook($conn, true);
+
+                        foreach ($autobooks as &$autobook) {
+                            echo '<tr><th>' . $autobook["weekday"] . '</th><th>' . $autobook["email"] . '</th><th>' . $autobook["start"] . '</th><th>' . $autobook["end"] . '</th><th>' . $autobook["book"] . '</th><th>' . $autobook["class"] . '</th><th>' . $autobook["grade"] . '</th><th><button name="delete" id="deleteautobook">Eliminar</button></th></tr>';
+                        }
+                        ?>
+                    </table>
                 </div>
             </div>
         </div>
@@ -416,6 +450,28 @@
                 } else if (e.target.id === "button-search") {
                     const el = e.target.parentElement.parentElement.getElementsByTagName("div")[0]
                     el.style.display = el.style.display === "block" ? "none" : "block";
+                } else if (e.target.id == "edit-button") {
+                    const input = document.getElementById("email-text");
+                    if (input.hasAttribute("contentEditable") !== true) {
+                        input.setAttribute("contentEditable", "true")
+                        e.target.src = "images/check.svg";
+                    } else {
+                        input.contentEditable = false;
+                        input.removeAttribute("contentEditable")
+                        e.target.src = "images/edit.svg";
+                        $.ajax({
+                            type: 'POST',
+                            url: 'includes/button_functions.inc.php',
+                            data: "action=changeincidentemail&newemail=" + input.innerHTML,
+                            success: function(data, textStatus, jqXHR) {
+                                location.reload();
+                                console.log(data);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(errorThrown);
+                            }
+                        });
+                    }
                 } else {
                     $.ajax({
                         type: 'POST',
@@ -485,7 +541,7 @@
                 console.log(val !== "")
                 bookings.forEach(booking => {
                     var acceptable = false;
-                    
+
                     if (val !== "") {
                         for (const property in booking) {
                             if (booking[property].includes(val)) {
