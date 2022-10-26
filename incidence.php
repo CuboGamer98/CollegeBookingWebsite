@@ -40,7 +40,7 @@
           $incidences = getIncidences($conn, true);
 
           foreach ($incidences as &$incidence) {
-            echo '<tr><th>' . $incidence["id"] . '</th><th>' . $incidence["by"] . '</th><th>' . $incidence["hour"] . '</th><th>' . $incidence["day"] . '</th><th>' . $incidence["sendto"] . '</th><th>' . $incidence["msg"] . '</th><th>'.$incidence["status"].'</th></tr>';
+            echo '<tr><th class="th-id" title="'.$incidence["id"].'">' . $incidence["id"] . '</th><th>' . $incidence["by"] . '</th><th>' . $incidence["hour"] . '</th><th>' . $incidence["day"] . '</th><th>' . $incidence["sendto"] . '</th><th class="th-id" title="'.$incidence["msg"].'">' . $incidence["msg"] . '</th><th>'.$incidence["status"].'</th></tr>';
           }
           ?>
         </table>
@@ -51,13 +51,13 @@
   <script>
     $('button').click(e => {
       if (e.target.id === "sendincidence") {
-        console.log("action=sendincidence&text=" + escape(document.getElementById("msg").innerHTML));
         $.ajax({
           type: 'POST',
           url: 'includes/button_functions.inc.php',
-          data: "action=sendincidence&text=" + escape(document.getElementById("msg").innerHTML),
+          data: "action=sendincidence&text=" + escape(document.getElementById("msg").value),
           success: function(data, textStatus, jqXHR) {
-            //location.reload();
+            console.log(data);
+            location.reload();
           },
           error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);

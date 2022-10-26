@@ -595,3 +595,38 @@ function getIncidences($conn, $bool) {
     }
     return $myArray;
 }
+
+function sanitize_xss($value) {
+    return htmlspecialchars(strip_tags($value));
+}
+
+function sendIncidentEmail($conn, $text) {
+    session_start();
+    $name = $_SESSION["username"];
+    $email = $_SESSION["useremail"];
+    $day = date("d/m/Y");
+    $time = date("H:m");
+
+    $id = $name.$email.$day.$time;
+    $hashid = hash("ripemd160", $id);
+
+    $emailto = getConfiguration($conn, "incidenceEmail");
+
+    $text = sanitize_xss($text);
+
+    $sql = "INSERT INTO incidences (`id`, `by`, `hour`, `day`, `sendto`, `msg`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("incidences.php?error=erroraccepting");
+        exit();
+    }
+
+    $DEFAULT_STATUS = "En espera";
+    mysqli_stmt_bind_param($stmt, "sssssss", $hashid, $name, $time, $day, $emailto, $text, $DEFAULT_STATUS);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("incidences.php?error=addedincident");
+    exit();
+}

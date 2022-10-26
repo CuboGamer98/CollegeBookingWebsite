@@ -97,3 +97,11 @@ th {
     top: 0;
     display: table-row;
 }
+
+.th-id {
+    max-width: 25vh;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

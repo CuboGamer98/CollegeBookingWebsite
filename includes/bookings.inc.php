@@ -17,6 +17,10 @@ function getbooks() {
 }
 
 function book($id, $start, $end, $class, $grade, $book, $date) {
+    function sanitize_xss($value) {
+        return htmlspecialchars(strip_tags($value));
+    }
+
     session_start();
     if (isset($_SESSION["useremail"]) === null) {
         echo "includes/logout.inc.php";
@@ -24,6 +28,9 @@ function book($id, $start, $end, $class, $grade, $book, $date) {
     }
     require_once "dbh.inc.php";
     require_once "functions.inc.php";
+    
+    $class = sanitize_xss($class);
+    $grade = sanitize_xss($grade);
 
     addBooking($conn, $_SESSION["useremail"], $id, $start, $end, $class, $grade, $book, $date);
 }

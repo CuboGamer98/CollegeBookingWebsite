@@ -34,7 +34,7 @@ if (isset($_POST['action'])) {
             changeIncidentEmail($conn, $_POST['newemail']);
             break;
         case 'sendincidence':
-            changeIncidentEmail($conn, $_POST['text']);
+            sendIncidentEmail($conn, $_POST['text']);
             break;
     }
 }
