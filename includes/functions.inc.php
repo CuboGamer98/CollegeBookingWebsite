@@ -582,3 +582,16 @@ function changeIncidentEmail($conn, $email) {
     header("location: ../admin_panel.php?error=emailchanged");
     exit();
 }
+
+function getIncidences($conn, $bool) {
+    $myArray = array();
+    $result = getDataFromTable($conn, "incidences");
+    while ($row = $result->fetch_assoc()) {
+        $myArray[] = $row;
+    }
+    if ($bool !== true) {
+        echo json_encode($myArray);
+        exit();
+    }
+    return $myArray;
+}

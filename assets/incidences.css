@@ -1,3 +1,7 @@
+*{
+    color: #dadada;
+}
+
 .centered-frame {
     position: fixed;
     top: 50%;
@@ -5,7 +9,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     width: 100vh;
     height: 50vh;
 }
@@ -20,6 +24,7 @@ h3 {
 p {
     color: white;
     font-size: 2vh;
+    text-align: center;
 }
 
 textarea {
@@ -42,12 +47,53 @@ textarea {
     color: black;
     padding: 0.5vh 0 0.5vh 0;
     margin: 4vh 0 2vh 0;
-  }
-  
-  .submit:hover,
-  .submit:focus {
+    float: right;
+}
+
+.submit:hover,
+.submit:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
     background-color: #755eb5;
-  }
+}
+
+.main-table {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, 0);
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5vh;
+}
+
+.sub-table {
+    max-height: 50vh;
+    background-color: rgb(43 52 57);
+    border-radius: 1.5vh;
+    overflow-y: auto;
+}
+
+.sub-table-scroll {
+    height: 100%;
+}
+
+table {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+th {
+    padding-left: 2vh;
+    padding-right: 2vh;
+    font-size: 2vh;
+    background-color: rgb(43 52 57);
+}
+
+.tr-sticky {
+    position: sticky;
+    top: 0;
+    display: table-row;
+}

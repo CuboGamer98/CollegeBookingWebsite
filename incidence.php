@@ -14,11 +14,38 @@
   <?php
   include_once "account.php";
   ?>
-  <div class="centered-frame">
-    <h3>Reportar incidencia</h3>
-    <p>Escriba cual es el problema en esta caja de texto:</p>
-    <textarea id="msg">Aquí se escribe, por si aún no se dio cuenta.</textarea>
-    <button class="submit login" id="sendincidence">Enviar</button>
+  <div class="main-table">
+    <div class="sub-table" style="background-color: unset">
+      <h3>Reportar incidencia</h3>
+      <p>Escriba cual es el problema en esta caja de texto:</p>
+      <textarea id="msg" placeholder="Aquí se escribe, por si aún no se dio cuenta."></textarea>
+      <button class="submit login" id="sendincidence">Enviar</button>
+    </div>
+
+    <div class="sub-table">
+      <div class="sub-table-scroll">
+        <table class="users">
+          <tr class="tr-sticky">
+            <th>Id</th>
+            <th>Por</th>
+            <th>Hora</th>
+            <th>Dia</th>
+            <th>Enviado a</th>
+            <th>Mensaje</th>
+            <th>Estado</th>
+          </tr>
+          <?php
+          require_once "includes/dbh.inc.php";
+          require_once "includes/functions.inc.php";
+          $incidences = getIncidences($conn, true);
+
+          foreach ($incidences as &$incidence) {
+            echo '<tr><th>' . $incidence["id"] . '</th><th>' . $incidence["by"] . '</th><th>' . $incidence["hour"] . '</th><th>' . $incidence["day"] . '</th><th>' . $incidence["sendto"] . '</th><th>' . $incidence["msg"] . '</th><th>'.$incidence["status"].'</th></tr>';
+          }
+          ?>
+        </table>
+      </div>
+    </div>
   </div>
 
   <script>
