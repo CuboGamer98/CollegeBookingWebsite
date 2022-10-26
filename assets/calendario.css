@@ -136,6 +136,10 @@ select {
   color: #fff;
 }
 
+input {
+  cursor: unset;
+}
+
 .addevent-button-icon {
   position: relative;
   padding: 10px;
