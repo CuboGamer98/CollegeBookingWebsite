@@ -15,7 +15,7 @@
   top: 50%;
   left: 50%;
   padding: 5vh;
-} 
+}
 
 #calendar {
   width: 100%;
@@ -33,30 +33,29 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #00000066;
   z-index: 2;
 }
 
 .modal-content {
-  background-color: #fefefe;
   margin: auto;
   max-width: 75vh;
   padding: 4vh;
   border: 1px solid #888;
-  box-shadow: 5px 0 18px -3px rgb(0 0 0 / 15%);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   font-size: 3vh;
+  background-color: #191b1c;
+  border-color: #52585c;
+  box-shadow: #00000026 5px 0px 18px -3px;
 }
 
 .close {
-  color: #aaaaaa;
+  color: #b2aca2;
   font-size: 28px;
   font-weight: bold;
-  top: -37.5%;
-  right: -8%;
-  position: absolute;
+  text-align: end;
 }
 
 .close:hover,
@@ -168,7 +167,7 @@ select {
   cursor: pointer;
   float: left;
   border-style: none;
-  background-color: white;
+  background-color: #181a1b;
   box-shadow: 0 1px 8px -4px rgb(0 0 0 / 65%);
 }
 
@@ -183,9 +182,9 @@ select {
 }
 
 .addevent-button:hover {
-  background-color: #fff;
-  -webkit-box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.65);
-  box-shadow: 0 3px 12px -4px rgba(0, 0, 0, 0.65);
+  background-color: #181a1b;
+  -webkit-box-shadow: #000000a6 0px 3px 12px -4px;
+  box-shadow: #000000a6 0px 3px 12px -4px;
 }
 
 .addevent-button>.event-icon {
@@ -205,7 +204,7 @@ select {
 
 .addevent-button>.event-info>p {
   margin: 0;
-  color: #5a5a5a;
+  color: #afa89e;
 }
 
 .addevent-button>.event-info>p.event-title {
@@ -222,7 +221,7 @@ select {
   cursor: pointer;
   float: left;
   border-style: none;
-  background-color: #755eb5;
+  background-color: #644da3;
   height: 10vh;
   border-radius: unset;
   transition: all 0.3s ease, transform 0.5s ease, -webkit-transform 0.5s
@@ -239,7 +238,7 @@ select {
 }
 
 .return-button:hover {
-  background: #bba4ff;
+  background: #311e69;
 }
 
 .return-button>.event-info {

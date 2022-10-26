@@ -112,8 +112,8 @@
     </script>
     <div id="myModal" class="modal">
         <div class="modal-content">
-            <h1 class="tittle">Nueva reserva: </h1>
             <span class="close">&times;</span>
+            <h1 class="tittle">Nueva reserva: </h1>
             <label id="Asignatura">Asignatura:</label>
             <select id="asignaturas" name="asignaturas">
                 <option value="None" disabled>-- Selecciona --</option>
