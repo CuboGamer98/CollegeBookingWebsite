@@ -57,7 +57,7 @@
           data: "action=sendincidence&text=" + escape(document.getElementById("msg").value),
           success: function(data, textStatus, jqXHR) {
             console.log(data);
-            location.reload();
+            //location.reload();
           },
           error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);

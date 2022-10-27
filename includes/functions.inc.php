@@ -1,6 +1,7 @@
 <?php
 
 use LDAP\Result;
+use PHPMailer\PHPMailer\PHPMailer;
 
 function emptyInputSignup($name, $email, $pwd, $pwdrepeat) {
     return (empty($name) || empty($email) || empty($pwd) || empty($pwdrepeat));
@@ -578,7 +579,7 @@ function changeIncidentEmail($conn, $email) {
 
     changeOption($conn, "incidenceEmail", $email);
     //mail($email,"PHP email function Test", "This is PHP email function Test.", "From: noreply@colegiofatima.com");
-    
+
     header("location: ../admin_panel.php?error=emailchanged");
     exit();
 }
@@ -600,6 +601,7 @@ function sanitize_xss($value) {
     return htmlspecialchars(strip_tags($value));
 }
 
+
 function sendIncidentEmail($conn, $text) {
     session_start();
     $name = $_SESSION["username"];
@@ -607,7 +609,7 @@ function sendIncidentEmail($conn, $text) {
     $day = date("d/m/Y");
     $time = date("H:m");
 
-    $id = $name.$email.$day.$time;
+    $id = $name . $email . $day . $time;
     $hashid = hash("ripemd160", $id);
 
     $emailto = getConfiguration($conn, "incidenceEmail");
@@ -626,6 +628,34 @@ function sendIncidentEmail($conn, $text) {
     mysqli_stmt_bind_param($stmt, "sssssss", $hashid, $name, $time, $day, $emailto, $text, $DEFAULT_STATUS);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+
+
+    /*$subject = "Nueva incidencia registrada";
+    $msg = "Nueva incidencia fue registrada por ".$name.":\n".$text."\n\nRevisa la incidencia aca: http://fatimacolegio.sytes.net/admin_panel.php";
+    mail($emailto, $subject, $msg);*/
+
+    require "../src/Exception.php";
+    require "../src/PHPMailer.php";
+    require "../src/SMTP.php";
+    $mail = new PHPMailer();
+    $mail->CharSet = 'UTF-8';
+
+    $body = "Nueva incidencia fue registrada por " . $name . ":<br>" . $text . "<br><br><a href='//fatimacolegio.sytes.net/admin_panel.php'>Revisar la incidencia.</a>";
+
+    $mail->IsSMTP();
+    $mail->Host       = 'smtp.gmail.com';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port       = 587;
+    $mail->SMTPDebug  = 1;
+    $mail->SMTPAuth   = true;
+    $mail->Username   = 'noreply.reservas.dispositivos@gmail.com';
+    $mail->Password   = 'fesfbxodurzzvkus';
+    $mail->SetFrom('noreply.reservas.dispositivos@gmail.com', "Reserva Dispositivos");
+    $mail->Subject    = "Nueva incidencia registrada";;
+    $mail->MsgHTML($body);
+
+    $mail->AddAddress($emailto);
+    $mail->send();
 
     header("incidences.php?error=addedincident");
     exit();

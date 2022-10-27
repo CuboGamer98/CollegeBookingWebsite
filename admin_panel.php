@@ -256,7 +256,7 @@
                         $incidences = getIncidences($conn, true);
 
                         foreach ($incidences as &$incidence) {
-                            echo '<tr><th>' . $incidence["id"] . '</th><th>' . $incidence["by"] . '</th><th>' . $incidence["hour"] . '</th><th>' . $incidence["day"] . '</th><th>' . $incidence["sendto"] . '</th><th>' . $incidence["msg"] . '</th><th><select id="year" name="clase" class="year-select">';
+                            echo '<tr><th class="th-id" title="'.$incidence["id"].'">' . $incidence["id"] . '</th><th>' . $incidence["by"] . '</th><th>' . $incidence["hour"] . '</th><th>' . $incidence["day"] . '</th><th>' . $incidence["sendto"] . '</th><th class="th-id" title="'.$incidence["msg"].'">' . $incidence["msg"] . '</th><th><select id="year" name="clase" class="year-select">';
                             echo '<option value="None" disabled="">-- Selecciona --</option><option value="None" '. ($incidence["status"] === "En espera" ? "selected" : "") .'>En espera</option><option value="None" '. ($incidence["status"] === "En solución" ? "selected" : "") .'>En solución</option><option value="None" '. ($incidence["status"] === "Resuelto" ? "selected" : "") .'>Resuelto</option></select></th>';
                             echo '</tr>';
                         }
