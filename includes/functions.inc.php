@@ -601,7 +601,6 @@ function sanitize_xss($value) {
     return htmlspecialchars(strip_tags($value));
 }
 
-
 function sendIncidentEmail($conn, $text) {
     session_start();
     $name = $_SESSION["username"];
@@ -628,11 +627,6 @@ function sendIncidentEmail($conn, $text) {
     mysqli_stmt_bind_param($stmt, "sssssss", $hashid, $name, $time, $day, $emailto, $text, $DEFAULT_STATUS);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-
-
-    /*$subject = "Nueva incidencia registrada";
-    $msg = "Nueva incidencia fue registrada por ".$name.":\n".$text."\n\nRevisa la incidencia aca: http://fatimacolegio.sytes.net/admin_panel.php";
-    mail($emailto, $subject, $msg);*/
 
     require "../src/Exception.php";
     require "../src/PHPMailer.php";

@@ -40,12 +40,16 @@
           $incidences = getIncidences($conn, true);
 
           foreach ($incidences as &$incidence) {
-            echo '<tr><th class="th-id" title="'.$incidence["id"].'">' . $incidence["id"] . '</th><th>' . $incidence["by"] . '</th><th>' . $incidence["hour"] . '</th><th>' . $incidence["day"] . '</th><th>' . $incidence["sendto"] . '</th><th class="th-id" title="'.$incidence["msg"].'">' . $incidence["msg"] . '</th><th>'.$incidence["status"].'</th></tr>';
+            echo '<tr><th class="th-id" title="' . $incidence["id"] . '">' . $incidence["id"] . '</th><th>' . $incidence["by"] . '</th><th>' . $incidence["hour"] . '</th><th>' . $incidence["day"] . '</th><th>' . $incidence["sendto"] . '</th><th class="th-id" id="th-id" title="' . $incidence["msg"] . '">' . $incidence["msg"] . '</th><th>' . $incidence["status"] . '</th></tr>';
           }
           ?>
         </table>
       </div>
     </div>
+  </div>
+
+  <div class="big-msg-amin" style="display:none" id="big-msg">
+    <div class="big-msg-centered" id="big-msg-text"></div>
   </div>
 
   <script>
@@ -57,13 +61,24 @@
           data: "action=sendincidence&text=" + escape(document.getElementById("msg").value),
           success: function(data, textStatus, jqXHR) {
             console.log(data);
-            //location.reload();
+            location.reload();
           },
           error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
           }
         });
       }
+    })
+
+    $('#th-id').click(e => {
+      const d = document.getElementById("big-msg")
+      d.style.display = d.style.display === "block" ? "none" : "block";
+      const t = document.getElementById("big-msg-text")
+      t.innerText = e.target.title;
+    })
+
+    $('#big-msg').click(e => {
+      e.target.style.display = "none";
     })
   </script>
 </body>

@@ -105,3 +105,22 @@ th {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.big-msg-amin {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: rgb(1 1 1 / 56%);
+}
+
+.big-msg-centered {
+    background-color: #585858;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    padding: 3vh;
+    border-radius: 2vh;
+    font-size: 3vh;
+}

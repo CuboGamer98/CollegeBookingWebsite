@@ -128,9 +128,8 @@ h1.tittle {
 
 input,
 select {
-  border-color: #473676;
+  border: unset;
   border-radius: 1vh;
-  border-width: 0.25vh;
   font-size: 2vh;
   background-color: #282a2d;
   color: #fff;
