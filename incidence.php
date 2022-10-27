@@ -38,6 +38,7 @@
           require_once "includes/dbh.inc.php";
           require_once "includes/functions.inc.php";
           $incidences = getIncidences($conn, true);
+          $incidences = array_reverse($incidences);
 
           foreach ($incidences as &$incidence) {
             echo '<tr><th class="th-id" title="' . $incidence["id"] . '">' . $incidence["id"] . '</th><th>' . $incidence["by"] . '</th><th>' . $incidence["hour"] . '</th><th>' . $incidence["day"] . '</th><th>' . $incidence["sendto"] . '</th><th class="th-id" id="th-id" title="' . $incidence["msg"] . '">' . $incidence["msg"] . '</th><th>' . $incidence["status"] . '</th></tr>';

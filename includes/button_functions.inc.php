@@ -36,5 +36,8 @@ if (isset($_POST['action'])) {
         case 'sendincidence':
             sendIncidentEmail($conn, $_POST['text']);
             break;
+        case 'updateincidencestatus':
+            UpdateIncidence($conn, $_POST['id'], $_POST['status']);
+            break;
     }
 }

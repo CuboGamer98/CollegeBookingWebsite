@@ -655,3 +655,20 @@ function sendIncidentEmail($conn, $text) {
     header("incidences.php?error=addedincident");
     exit();
 }
+
+function UpdateIncidence($conn, $id, $status) {
+    $sql = "UPDATE incidences SET status=? WHERE id=?";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../admin_panel.php?error=erroraccepting");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ss", $status, $id);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("location: ../admin_panel.php?error=updatedincidence");
+    exit();
+}

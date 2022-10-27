@@ -256,8 +256,8 @@
                         $incidences = getIncidences($conn, true);
 
                         foreach ($incidences as &$incidence) {
-                            echo '<tr><th class="th-id" title="'.$incidence["id"].'">' . $incidence["id"] . '</th><th>' . $incidence["by"] . '</th><th>' . $incidence["hour"] . '</th><th>' . $incidence["day"] . '</th><th>' . $incidence["sendto"] . '</th><th class="th-id" title="'.$incidence["msg"].'">' . $incidence["msg"] . '</th><th><select id="year" name="clase" class="year-select">';
-                            echo '<option value="None" disabled="">-- Selecciona --</option><option value="None" '. ($incidence["status"] === "En espera" ? "selected" : "") .'>En espera</option><option value="None" '. ($incidence["status"] === "En solución" ? "selected" : "") .'>En solución</option><option value="None" '. ($incidence["status"] === "Resuelto" ? "selected" : "") .'>Resuelto</option></select></th>';
+                            echo '<tr><th class="th-id id-text" title="' . $incidence["id"] . '">' . $incidence["id"] . '</th><th>' . $incidence["by"] . '</th><th>' . $incidence["hour"] . '</th><th>' . $incidence["day"] . '</th><th>' . $incidence["sendto"] . '</th><th class="th-id" title="' . $incidence["msg"] . '">' . $incidence["msg"] . '</th><th><select id="year" name="clase" class="status-select">';
+                            echo '<option value="None" disabled="">-- Selecciona --</option><option value="None" ' . ($incidence["status"] === "En espera" ? "selected" : "") . '>En espera</option><option value="None" ' . ($incidence["status"] === "En solución" ? "selected" : "") . '>En solución</option><option value="None" ' . ($incidence["status"] === "Resuelto" ? "selected" : "") . '>Resuelto</option></select></th>';
                             echo '</tr>';
                         }
                         ?>
@@ -472,6 +472,24 @@
                         }
                     });
                 }
+            });
+
+            $('.status-select').each(function() {
+                this.addEventListener("change", e => {
+                const id = e.target.parentElement.parentElement.getElementsByTagName("th")[0]
+                    $.ajax({
+                        type: 'POST',
+                        url: 'includes/button_functions.inc.php',
+                        data: "action=updateincidencestatus&id=" + id.innerHTML + "&status=" + e.target.children[e.target.selectedIndex].innerHTML,
+                        success: function(data, textStatus, jqXHR) {
+                            location.reload();
+                            console.log(data);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+                });
             });
 
             $('.checkbox').each(function() {
