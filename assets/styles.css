@@ -75,10 +75,14 @@ section {
 
 .container {
   width: 100%;
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-gap: 10vh;
   justify-items: center;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
 }
 
 h3 {
