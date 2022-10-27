@@ -70,7 +70,7 @@
       }
     })
 
-    $('#th-id').click(e => {
+    $('.th-id').click(e => {
       const d = document.getElementById("big-msg")
       d.style.display = d.style.display === "block" ? "none" : "block";
       const t = document.getElementById("big-msg-text")
@@ -78,7 +78,9 @@
     })
 
     $('#big-msg').click(e => {
-      e.target.style.display = "none";
+      if (e.target.id !== "big-msg-text") {
+        e.target.style.display = "none";
+      }
     })
   </script>
 </body>

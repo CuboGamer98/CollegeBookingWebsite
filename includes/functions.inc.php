@@ -606,9 +606,10 @@ function sendIncidentEmail($conn, $text) {
     $name = $_SESSION["username"];
     $email = $_SESSION["useremail"];
     $day = date("d/m/Y");
-    $time = date("H:m");
+    $time = date("H:i");
+    $timewsec = date("H:i:s");
 
-    $id = $name . $email . $day . $time;
+    $id = $name . $email . $day . $timewsec;
     $hashid = hash("ripemd160", $id);
 
     $emailto = getConfiguration($conn, "incidenceEmail");
