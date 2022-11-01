@@ -35,6 +35,10 @@
     include_once "account.php";
     ?>
 
+    <div class="loading-msg-main" id="big-msg">
+        <div class="loading-msg-centered">Loading...</div>
+    </div>
+
     <div class="hero">
         <div><button class="b0" id="butt">></button>
             <button class="b1" id="bott">
@@ -74,41 +78,64 @@
             return s[0].toUpperCase() + s.slice(1);
         }
 
-        getCookie("election", false, function(cookie) {
-            $.ajax({
-                type: 'POST',
-                url: 'includes/bookings.inc.php',
-                data: "action=getbookings",
-                success: function(data, textStatus, jqXHR) {
-                    const jsondata = JSON.parse(data);
-                    for (let i = 0; i <= jsondata.length - 1; i++) {
-                        if (cookie == jsondata[i].book) {
-                            $('#calendar').evoCalendar('addCalendarEvent', {
-                                id: jsondata[i]["id"],
-                                name: "De " + jsondata[i]["start"] + " hasta " + jsondata[i]["end"],
-                                description: jsondata[i].name + " | " + jsondata[i].class + " " +
-                                    jsondata[i].grade + " | " + capitalize(jsondata[i].book),
-                                date: jsondata[i].date,
-                                showTrash: jsondata[i].name === document.getElementById("username").innerHTML ? true : false,
-                                type: 'event'
-                            });
+        function run() {
+            getCookie("election", false, function(cookie) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'includes/bookings.inc.php',
+                    data: "action=getbookings",
+                    success: function(data, textStatus, jqXHR) {
+                        const jsondata = JSON.parse(data);
+                        for (let i = 0; i <= jsondata.length - 1; i++) {
+                            if (cookie == jsondata[i].book) {
+                                $('#calendar').evoCalendar('addCalendarEvent', {
+                                    id: jsondata[i]["id"],
+                                    name: "De " + jsondata[i]["start"] + " hasta " + jsondata[i]["end"],
+                                    description: jsondata[i].name + " | " + jsondata[i].class + " " +
+                                        jsondata[i].grade + " | " + capitalize(jsondata[i].book),
+                                    date: jsondata[i].date,
+                                    showTrash: jsondata[i].name === document.getElementById("username").innerHTML ? true : false,
+                                    type: 'event'
+                                });
+                            }
                         }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
                     }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(errorThrown);
-                }
+                });
+            }, true);
+
+            getCookie("date", false, function(cookie) {
+                $('#calendar').evoCalendar('selectDate', cookie)
+            }, true);
+
+            $(document).ready(function() {
+                $("#calendar").evoCalendar({});
+                updateCButtons();
             });
-        }, true);
 
-        getCookie("date", false, function(cookie) {
-            $('#calendar').evoCalendar('selectDate', cookie)
-        }, true);
+            document.getElementById("big-msg").style.display = "none"
+        }
 
-        $(document).ready(function() {
-            $("#calendar").evoCalendar({});
-            updateCButtons();
-        });
+        (async () => {
+            console.log(Date.now());
+            var date = false,
+                election = false
+            while (date !== false)
+                getCookie("date", false, function(cookie) {
+                    date = cookie
+                })
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            while (election !== false)
+                getCookie("election", false, function(cookie) {
+                    election = cookie
+                })
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            console.log(Date.now());
+            run()
+        })();
     </script>
     <div id="myModal" class="modal">
         <div class="modal-content">
