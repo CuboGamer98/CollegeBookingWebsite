@@ -275,6 +275,12 @@
                             <th>Imagen</th>
                             <th>Nombre</th>
                         </tr>
+<?php
+
+?>
+                        <tr class="tr-sticky">
+                            <th><button>Agregar</button></th>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -285,6 +291,12 @@
                     <table class="users">
                         <tr class="tr-sticky">
                             <th>Nombre</th>
+                        </tr>
+<?php
+
+?>
+                        <tr class="tr-sticky">
+                            <th><button>Agregar</button></th>
                         </tr>
                     </table>
                 </div>
