@@ -18,7 +18,7 @@
     <div class="sub-table" style="background-color: unset">
       <h3>Reportar incidencia</h3>
       <p>Escriba cual es el problema en esta caja de texto:</p>
-      <textarea id="msg" placeholder="Aquí se escribe, por si aún no se dio cuenta."></textarea>
+      <textarea id="msg" placeholder="Aquí se escribe."></textarea>
       <button class="submit login" id="sendincidence">Enviar</button>
     </div>
 
@@ -61,7 +61,7 @@
           data: "action=sendincidence&text=" + escape(document.getElementById("msg").value),
           success: function(data, textStatus, jqXHR) {
             console.log(data);
-            location.reload();
+            //location.reload();
           },
           error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
