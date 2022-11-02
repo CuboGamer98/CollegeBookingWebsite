@@ -184,7 +184,7 @@
                                     $classes = getClasses($conn, true);
 
                                     foreach ($classes as &$class) {
-                                        echo '<option value="'.$class["name"].'" id="'.$class["name"].'">'.$class["name"].'</option>';
+                                        echo '<option value="' . $class["name"] . '" id="' . $class["name"] . '">' . $class["name"] . '</option>';
                                     }
                                     ?>
                                 </select>
@@ -278,44 +278,32 @@
                     <div class="sub-table-scroll">
                         <table class="users">
                             <tr class="tr-sticky">
-                                <th></th>
                                 <th>Imagen</th>
                                 <th>Nombre</th>
                                 <th>Acciones</th>
-                                <th></th>
                             </tr>
                             <tr id="add-new-book-type-tr" style="display:none">
-                                <th></th>
                                 <th class="pick-file">
-                                    <input type="file" class="new-book-img" id="new-book-img">
+                                    <input type="file" class="new-book-img" id="new-book-img" accept="image/*">
                                     <div class="fake-file-button">Seleccionar archivo</div>
                                 </th>
                                 <th><input type="text" class="new-book-text-input" id="new-book-text-input" maxlength="64"></th>
                                 <th><button id="add-new-book-type-button">Agregar</button><button id="add-new-book-type-cancel">Cancelar</button></th>
-                                <th></th>
                             </tr>
                             <tr id="add-new-book-type-tr2">
                                 <th></th>
                                 <th></th>
-                                <th></th>
                                 <th><button id="add-new-book-type">Agregar</button></th>
-                                <th></th>
                             </tr>
 
                             <?php
-                            /*require_once "includes/dbh.inc.php";
-                        require_once "includes/functions.inc.php";
-                        $autobooks = getClasses($conn, true);
+                            require_once "includes/dbh.inc.php";
+                            require_once "includes/functions.inc.php";
+                            $booktypes = getBookTypes($conn, true);
 
-                        foreach ($autobooks as &$autobook) {
-                            echo '<tr>
-                            <th></th>
-                            <th><img src="'.''.'"></th>
-                            <th>'.''.'</th>
-                            <th><button id="remove-book-type">Eliminar</button></th>
-                            <th></th>
-                        </tr>';
-                        }*/
+                            foreach ($booktypes as &$booktype) {
+                                echo '<tr id="' . $booktype["name"] . '"><th><img src="' . substr($booktype["img_name"], 3) . '"></th><th>' . $booktype["name"] . '</th><th><button id="remove-book-type">Eliminar</button></th></tr>';
+                            }
                             ?>
 
                         </table>
@@ -327,24 +315,18 @@
                     <div class="sub-table-scroll">
                         <table class="users">
                             <tr class="tr-sticky">
-                                <th></th>
                                 <th>Nombre</th>
                                 <th>Acciones</th>
-                                <th></th>
                             </tr>
                             <tr id="add-new-class-tr" style="display:none">
-                                <th></th>
                                 <th>
                                     <input type="text" class="new-class-text-input" id="new-class-text-input" maxlength="64">
                                 </th>
                                 <th><button id="add-new-class-button">Agregar</button><button id="add-new-class-cancel">Cancelar</button></th>
-                                <th></th>
                             </tr>
                             <tr id="add-new-class-tr2">
                                 <th></th>
-                                <th></th>
                                 <th><button id="add-new-class">Agregar</button></th>
-                                <th></th>
                             </tr>
                             <?php
                             require_once "includes/dbh.inc.php";
@@ -352,7 +334,7 @@
                             $classes = getClasses($conn, true);
 
                             foreach ($classes as &$class) {
-                                echo '<tr id="' . $class["name"] . '"><th></th><th>' . $class["name"] . '</th><th><button id="remove-class">Eliminar</button></th><th></th></tr>';
+                                echo '<tr id="' . $class["name"] . '"><th>' . $class["name"] . '</th><th><button id="remove-class">Eliminar</button></th></tr>';
                             }
                             ?>
                         </table>
@@ -389,6 +371,7 @@
                 "float": "left"
             });
         }
+
         function addCurses(max, siglas) {
             const frameclases = document.getElementById("grade-select");
             for (let i = 1; i <= max; i++) {
@@ -580,7 +563,6 @@
                     var form_data = new FormData();
                     form_data.append('file', files[0]);
                     form_data.append('name', elem.value);
-                    form_data.append('action', "trytoadd-booktype");
                     $.ajax({
                         type: 'POST',
                         url: 'includes/booktype.inc.php',
@@ -588,8 +570,12 @@
                         contentType: false,
                         processData: false,
                         success: function(data, textStatus, jqXHR) {
-                            //location.reload();
                             console.log(data);
+                            if (data === "0") {
+                                alert("Hubo un error. Intentalo otra vez.")
+                            } else {
+                                location.reload();
+                            }
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             console.log(errorThrown);
@@ -623,6 +609,19 @@
                     type: 'POST',
                     url: 'includes/button_functions.inc.php',
                     data: "action=removeclassfromlist&name=" + e.target.parentElement.parentElement.id,
+                    success: function(data, textStatus, jqXHR) {
+                        location.reload();
+                        console.log(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+            } else if (e.target.id === "remove-book-type") {
+                $.ajax({
+                    type: 'POST',
+                    url: 'includes/button_functions.inc.php',
+                    data: "action=removebooktype&name=" + e.target.parentElement.parentElement.id,
                     success: function(data, textStatus, jqXHR) {
                         location.reload();
                         console.log(data);

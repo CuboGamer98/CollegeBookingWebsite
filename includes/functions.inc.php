@@ -700,3 +700,33 @@ function getClasses($conn, $bool) {
     }
     return $myArray;
 }
+
+function getBookTypes($conn, $bool) {
+    $myArray = array();
+    $result = getDataFromTable($conn, "book_types");
+    while ($row = $result->fetch_assoc()) {
+        $myArray[] = $row;
+    }
+    if ($bool !== true) {
+        echo json_encode($myArray);
+        exit();
+    }
+    return $myArray;
+}
+
+function removeBookType($conn, $name) {
+    $sql = "DELETE FROM book_types WHERE name=?;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        echo "admin_panel.php?error=erroraccepting";
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $name);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    echo "admin_panel.php?error=removedbooktype";
+    exit();
+}

@@ -21,24 +21,15 @@
   <section class="s1">
     <h1 class="title">¿Qué desea reservar?</h1>
     <div class="container">
-      <button class="c-button" id="ordenador">
-        <h3>Sala de informática</h3>
-      </button>
-      <button class="c-button" id="chromebook">
-        <h3>Chromebooks</h3>
-      </button>
-      <button class="c-button" id="tablet carro 1">
-        <h3>Tablets carro 1</h3>
-      </button>
-      <button class="c-button" id="tablet carro 2">
-        <h3>Tablets carro 2</h3>
-      </button>
-      <button class="c-button" id="capilla">
-        <h3>Capilla</h3>
-      </button>
-      <button class="c-button" id="biblioteca">
-        <h3>Biblioteca</h3>
-      </button>
+      <?php
+      require_once "includes/dbh.inc.php";
+      require_once "includes/functions.inc.php";
+      $booktypes = getBookTypes($conn, true);
+
+      foreach ($booktypes as &$booktype) {
+        echo '<button class="c-button" id="' . strtolower($booktype["name"]) . '" style="background:url(' . $booktype["img_name"] . ') no-repeat"><h3>' . $booktype["name"] . '</h3></button>';
+      }
+      ?>
     </div>
   </section>
 

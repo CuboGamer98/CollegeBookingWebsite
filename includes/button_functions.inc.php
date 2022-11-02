@@ -45,5 +45,8 @@ if (isset($_POST['action'])) {
         case 'removeclassfromlist':
             removeClass($conn, $_POST['name']);
             break;
+        case 'removebooktype':
+            removeBookType($conn, $_POST['name']);
+            break;
     }
 }

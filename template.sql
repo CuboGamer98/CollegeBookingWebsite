@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-10-2022 a las 21:29:01
+-- Tiempo de generación: 02-11-2022 a las 20:24:13
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -47,7 +47,7 @@ INSERT INTO `autobooks` (`weekday`, `start`, `end`, `book`, `class`, `grade`, `e
 ('Miércoles', '16:00', '17:00', 'chromebook', 'Tecnología', '2º B ESO', 'h.sanchez@alexia.cnsfatima.es'),
 ('Jueves', '14:00', '15:00', 'chromebook', 'Música', '2º A ESO', 'h.sanchez@alexia.cnsfatima.es'),
 ('Viernes', '9:00', '10:00', 'chromebook', 'Religión', '6º B EP', 'h.sanchez@alexia.cnsfatima.es'),
-('Lunes', '9:00', '10:00', 'chromebook', 'Francés', '4º A EP', 'quien.soy.yo@alguien.que.no.existe');
+('Lunes', '9:00', '10:00', 'chromebook', 'Francés', '4º A EP', 'j.vega@alexia.cnsfatima.es');
 
 -- --------------------------------------------------------
 
@@ -163,6 +163,61 @@ INSERT INTO `bookings` (`id`, `start`, `end`, `name`, `class`, `grade`, `book`, 
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `book_types`
+--
+
+CREATE TABLE `book_types` (
+  `name` text NOT NULL,
+  `img_name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `book_types`
+--
+
+INSERT INTO `book_types` (`name`, `img_name`) VALUES
+('Sala de informática', '../uploaded_images/5k5yf8sv9lftl64cqdeqeombhvdapd17v7tz537rnc3s4udmjv.svg'),
+('Tablets carro 1', '../uploaded_images/tk0bux5603hulhm5yerr9rzsm7m2l7l3zimf2k7rvb032k2h8n.svg'),
+('Tablets carro 2', '../uploaded_images/ukiz7uo4kphsx178ahls26q0t36fmkig6317bdmvkcwyvoucdv.svg'),
+('Capilla', '../uploaded_images/64oxa518h506tz6by6nwjan0gjb8wo3vize37czfsbw4ww8rs6.svg'),
+('Biblioteca', '../uploaded_images/drf8b33bkz3n6zbx3bo04fdb6av7yi9u9xqhn43tubja83ydih.svg'),
+('Chromebook', '../uploaded_images/auwhe1pvofbqc4kgca0vcg1g9apgsf69ex4am3ga23rci4mtvg.svg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `classes`
+--
+
+CREATE TABLE `classes` (
+  `name` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `classes`
+--
+
+INSERT INTO `classes` (`name`) VALUES
+('Matemáticas'),
+('Lengua'),
+('Inglés'),
+('Geografía-Historia/Sociales'),
+('Biología'),
+('Música'),
+('Educación Física'),
+('Tecnología'),
+('Religión'),
+('Francés'),
+('Iniciativa/Economía'),
+('Plástica/Arts'),
+('Latín'),
+('Física y Química'),
+('Informática'),
+('Filosofía');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `incidences`
 --
 
@@ -181,13 +236,7 @@ CREATE TABLE `incidences` (
 --
 
 INSERT INTO `incidences` (`id`, `by`, `hour`, `day`, `sendto`, `msg`, `status`) VALUES
-('374215357c1a302195ee2db7a3dcdaf8bc31745d', 'Héctor Sánchez', '21:08', '27/10/2022', 'hectorsanchezfernandez.98@gmail.com', 'wergweg', 'Resuelto'),
-('7ac659ef42aea903e2dc903c125cca77dfdef609', 'Héctor Sánchez', '21:28', '27/10/2022', 'hectorsanchezfernandez.98@gmail.com', 'sdfsdfsdfsd', 'En solución'),
-('45b245yb245yb245yb245by', 'Héctor Sánchez', '21:38', '27/10/2022', 'hectorsanchezfernandez.98@gmail.com', 'sdf', 'En solución'),
-('2yb245yb245by245yb245by', 'Héctor Sánchez', '21:48', '27/10/2022', 'hectorsanchezfernandez.98@gmail.com', 'tyj', 'En solución'),
-('2by245by24545by45by245y', 'Héctor Sánchez', '21:58', '27/10/2022', 'hectorsanchezfernandez.98@gmail.com', 'qawf', 'En solución'),
-('45by245by45ybg245yb45yb', 'Héctor Sánchez', '21:68', '27/10/2022', 'hectorsanchezfernandez.98@gmail.com', 'wserg', 'En solución'),
-('secrt34v4bw562456b345b7', 'Héctor Sánchez', '21:78', '27/10/2022', 'hectorsanchezfernandez.98@gmail.com', 'weg', 'En solución');
+('7d8a26d654d0ac5d66452784a2529c56c0ba5ce7', 'Héctor Sánchez', '22:29', '27/10/2022', 'hectorsanchezfernandez.98@gmail.com', 'Me aburro mucho cuando estoy, no se, en verano y no se que hacer y pues me pongo a hacer operaciones matematicas.', 'En espera');
 
 -- --------------------------------------------------------
 
