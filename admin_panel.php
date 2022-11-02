@@ -382,7 +382,11 @@
                 "left": "0",
                 "width": "min-content",
                 "overflow-x": "scroll",
-                "transform": "unset"
+                "transform": "unset",
+                "height": "100%"
+            });
+            $('#topbar').css({
+                "float": "left"
             });
         }
         function addCurses(max, siglas) {

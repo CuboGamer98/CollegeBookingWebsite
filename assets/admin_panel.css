@@ -1,4 +1,4 @@
-*{
+* {
     color: #dadada;
 }
 
@@ -51,17 +51,18 @@ h2>.text {
 button {
     font-size: 2vh;
     border-width: 0.1vh;
-    background-color: rgb(35,35,35);
+    background-color: rgb(35, 35, 35);
     border: unset;
     border-radius: 1vh;
     padding: 0.5vh 1vh;
 }
 
 button:disabled {
-    background-color: rgb(50,50,50);
+    background-color: rgb(50, 50, 50);
 }
 
-button:hover, button:focus {
+button:hover,
+button:focus {
     color: #fff;
     text-decoration: none;
     cursor: pointer;
@@ -89,11 +90,12 @@ button:hover:disabled {
     justify-content: flex-start;
 }
 
-.tittle-autobook, .tittle-bookings {
+.tittle-autobook,
+.tittle-bookings {
     display: flex;
 }
 
-.tittle-autobook > button {
+.tittle-autobook>button {
     margin: 0 2vh;
     transform: translate(0, 50%);
     height: 3vh;
@@ -101,7 +103,8 @@ button:hover:disabled {
 }
 
 input.text {
-    width: 10vh;
+    width: 10vh !important;
+    height: 3vh !important;
 }
 
 p {
@@ -157,13 +160,13 @@ select {
     margin-top: 1vh;
 }
 
-.arrow-down > p {
+.arrow-down>p {
     display: table-cell;
     font-size: 3vh;
     padding: 1vh;
 }
 
-.arrow-down > button {
+.arrow-down>button {
     float: right;
     border-width: 0;
     font-size: 3vh;
@@ -171,26 +174,26 @@ select {
     width: 100%;
 }
 
-.arrow-down > button > img {
+.arrow-down>button>img {
     width: 4vh;
     float: right;
 }
 
-.arrow-down > button#button-trash {
+.arrow-down>button#button-trash {
     width: auto;
 }
 
-.arrow-down > button > img {
+.arrow-down>button>img {
     height: 3.5vh;
     float: right;
     pointer-events: none;
 }
 
-.arrow-down > button#button-trash {
+.arrow-down>button#button-trash {
     width: auto;
 }
 
-.tittle-bookings > button {
+.tittle-bookings>button {
     width: 100%;
     float: right;
     height: 4vh;
@@ -199,13 +202,13 @@ select {
     background-color: rgba(255, 255, 255, 0);
 }
 
-.tittle-bookings > button > img {
+.tittle-bookings>button>img {
     float: right;
     height: 100%;
     transform: translate(0, -25%);
 }
 
-.tittle-bookings > div {
+.tittle-bookings>div {
     float: right;
     height: 4vh;
     transform: translate(0, 50%);
@@ -250,7 +253,7 @@ button#edit-button img {
 
 select {
     border: unset;
-    background-color: rgb(35,35,35);
+    background-color: rgb(35, 35, 35);
     border-radius: 1vh;
 }
 
@@ -264,17 +267,17 @@ option:disabled {
     flex-wrap: nowrap;
     align-content: flex-start;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 }
 
-.sub-table > h2 {
+.sub-table>h2 {
     text-align: center;
     padding: 0vh 5vh;
 }
 
 .fake-file-button {
     top: 50%;
-    background-color: rgb(35,35,35);
+    background-color: rgb(35, 35, 35);
     border-radius: 1vh;
     padding: 0.5vh;
     grid-row-start: 1;
@@ -300,12 +303,13 @@ th.pick-file {
     cursor: pointer;
 }
 
-.new-class-text-input, .new-book-text-input {
+.new-class-text-input,
+.new-book-text-input {
     height: 3vh !important;
     width: 30vh !important;
     margin: 1vh !important;
 }
 
-th > img {
+th>img {
     max-width: 5vh;
 }
