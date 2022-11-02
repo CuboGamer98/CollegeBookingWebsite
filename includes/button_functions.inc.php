@@ -39,5 +39,11 @@ if (isset($_POST['action'])) {
         case 'updateincidencestatus':
             UpdateIncidence($conn, $_POST['id'], $_POST['status']);
             break;
+        case 'addclass':
+            addNewClass($conn, $_POST['name']);
+            break;
+        case 'removeclassfromlist':
+            removeClass($conn, $_POST['name']);
+            break;
     }
 }

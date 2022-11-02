@@ -629,28 +629,9 @@ function sendIncidentEmail($conn, $text) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    require "../src/Exception.php";
-    require "../src/PHPMailer.php";
-    require "../src/SMTP.php";
-    $mail = new PHPMailer();
-    $mail->CharSet = 'UTF-8';
-
-    $body = "Nueva incidencia fue registrada por " . $name . ":<br>" . $text . "<br><br><a href='//fatimacolegio.sytes.net/admin_panel.php'>Revisar la incidencia.</a>";
-
-    $mail->IsSMTP();
-    $mail->Host       = 'smtp.gmail.com';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port       = 587;
-    $mail->SMTPDebug  = 1;
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'noreply.reservas.dispositivos@gmail.com';
-    $mail->Password   = 'fesfbxodurzzvkus';
-    $mail->SetFrom('noreply.reservas.dispositivos@gmail.com', "Reserva Dispositivos");
-    $mail->Subject    = "Nueva incidencia registrada";;
-    $mail->MsgHTML($body);
-
-    $mail->AddAddress($emailto);
-    $mail->send();
+    $body = "Nueva incidencia fue registrada por " . $name . ":<br>" . $text . "<br><br>Revisar la incidencia.";
+    $subject    = "Nueva incidencia registrada";;
+    mail($emailto, $subject, $body);
 
     header("incidences.php?error=addedincident");
     exit();
@@ -671,4 +652,51 @@ function UpdateIncidence($conn, $id, $status) {
 
     header("location: ../admin_panel.php?error=updatedincidence");
     exit();
+}
+
+function addNewClass($conn, $name) {
+    $sql = "INSERT INTO classes (name) VALUES (?);";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        header("admin_panel.php?error=erroraccepting");
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $name);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    header("admin_panel.php?error=addedclass");
+    exit();
+}
+
+function removeClass($conn, $name) {
+    $sql = "DELETE FROM classes WHERE name=?;";
+    $stmt = mysqli_stmt_init($conn);
+
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        echo "admin_panel.php?error=erroraccepting";
+        exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $name);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+
+    echo "admin_panel.php?error=removedclass";
+    exit();
+}
+
+function getClasses($conn, $bool) {
+    $myArray = array();
+    $result = getDataFromTable($conn, "classes");
+    while ($row = $result->fetch_assoc()) {
+        $myArray[] = $row;
+    }
+    if ($bool !== true) {
+        echo json_encode($myArray);
+        exit();
+    }
+    return $myArray;
 }

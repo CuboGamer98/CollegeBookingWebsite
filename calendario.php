@@ -144,6 +144,15 @@
             <label id="Asignatura">Asignatura:</label>
             <select id="asignaturas" name="asignaturas">
                 <option value="None" disabled>-- Selecciona --</option>
+                <?php
+                require_once "includes/dbh.inc.php";
+                require_once "includes/functions.inc.php";
+                $classes = getClasses($conn, true);
+
+                foreach ($classes as &$class) {
+                    echo '<option value="' . $class["name"] . '" id="' . $class["name"] . '">' . $class["name"] . '</option>';
+                }
+                ?>
             </select>
             <label id="clase">Clase:</label>
             <select id="clase-select" name="clase">
@@ -208,22 +217,6 @@
         getCookie("date", false, function(cookie) {
             dCookie = cookie;
         })
-
-        const frame = document.getElementById("asignaturas");
-        fetch("../info.json").then(response => {
-            return response.json();
-        }).then(jsondata => {
-            for (let i = 0; i <= jsondata.length; i++) {
-                if (jsondata[i] != null) {
-                    var option = document.createElement("option");
-                    option.value = jsondata[i].name;
-                    option.id = jsondata[i].name;
-                    var text = document.createTextNode(option.value);
-                    option.appendChild(text);
-                    frame.appendChild(option);
-                }
-            }
-        });
 
         function addCurses(max, siglas) {
             const frameclases = document.getElementById("clase-select");

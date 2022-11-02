@@ -94,7 +94,7 @@ button:hover:disabled {
 }
 
 .tittle-autobook > button {
-    position: fixed;
+    margin: 0 2vh;
     transform: translate(0, 50%);
     height: 3vh;
     right: 0;
@@ -212,7 +212,7 @@ select {
     transition: 250ms;
 }
 
-.tittle-bookings > div > input {
+input[type="text"] {
     float: right;
     height: 100%;
     transform: translate(0, -25%);
@@ -270,4 +270,42 @@ option:disabled {
 .sub-table > h2 {
     text-align: center;
     padding: 0vh 5vh;
+}
+
+.fake-file-button {
+    top: 50%;
+    background-color: rgb(35,35,35);
+    border-radius: 1vh;
+    padding: 0.5vh;
+    grid-row-start: 1;
+    grid-column-start: 1;
+}
+
+.new-book-img {
+    text-align: right;
+    -moz-opacity: 0;
+    opacity: 0;
+    z-index: 2;
+    width: 100%;
+    top: 0;
+    left: 0;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    cursor: pointer;
+}
+
+th.pick-file {
+    display: grid;
+    grid-template-columns: 1fr;
+    cursor: pointer;
+}
+
+.new-class-text-input, .new-book-text-input {
+    height: 3vh !important;
+    width: 30vh !important;
+    margin: 1vh !important;
+}
+
+th > img {
+    max-width: 5vh;
 }

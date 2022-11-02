@@ -178,6 +178,15 @@
                             <td>
                                 <select id="class-select" name="clase">
                                     <option value="None" disabled="">-- Selecciona --</option>
+                                    <?php
+                                    require_once "includes/dbh.inc.php";
+                                    require_once "includes/functions.inc.php";
+                                    $classes = getClasses($conn, true);
+
+                                    foreach ($classes as &$class) {
+                                        echo '<option value="'.$class["name"].'" id="'.$class["name"].'">'.$class["name"].'</option>';
+                                    }
+                                    ?>
                                 </select>
                             </td>
                             <td>
@@ -228,9 +237,6 @@
                             echo '<option value="None">' . $y . '</option>';
                             echo '<option value="None">' . ($y + 1) . '</option>';
                             echo '<option value="None">' . ($y + 2) . '</option>';
-                            echo '<option value="None">' . ($y + 3) . '</option>';
-                            echo '<option value="None">' . ($y + 4) . '</option>';
-                            echo '<option value="None">' . ($y + 5) . '</option>';
                             ?>
                         </select>
                         <button name="Hacer" value="save" id="makeautobook" class="interaction">Aceptar</button>
@@ -264,44 +270,95 @@
                     </table>
                 </div>
             </div>
-            
+
             <h2>Customizaciones</h2>
             <div class="sub-table-two">
-            <div class="sub-table">
-            <h2>Cosas a reservar</h2>
-                <div class="sub-table-scroll">
-                    <table class="users">
-                        <tr class="tr-sticky">
-                            <th>Imagen</th>
-                            <th>Nombre</th>
-                        </tr>
-<?php
+                <div class="sub-table">
+                    <h2>Cosas a reservar</h2>
+                    <div class="sub-table-scroll">
+                        <table class="users">
+                            <tr class="tr-sticky">
+                                <th></th>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                                <th></th>
+                            </tr>
+                            <tr id="add-new-book-type-tr" style="display:none">
+                                <th></th>
+                                <th class="pick-file">
+                                    <input type="file" class="new-book-img" id="new-book-img">
+                                    <div class="fake-file-button">Seleccionar archivo</div>
+                                </th>
+                                <th><input type="text" class="new-book-text-input" id="new-book-text-input" maxlength="64"></th>
+                                <th><button id="add-new-book-type-button">Agregar</button><button id="add-new-book-type-cancel">Cancelar</button></th>
+                                <th></th>
+                            </tr>
+                            <tr id="add-new-book-type-tr2">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th><button id="add-new-book-type">Agregar</button></th>
+                                <th></th>
+                            </tr>
 
-?>
-                        <tr class="tr-sticky">
-                            <th><button>Agregar</button></th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            
-            <div class="sub-table">
-            <h2>Asignaturas</h2>
-                <div class="sub-table-scroll">
-                    <table class="users">
-                        <tr class="tr-sticky">
-                            <th>Nombre</th>
-                        </tr>
-<?php
+                            <?php
+                            /*require_once "includes/dbh.inc.php";
+                        require_once "includes/functions.inc.php";
+                        $autobooks = getClasses($conn, true);
 
-?>
-                        <tr class="tr-sticky">
-                            <th><button>Agregar</button></th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+                        foreach ($autobooks as &$autobook) {
+                            echo '<tr>
+                            <th></th>
+                            <th><img src="'.''.'"></th>
+                            <th>'.''.'</th>
+                            <th><button id="remove-book-type">Eliminar</button></th>
+                            <th></th>
+                        </tr>';
+                        }*/
+                            ?>
+
+                        </table>
                     </div>
+                </div>
+
+                <div class="sub-table">
+                    <h2>Asignaturas</h2>
+                    <div class="sub-table-scroll">
+                        <table class="users">
+                            <tr class="tr-sticky">
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                                <th></th>
+                            </tr>
+                            <tr id="add-new-class-tr" style="display:none">
+                                <th></th>
+                                <th>
+                                    <input type="text" class="new-class-text-input" id="new-class-text-input" maxlength="64">
+                                </th>
+                                <th><button id="add-new-class-button">Agregar</button><button id="add-new-class-cancel">Cancelar</button></th>
+                                <th></th>
+                            </tr>
+                            <tr id="add-new-class-tr2">
+                                <th></th>
+                                <th></th>
+                                <th><button id="add-new-class">Agregar</button></th>
+                                <th></th>
+                            </tr>
+                            <?php
+                            require_once "includes/dbh.inc.php";
+                            require_once "includes/functions.inc.php";
+                            $classes = getClasses($conn, true);
+
+                            foreach ($classes as &$class) {
+                                echo '<tr id="' . $class["name"] . '"><th></th><th>' . $class["name"] . '</th><th><button id="remove-class">Eliminar</button></th><th></th></tr>';
+                            }
+                            ?>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="big-msg-amin" style="display:none" id="big-msg">
@@ -322,29 +379,12 @@
 
         if (mobileAndTabletCheck() == true) {
             $('.main-table').css({
-                "position": "relative"
-            });
-            $('.sub-table').css({
-                "overflow-x": "auto"
+                "left": "0",
+                "width": "min-content",
+                "overflow-x": "scroll",
+                "transform": "unset"
             });
         }
-
-        const frame = document.getElementById("class-select");
-        fetch("../info.json").then(response => {
-            return response.json();
-        }).then(jsondata => {
-            for (let i = 0; i <= jsondata.length; i++) {
-                if (jsondata[i] != null) {
-                    var option = document.createElement("option");
-                    option.value = jsondata[i].name;
-                    option.id = jsondata[i].name;
-                    var text = document.createTextNode(option.value);
-                    option.appendChild(text);
-                    frame.appendChild(option);
-                }
-            }
-        });
-
         function addCurses(max, siglas) {
             const frameclases = document.getElementById("grade-select");
             for (let i = 1; i <= max; i++) {
@@ -362,6 +402,27 @@
         }
         addCurses(6, "EP")
         addCurses(4, "ESO")
+
+        function handleFileSelect() {
+            if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+                alert('The File APIs are not fully supported in this browser.');
+                return;
+            }
+
+            var input = document.getElementById('fileinput');
+            if (!input) {
+                alert("Um, couldn't find the fileinput element.");
+            } else if (!input.files) {
+                alert("This browser doesn't seem to support the `files` property of file inputs.");
+            } else if (!input.files[0]) {
+                alert("Please select a file before clicking 'Load'");
+            } else {
+                var file = input.files[0];
+                var fr = new FileReader();
+                fr.onload = receivedText;
+                fr.readAsDataURL(file);
+            }
+        }
 
         $('button').click(e => {
             if (e.target.id === "addautobook") {
@@ -478,7 +539,7 @@
                 const el = e.target.parentElement.parentElement.getElementsByTagName("div")[0]
                 el.style.width = el.style.width === "100%" ? "0%" : "100%";
                 //el.style.display = el.style.display === "block" ? "none" : "block";
-            } else if (e.target.id == "edit-button") {
+            } else if (e.target.id === "edit-button") {
                 const input = document.getElementById("email-text");
                 if (input.hasAttribute("contentEditable") !== true) {
                     input.setAttribute("contentEditable", "true")
@@ -500,6 +561,72 @@
                         }
                     });
                 }
+            } else if (e.target.id === "add-new-book-type") {
+                const tr = document.getElementById("add-new-book-type-tr");
+                tr.style.display = "";
+                e.target.parentElement.parentElement.style.display = "none";
+            } else if (e.target.id === "add-new-class") {
+                const tr = document.getElementById("add-new-class-tr");
+                tr.style.display = "";
+                e.target.parentElement.parentElement.style.display = "none";
+            } else if (e.target.id === "add-new-book-type-button") {
+                const elem = document.getElementById("new-book-text-input");
+                const files = document.getElementById("new-book-img").files;
+                if (files.length > 0) {
+                    var form_data = new FormData();
+                    form_data.append('file', files[0]);
+                    form_data.append('name', elem.value);
+                    form_data.append('action', "trytoadd-booktype");
+                    $.ajax({
+                        type: 'POST',
+                        url: 'includes/booktype.inc.php',
+                        data: form_data,
+                        contentType: false,
+                        processData: false,
+                        success: function(data, textStatus, jqXHR) {
+                            //location.reload();
+                            console.log(data);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(errorThrown);
+                        }
+                    });
+                }
+            } else if (e.target.id === "add-new-class-button") {
+                const elem = document.getElementById("new-class-text-input");
+                $.ajax({
+                    type: 'POST',
+                    url: 'includes/button_functions.inc.php',
+                    data: "action=addclass&name=" + elem.value,
+                    success: function(data, textStatus, jqXHR) {
+                        location.reload();
+                        console.log(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
+            } else if (e.target.id === "add-new-book-type-cancel") {
+                const tr = document.getElementById("add-new-book-type-tr2");
+                tr.style.display = "";
+                e.target.parentElement.parentElement.style.display = "none";
+            } else if (e.target.id === "add-new-class-cancel") {
+                const tr = document.getElementById("add-new-class-tr2");
+                tr.style.display = "";
+                e.target.parentElement.parentElement.style.display = "none";
+            } else if (e.target.id === "remove-class") {
+                $.ajax({
+                    type: 'POST',
+                    url: 'includes/button_functions.inc.php',
+                    data: "action=removeclassfromlist&name=" + e.target.parentElement.parentElement.id,
+                    success: function(data, textStatus, jqXHR) {
+                        location.reload();
+                        console.log(data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                    }
+                });
             } else {
                 $.ajax({
                     type: 'POST',
