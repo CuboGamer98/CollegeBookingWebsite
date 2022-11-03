@@ -658,6 +658,8 @@ function addNewClass($conn, $name) {
     $sql = "INSERT INTO classes (name) VALUES (?);";
     $stmt = mysqli_stmt_init($conn);
 
+    $name = sanitize_xss($name);
+
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         header("admin_panel.php?error=erroraccepting");
         exit();
