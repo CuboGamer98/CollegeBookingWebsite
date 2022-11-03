@@ -119,7 +119,6 @@
         }
 
         (async () => {
-            console.log(Date.now());
             var date = false,
                 election = false
             while (date !== false)
@@ -133,7 +132,6 @@
                     election = cookie
                 })
             await new Promise(resolve => setTimeout(resolve, 1000));
-            console.log(Date.now());
             run()
         })();
     </script>
