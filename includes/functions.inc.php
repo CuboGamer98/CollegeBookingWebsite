@@ -3,6 +3,8 @@
 use LDAP\Result;
 use PHPMailer\PHPMailer\PHPMailer;
 
+use function PHPSTORM_META\exitPoint;
+
 function emptyInputSignup($name, $email, $pwd, $pwdrepeat) {
     return (empty($name) || empty($email) || empty($pwd) || empty($pwdrepeat));
 }
@@ -730,5 +732,40 @@ function removeBookType($conn, $name) {
     mysqli_stmt_close($stmt);
 
     echo "admin_panel.php?error=removedbooktype";
+    exit();
+}
+
+function getBookingsNow($conn, $booktypeselected) {
+    $booktypeselected = strtolower($booktypeselected);
+    $date = date("m/d/Y");
+    $now = date("Hi");
+
+    $booking = null;
+    $old_records = getBookings($conn, true);
+    for ($i = 0; $i < count($old_records); $i++) {
+        $d = $old_records[$i];
+        if (array_key_exists("date", $d)) {
+            if ($d["date"] === $date) {
+                if ($d["book"] === $booktypeselected) {
+                    $start1 = explode(":", $d["start"]);
+                    $end1 = explode(":", $d["end"]);
+
+                    $start = $start1[0].$start1[1];
+                    $end = $end1[0].$end1[1];
+                    $start = intval($start);
+                    $end = intval($end);
+
+                    if ($now >= $start && $now < $end) {
+                        $booking = $d;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    if ($booking !== null) {
+        echo json_encode($booking);
+    }
     exit();
 }

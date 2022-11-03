@@ -7,6 +7,11 @@ if (isset($_POST['action'])) {
         case 'book':
             book($_POST['id'], $_POST['start'], $_POST['end'], $_POST['class'], $_POST['grade'], $_POST['book'], $_POST['date']);
             break;
+        case 'getbookingsnow':
+            require_once "dbh.inc.php";
+            require_once "functions.inc.php";
+            getBookingsNow($conn, $_POST["booktype"]);
+            break;
     }
 }
 
@@ -17,17 +22,14 @@ function getbooks() {
 }
 
 function book($id, $start, $end, $class, $grade, $book, $date) {
-    function sanitize_xss($value) {
-        return htmlspecialchars(strip_tags($value));
-    }
+    require_once "dbh.inc.php";
+    require_once "functions.inc.php";
 
     session_start();
     if (isset($_SESSION["useremail"]) === null) {
         echo "includes/logout.inc.php";
         exit();
     }
-    require_once "dbh.inc.php";
-    require_once "functions.inc.php";
     
     $class = sanitize_xss($class);
     $grade = sanitize_xss($grade);
