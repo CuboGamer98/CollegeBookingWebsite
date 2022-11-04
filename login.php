@@ -6,7 +6,7 @@
     <div class="container-rows">
       <label id="name_email">Nombre / Correo: </label>
       <input type="text" id="nombreI" name="name_email" value="<?php echo isset($_SESSION['name_email']) ? $_SESSION['name_email'] : ''?>"/>
-      <label id="pwd">Cotraseña: </label>
+      <label id="pwd">Contraseña: </label>
       <input type="password" id="passwordI" name="pwd"/>
     </div>
     <h1 class="register-error", id="register-error">Error</h1>

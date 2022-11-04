@@ -18,9 +18,9 @@ session_start();
     <input type="text" id="nombreI" name="name" value="<?php echo isset($_SESSION['name']) ? $_SESSION['name'] : '' ?>" />
     <label id="email">Correo: </label>
     <input type="text" id="correoI" name="email" value="<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : '' ?>" />
-    <label id="pwd">Cotraseña: </label>
+    <label id="pwd">Contraseña: </label>
     <input type="password" id="passwordI" name="pwd" />
-    <label id="pwdrepeat">Repite la cotraseña: </label>
+    <label id="pwdrepeat">Repite la Contraseña: </label>
     <input type="password" id="passwordIR" name="pwdrepeat" />
   </div>
   <h1 class="register-error" id="register-error">Error</h1>

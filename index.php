@@ -48,10 +48,6 @@
     };
 
     if (mobileAndTabletCheck() == true) {
-      $('.container').css({
-        "top": "0",
-        "position": "absolute"
-      });
       $('#topbar').css({
         "float": "left"
       });

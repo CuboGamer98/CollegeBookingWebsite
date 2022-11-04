@@ -318,7 +318,7 @@
             return `<option value="${padded}">${padded}</option>`;
         }
 
-        const hourOptions = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20].map(numberToOption);
+        const hourOptions = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17].map(numberToOption);
         const minuteOptions = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(numberToOption);
 
         function getTimePartsFromPickable(timePickable) {
