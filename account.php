@@ -20,12 +20,12 @@ if ($filename === "admin_panel") {
 <ul id="topbar">
     <li class="li-button" <?php if ($filename === "index") { echo "data-current-page"; } ?>>
         <div class="button">
-            <a href=<?php if ($filename === "admin_panel") { $t = "../"; } else { $t = ""; } echo $t."index.php" ?>>Inico</a>
+            <a href=<?php if ($filename === "admin_panel") { $t = "./"; } else { $t = ""; } echo $t."index.php" ?>>Inico</a>
         </div>
     </li>
     <li class="li-button" <?php if ($filename === "incidence") { echo "data-current-page"; } ?>>
         <div class="button">
-            <a href=<?php if ($filename === "admin_panel") { $t = "../"; } else { $t = ""; } echo $t."incidence.php" ?>>Incidencias</a>
+            <a href=<?php if ($filename === "admin_panel") { $t = "./"; } else { $t = ""; } echo $t."incidence.php" ?>>Incidencias</a>
         </div>
     </li>
     <li class="li-button user-account">

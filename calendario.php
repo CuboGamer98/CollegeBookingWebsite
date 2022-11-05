@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="../assets/styles.css" />
-    <link rel="stylesheet" href="../assets/calendario.css" />
-    <link rel="stylesheet" href="../assets/evo-calendar.min.css" />
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <link rel="stylesheet" href="./assets/calendario.css" />
+    <link rel="stylesheet" href="./assets/evo-calendar.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
@@ -22,7 +22,7 @@
                 cookie = capitalize(cookie);
             } else {
                 cookie = "No elegido";
-                window.location.href = "../index.php"
+                window.location.href = "./index.php"
             }
 
             document.title = "Calendario: " + cookie;
@@ -72,7 +72,7 @@
             })
         }
     </script>
-    <script src="../js/evo-calendar.min.js"></script>
+    <script src="./js/evo-calendar.min.js"></script>
     <script>
         function capitalize(s) {
             return s[0].toUpperCase() + s.slice(1);

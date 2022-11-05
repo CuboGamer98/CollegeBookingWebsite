@@ -29,7 +29,7 @@ if (isset($_FILES['file']['name']) && isset($_POST["name"]) && $_POST["name"] !=
     }
 
     $filename = random_string(50).".".$ext;
-    $location = "../uploaded_images/" . $filename;
+    $location = "./uploaded_images/" . $filename;
 
     $response = 0;
     if (move_uploaded_file($_FILES['file']['tmp_name'], $location)) {

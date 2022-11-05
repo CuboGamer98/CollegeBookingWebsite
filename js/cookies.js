@@ -1,7 +1,7 @@
 function getCookie(name, def, func) {
     $.ajax({
       type: 'POST',
-      url: '../includes/cookies.inc.php',
+      url: './includes/cookies.inc.php',
       data: "action=get&name=" + name + "&def=" + def,
       success: function(data, textStatus, jqXHR) {
         func(data);

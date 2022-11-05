@@ -176,12 +176,12 @@ CREATE TABLE `book_types` (
 --
 
 INSERT INTO `book_types` (`name`, `img_name`) VALUES
-('Sala de informática', '../uploaded_images/5k5yf8sv9lftl64cqdeqeombhvdapd17v7tz537rnc3s4udmjv.svg'),
-('Tablets carro 1', '../uploaded_images/tk0bux5603hulhm5yerr9rzsm7m2l7l3zimf2k7rvb032k2h8n.svg'),
-('Tablets carro 2', '../uploaded_images/ukiz7uo4kphsx178ahls26q0t36fmkig6317bdmvkcwyvoucdv.svg'),
-('Capilla', '../uploaded_images/64oxa518h506tz6by6nwjan0gjb8wo3vize37czfsbw4ww8rs6.svg'),
-('Biblioteca', '../uploaded_images/drf8b33bkz3n6zbx3bo04fdb6av7yi9u9xqhn43tubja83ydih.svg'),
-('Chromebook', '../uploaded_images/auwhe1pvofbqc4kgca0vcg1g9apgsf69ex4am3ga23rci4mtvg.svg');
+('Sala de informática', './uploaded_images/5k5yf8sv9lftl64cqdeqeombhvdapd17v7tz537rnc3s4udmjv.svg'),
+('Tablets carro 1', './uploaded_images/tk0bux5603hulhm5yerr9rzsm7m2l7l3zimf2k7rvb032k2h8n.svg'),
+('Tablets carro 2', './uploaded_images/ukiz7uo4kphsx178ahls26q0t36fmkig6317bdmvkcwyvoucdv.svg'),
+('Capilla', './uploaded_images/64oxa518h506tz6by6nwjan0gjb8wo3vize37czfsbw4ww8rs6.svg'),
+('Biblioteca', './uploaded_images/drf8b33bkz3n6zbx3bo04fdb6av7yi9u9xqhn43tubja83ydih.svg'),
+('Chromebook', './uploaded_images/auwhe1pvofbqc4kgca0vcg1g9apgsf69ex4am3ga23rci4mtvg.svg');
 
 -- --------------------------------------------------------
 

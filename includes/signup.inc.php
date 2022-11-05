@@ -17,36 +17,36 @@ if (isset($_POST["submit"])) {
     require_once "functions.inc.php";
 
     if (emptyInputSignup($name, $email, $pwd, $pwdrepeat) !== false) {
-        header("location: ../signup.php?error=emptyinput");
+        header("location: ./signup.php?error=emptyinput");
         exit();
     }
 
     if (invalidName($name) !== false) {
-        header("location: ../signup.php?error=invalidname");
+        header("location: ./signup.php?error=invalidname");
         exit();
     }
 
     if (invalidEmail($email) !== false) {
-        header("location: ../signup.php?error=invalidemail");
+        header("location: ./signup.php?error=invalidemail");
         exit();
     }
 
     if (pwdMatch($pwd, $pwdrepeat) !== true) {
-        header("location: ../signup.php?error=pwdnotmatch");
+        header("location: ./signup.php?error=pwdnotmatch");
         exit();
     }
 
     if (emailExists($conn, $name, $email) !== false) {
-        header("location: ../signup.php?error=emailinuse");
+        header("location: ./signup.php?error=emailinuse");
         exit();
     }
 
     if (emailExistsPending($conn, $name, $email) !== false) {
-        header("location: ../signup.php?error=emailpending");
+        header("location: ./signup.php?error=emailpending");
         exit();
     }
 
     createPendingUser($conn, $name, $email, $pwd);
 } else {
-    header("location: ../signup.php");
+    header("location: ./signup.php");
 }

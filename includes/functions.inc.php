@@ -26,7 +26,7 @@ function emailExists($conn, $name, $email, $db = "users") {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../signup.php?error=stmtfailed");
+        header("location: ./signup.php?error=stmtfailed");
         exit();
     }
 
@@ -53,7 +53,7 @@ function createPendingUser($conn, $name, $email, $pwd) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../signup.php?error=stmtfailed");
+        header("location: ./signup.php?error=stmtfailed");
         exit();
     }
 
@@ -63,7 +63,7 @@ function createPendingUser($conn, $name, $email, $pwd) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../signup.php?error=emailstartedpending");
+    header("location: ./signup.php?error=emailstartedpending");
     exit();
 }
 
@@ -77,9 +77,9 @@ function loginUser($conn, $name_email, $pwd) {
     if ($emailExists === false) {
         $emailExistsP = emailExistsPending($conn, $name_email, $name_email);
         if ($emailExistsP === false) {
-            header("location: ../login.php?error=wronglogin");
+            header("location: ./login.php?error=wronglogin");
         } else {
-            header("location: ../login.php?error=emailpending");
+            header("location: ./login.php?error=emailpending");
         }
         exit();
     }
@@ -92,10 +92,10 @@ function loginUser($conn, $name_email, $pwd) {
         $_SESSION["userid"] = $emailExists["usersId"];
         $_SESSION["username"] = $emailExists["usersName"];
         $_SESSION["useremail"] = $emailExists["usersEmail"];
-        header("location: ../index.php");
+        header("location: ./index.php");
         exit();
     }
-    header("location: ../login.php?error=passwordwrong");
+    header("location: ./login.php?error=passwordwrong");
     exit();
 }
 
@@ -114,7 +114,7 @@ function getDataFromTable($conn, $table) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../index.php?error=stmtfailed");
+        header("location: ./index.php?error=stmtfailed");
         exit();
     }
 
@@ -123,7 +123,7 @@ function getDataFromTable($conn, $table) {
     mysqli_stmt_close($stmt);
 
     if ($result === false) {
-        header("location: ../index.php?error=noresult");
+        header("location: ./index.php?error=noresult");
         exit();
     }
 
@@ -157,7 +157,7 @@ function getUsers($conn) {
 function acceptUser($conn, $email) {
     $result = emailExistsPending($conn, "", $email);
     if ($result === false) {
-        header("location: ../admin_panel.php?error=userdonesntexists");
+        header("location: ./admin_panel.php?error=userdonesntexists");
         exit();
     }
 
@@ -165,7 +165,7 @@ function acceptUser($conn, $email) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../admin_panel.php?error=erroraccepting");
+        header("location: ./admin_panel.php?error=erroraccepting");
         exit();
     }
 
@@ -177,7 +177,7 @@ function acceptUser($conn, $email) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../admin_panel.php?error=erroraccepting");
+        header("location: ./admin_panel.php?error=erroraccepting");
         exit();
     }
 
@@ -185,14 +185,14 @@ function acceptUser($conn, $email) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../signup.php?error=useraccepted");
+    header("location: ./signup.php?error=useraccepted");
     exit();
 }
 
 function deleteUser($conn, $email) {
     $result = emailExists($conn, "", $email);
     if ($result === false) {
-        header("location: ../admin_panel.php?error=userdonesntexists");
+        header("location: ./admin_panel.php?error=userdonesntexists");
         exit();
     }
 
@@ -200,7 +200,7 @@ function deleteUser($conn, $email) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../admin_panel.php?error=erroraccepting");
+        header("location: ./admin_panel.php?error=erroraccepting");
         exit();
     }
 
@@ -208,14 +208,14 @@ function deleteUser($conn, $email) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../signup.php?error=userdeleted");
+    header("location: ./signup.php?error=userdeleted");
     exit();
 }
 
 function setAdmin($conn, $email, $value) {
     $result = emailExists($conn, "", $email);
     if ($result === false) {
-        header("location: ../admin_panel.php?error=userdonesntexists");
+        header("location: ./admin_panel.php?error=userdonesntexists");
         exit();
     }
 
@@ -223,7 +223,7 @@ function setAdmin($conn, $email, $value) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../admin_panel.php?error=erroraccepting");
+        header("location: ./admin_panel.php?error=erroraccepting");
         exit();
     }
 
@@ -232,7 +232,7 @@ function setAdmin($conn, $email, $value) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../signup.php?error=adminadded");
+    header("location: ./signup.php?error=adminadded");
     exit();
 }
 
@@ -241,7 +241,7 @@ function changeOption($conn, $option, $value) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../admin_panel.php?error=erroraccepting");
+        header("location: ./admin_panel.php?error=erroraccepting");
         exit();
     }
 
@@ -249,7 +249,7 @@ function changeOption($conn, $option, $value) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../signup.php?error=changedregisterpermission");
+    header("location: ./signup.php?error=changedregisterpermission");
     exit();
 }
 
@@ -258,7 +258,7 @@ function getConfiguration($conn, $name) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../admin_panel.php?error=erroraccepting");
+        header("location: ./admin_panel.php?error=erroraccepting");
         exit();
     }
 
@@ -268,7 +268,7 @@ function getConfiguration($conn, $name) {
     mysqli_stmt_close($stmt);
 
     if ($result === false) {
-        header("location: ../signup.php?error=errorgettingpermission");
+        header("location: ./signup.php?error=errorgettingpermission");
         exit();
     }
 
@@ -575,14 +575,14 @@ function makeBookInMass($conn, $month, $y) {
 
 function changeIncidentEmail($conn, $email) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        header("location: ../admin_panel.php?error=invalidemail");
+        header("location: ./admin_panel.php?error=invalidemail");
         exit();
     }
 
     changeOption($conn, "incidenceEmail", $email);
     //mail($email,"PHP email function Test", "This is PHP email function Test.", "From: noreply@colegiofatima.com");
 
-    header("location: ../admin_panel.php?error=emailchanged");
+    header("location: ./admin_panel.php?error=emailchanged");
     exit();
 }
 
@@ -644,7 +644,7 @@ function UpdateIncidence($conn, $id, $status) {
     $stmt = mysqli_stmt_init($conn);
 
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../admin_panel.php?error=erroraccepting");
+        header("location: ./admin_panel.php?error=erroraccepting");
         exit();
     }
 
@@ -654,7 +654,7 @@ function UpdateIncidence($conn, $id, $status) {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    header("location: ../admin_panel.php?error=updatedincidence");
+    header("location: ./admin_panel.php?error=updatedincidence");
     exit();
 }
 
