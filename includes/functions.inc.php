@@ -1,10 +1,5 @@
 <?php
 
-use LDAP\Result;
-use PHPMailer\PHPMailer\PHPMailer;
-
-use function PHPSTORM_META\exitPoint;
-
 function emptyInputSignup($name, $email, $pwd, $pwdrepeat) {
     return (empty($name) || empty($email) || empty($pwd) || empty($pwdrepeat));
 }

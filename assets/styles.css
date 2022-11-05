@@ -42,30 +42,6 @@ button:focus {
   cursor: pointer;
 }
 
-#ordenador {
-  background: url(./images/comp_room.svg) no-repeat;
-}
-
-#chromebook {
-  background: url(./images/laptop_item.svg) no-repeat;
-}
-
-[id="tablet carro 1"] {
-  background: url(./images/tablet_item.svg) no-repeat;
-}
-
-[id="tablet carro 2"] {
-  background: url(./images/tablet_item.svg) no-repeat;
-}
-
-#biblioteca {
-  background: url(./images/library_room.svg) no-repeat;
-}
-
-#capilla {
-  background: url(./images/church_room.svg) no-repeat;
-}
-
 section {
   width: 75%;
   top: 20%;
